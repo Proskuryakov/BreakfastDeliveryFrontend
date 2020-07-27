@@ -1,0 +1,14 @@
+{
+  "singleQuote": true,
+  "trailingComma": "none",
+  "printWidth": 60,
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 60
+      }
+    }
+  ],
+  "endOfLine": "lf"
+}
