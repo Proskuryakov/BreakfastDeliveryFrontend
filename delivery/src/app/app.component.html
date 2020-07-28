@@ -1,1 +1,7 @@
-<div>Hello, {{ title }}!</div>
+<mat-toolbar color="warn">
+  <a routerLink="/" class="main-page-link">Dishes list</a>
+  <a routerLink="/hello" mat-button>Restaurants</a>
+  <a routerLink="/numbers" mat-button>My order</a>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
