@@ -1,21 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HelloPage } from './sandbox/pages/hello/hello.page';
-import { NumbersPage } from './sandbox/pages/numbers/numbers.page';
-import { DishListsPage } from './routed/dish-lists/pages/dish-lists/dish-lists.page';
+import { MainPage } from './routed/delivery/pages/main/main.page';
+import { OrderPage } from './routed/delivery/pages/order/order.page';
+import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
+import { DishesPage } from './routed/delivery/pages/dishes/dishes';
 
 const routes: Routes = [
   {
     path: '',
-    component: DishListsPage
+    component: MainPage
   },
   {
-    path: 'hello',
-    component: HelloPage
+    path: 'dishes',
+    component: DishesPage
   },
   {
-    path: 'numbers',
-    component: NumbersPage
+    path: 'restaurants',
+    component: RestaurantsPage
+  },
+  {
+    path: 'order',
+    component: OrderPage
   }
 ];
 

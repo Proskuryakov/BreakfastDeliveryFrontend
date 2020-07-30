@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DishList } from '../../models/dish-list.model';
+import { DishList } from '../../models/dishes.model';
 
 @Component({
-  templateUrl: './dish-lists.page.html',
-  styleUrls: ['./dish-lists.page.sass']
+  templateUrl: './dishes.page.html',
+  styleUrls: ['./dishes.page.sass']
 })
-export class DishListsPage implements OnInit {
+export class DishesPage implements OnInit {
   items: DishList[] = [];
-  total = 0;
 
   constructor(private readonly http: HttpClient) {}
 

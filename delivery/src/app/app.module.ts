@@ -11,12 +11,15 @@ import { NumbersPage } from './sandbox/pages/numbers/numbers.page';
 import { CounterComponent } from './sandbox/components/counter/counter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { DishListsPage } from './routed/dish-lists/pages/dish-lists/dish-lists.page';
+import { DishesPage } from './routed/delivery/pages/dishes/dishes';
 import {
   HttpClient,
   HttpClientModule
 } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
+import { OrderPage } from './routed/delivery/pages/order/order.page';
+import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
+import { MainPage } from './routed/delivery/pages/main/main.page';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { MatListModule } from '@angular/material/list';
     HelloPage,
     NumbersPage,
     CounterComponent,
-    DishListsPage
+    DishesPage,
+    OrderPage,
+    RestaurantsPage,
+    MainPage
   ],
   imports: [
     BrowserModule,
