@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { DishesPage } from './routed/delivery/pages/dishes/dishes';
+import { DishesPage } from './routed/delivery/pages/dishes/dishes.page';
 import {
   HttpClient,
   HttpClientModule
@@ -16,6 +16,9 @@ import { MatListModule } from '@angular/material/list';
 import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
 import { MainPage } from './routed/delivery/pages/main/main.page';
+import { MatCardModule } from '@angular/material/card';
+import { DishesInOrderComponent } from './routed/delivery/components/dishes-in-order/dishes-in-order.component';
+import { AllDishesComponent } from './routed/delivery/components/all-dishes/all-dishes.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { MainPage } from './routed/delivery/pages/main/main.page';
     DishesPage,
     OrderPage,
     RestaurantsPage,
-    MainPage
+    MainPage,
+    DishesInOrderComponent,
+    AllDishesComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,8 @@ import { MainPage } from './routed/delivery/pages/main/main.page';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

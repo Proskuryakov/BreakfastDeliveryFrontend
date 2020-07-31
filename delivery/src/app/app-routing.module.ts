@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainPage } from './routed/delivery/pages/main/main.page';
 import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
-import { DishesPage } from './routed/delivery/pages/dishes/dishes';
+import { DishesPage } from './routed/delivery/pages/dishes/dishes.page';
 
 const routes: Routes = [
   {
