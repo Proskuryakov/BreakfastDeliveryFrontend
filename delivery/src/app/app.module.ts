@@ -19,6 +19,10 @@ import { MainPage } from './routed/delivery/pages/main/main.page';
 import { MatCardModule } from '@angular/material/card';
 import { DishesInOrderComponent } from './routed/delivery/components/dishes-in-order/dishes-in-order.component';
 import { AllDishesComponent } from './routed/delivery/components/all-dishes/all-dishes.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { AllDishesComponent } from './routed/delivery/components/all-dishes/all-
     MatIconModule,
     MatButtonModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    Ng2SearchPipeModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
