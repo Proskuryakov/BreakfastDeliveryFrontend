@@ -23,6 +23,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RegisterOrderDialogDialog } from './routed/delivery/components/register-order-dialog/register-order-dialog.dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { MatInputModule } from '@angular/material/input';
     RestaurantsPage,
     MainPage,
     DishesInOrderComponent,
-    AllDishesComponent
+    AllDishesComponent,
+    RegisterOrderDialogDialog
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { MatInputModule } from '@angular/material/input';
     Ng2SearchPipeModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

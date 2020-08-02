@@ -1,4 +1,4 @@
-export interface Dish {
+export interface DishModel {
   dishCalories: number;
   dishCookingTimeMinutes: number;
   dishType: string;

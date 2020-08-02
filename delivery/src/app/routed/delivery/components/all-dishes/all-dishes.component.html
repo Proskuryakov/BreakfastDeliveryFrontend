@@ -44,7 +44,10 @@ All dishes:
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="addDishToOrder(item.id)">
+      <button
+        mat-button
+        (click)="handleAddDishToOrderClick(item.id)"
+      >
         ADD TO ORDER
       </button>
     </mat-card-actions>
