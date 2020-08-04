@@ -33,7 +33,6 @@ export class DishesInOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDishesFromBasketForUserId1();
-    // this.getDishesToDisplay();
   }
 
   private getDishesFromBasketForUserId1(): void {
@@ -72,19 +71,6 @@ export class DishesInOrderComponent implements OnInit {
           });
       });
   }
-
-  /*private getDishesToDisplay(): void {
-    this.dishesFromBasket.forEach(dish =>
-      this.http
-        .get<DishModel>(
-          `http://127.0.0.1:8080/api/dishes/${dish.dishId}`
-        )
-        .subscribe((result) => {
-          this.dishesToDisplay.push(result);
-          console.log('dishes array', this.dishesToDisplay);
-        })
-    );
-  }*/
 
   handleRegisterOrderClick(): void {
     this.dialog.open(RegisterOrderDialogDialog, {
