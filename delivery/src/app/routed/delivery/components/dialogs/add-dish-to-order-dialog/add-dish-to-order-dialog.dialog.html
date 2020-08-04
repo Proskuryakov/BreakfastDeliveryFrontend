@@ -2,6 +2,11 @@
   Enter number of dishes
 </h1>
 
+<mat-progress-bar
+  *ngIf="loading"
+  mode="query"
+></mat-progress-bar>
+
 <form #form="ngForm">
   <mat-dialog-content class="register-form">
     <mat-form-field>
@@ -13,7 +18,7 @@
         min="1"
         matInput
         [(ngModel)]="count"
-        name="numberOfDishes"
+        name="dishCount"
         required
       />
     </mat-form-field>

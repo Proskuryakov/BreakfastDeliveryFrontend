@@ -40,7 +40,11 @@ export class AllDishesComponent implements OnInit {
       });
   }
 
-  handleAddDishToOrderClick(): void {
-    this.dialog.open(AddDishToOrderDialogDialog);
+  handleAddDishToOrderClick(id: number): void {
+    this.dialog.open(AddDishToOrderDialogDialog, {
+      data: {
+        dishId: id
+      }
+    });
   }
 }
