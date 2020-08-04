@@ -1,0 +1,49 @@
+<div *ngIf="selectedRestaurant != undefined" class="root-container">
+  <mat-card class="column">
+    <mat-card-header>
+      <mat-card-title>
+        {{ selectedRestaurant.restaurantName }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ selectedRestaurant.restaurantType }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <img mat-card-image src="{{ selectedRestaurant.restaurantImage }}" alt="Photo of a restaurant" />
+
+    <mat-card-content class="info">
+      <span matLine>
+        Address: {{ selectedRestaurant.address.street + ', ' + selectedRestaurant.address.building }}
+      </span>
+      <span matLine>
+        Work day:
+        {{ selectedRestaurant.workingHours.startWorkDay + ' - ' + selectedRestaurant.workingHours.endWorkDay }}
+      </span>
+    </mat-card-content>
+
+    <mat-form-field class="search-form" color="warn" appearance="fill">
+      <mat-label>Search by name</mat-label>
+      <input [(ngModel)]="searchText" matInput />
+    </mat-form-field>
+  </mat-card>
+
+  <mat-list class="column main-column dish-cards-list">
+    <mat-card class="dish-card" *ngFor="let item of dishesList | filter: searchText">
+      <mat-card-header>
+        <mat-card-title>{{ item.mainDishInfo.dishName }}</mat-card-title>
+        <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
+      <mat-card-content class="info">
+        <span matLine>Calories: {{ item.dishCalories }}</span>
+        <span matLine>Cooking time: {{ item.dishCookingTimeMinutes }} min</span>
+        <span matLine>Price: {{ item.mainDishInfo.dishPrice }}</span>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>
+          ADD TO ORDER
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-list>
+</div>

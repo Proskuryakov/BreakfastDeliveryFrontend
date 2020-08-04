@@ -15,17 +15,14 @@ All restaurants:
       </mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image src="{{ item.restaurantImage }}" alt="Photo of a restaurant" />
-    <mat-card-content>
-      <div class="restaurant-info">
-        <span matLine
-          >Address:
-          {{ item.address.street + ', ' + item.address.building }}
-        </span>
-        <span matLine
-          >Work day:
-          {{ item.workingHours.startWorkDay + ' - ' + item.workingHours.endWorkDay }}
-        </span>
-      </div>
+    <mat-card-content class="restaurant-info">
+      <span matLine>Address: {{ item.address.street + ', ' + item.address.building }} </span>
+      <span matLine>Work day: {{ item.workingHours.startWorkDay + ' - ' + item.workingHours.endWorkDay }} </span>
+      <mat-card-actions class="button">
+        <button mat-button (click)="handleWatchMenuClick(item.id)">
+          WATCH MENU
+        </button>
+      </mat-card-actions>
     </mat-card-content>
   </mat-card>
 </mat-list>

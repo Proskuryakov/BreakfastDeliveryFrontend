@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Restaurant } from '../../models/restaurant.model';
 
 @Component({
@@ -13,7 +14,7 @@ export class AllRestaurantsComponent implements OnInit {
 
   allRestaurantList: Restaurant[] = [];
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.refreshLists();
@@ -23,5 +24,9 @@ export class AllRestaurantsComponent implements OnInit {
     this.http.get<Restaurant[]>('http://127.0.0.1:8080/api/restaurants').subscribe((result) => {
       this.allRestaurantList = result;
     });
+  }
+
+  handleWatchMenuClick(id: number): void {
+    this.router.navigateByUrl('/restaurants/' + id + '/dishes');
   }
 }

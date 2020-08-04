@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AllRestaurantsComponent } from './routed/delivery/components/all-restaurants/all-restaurants.component';
+import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/restaurant-dishes.page';
+import { DishesInRestaurantComponent } from './routed/delivery/components/dishes-in-restaurant/dishes-in-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AllRestaurantsComponent } from './routed/delivery/components/all-restau
     MainPage,
     DishesInOrderComponent,
     AllDishesComponent,
-    AllRestaurantsComponent
+    AllRestaurantsComponent,
+    RestaurantDishesPage,
+    DishesInRestaurantComponent
   ],
   imports: [
     BrowserModule,
