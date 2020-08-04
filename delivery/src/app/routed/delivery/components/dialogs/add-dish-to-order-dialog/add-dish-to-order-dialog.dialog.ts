@@ -6,7 +6,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef
 } from '@angular/material/dialog';
-import { AddDishToOrderDialogInputModel } from '../../../models/add-dish-to-order-dialog-input.model';
+import { AddDishToOrderDialogDataModel } from '../../../models/add-dish-to-order-dialog-data.model';
 
 interface FormValue {
   dishCount: number;
@@ -25,7 +25,7 @@ export class AddDishToOrderDialogDialog implements OnInit {
   constructor(
     private readonly http: HttpClient,
     @Inject(MAT_DIALOG_DATA)
-    public data: AddDishToOrderDialogInputModel,
+    public data: AddDishToOrderDialogDataModel,
     private readonly dialogRef: MatDialogRef<
       AddDishToOrderDialogDialog,
       boolean

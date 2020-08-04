@@ -1,6 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DishFromBasketModel } from '../../../models/dishes-from-basket.model';
+import { HttpClient } from '@angular/common/http';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef
+} from '@angular/material/dialog';
+import { RegisterOrderInputModel } from '../../../models/register-order-input.model';
+import { RegisterOrderDataModel } from '../../../models/register-order-data.model';
 
-interface RigisterOrderFormValue {
+interface RegisterOrderFormValue {
   phone: string;
   city: string;
   street: string;
@@ -23,14 +31,51 @@ export class RegisterOrderDialogDialog implements OnInit {
   entrance = '';
   floor = '';
 
-  constructor() {}
+  loading = false;
+
+  constructor(
+    private readonly http: HttpClient,
+    @Inject(MAT_DIALOG_DATA)
+    public data: RegisterOrderDataModel,
+    private readonly dialogRef: MatDialogRef<
+      RegisterOrderDialogDialog,
+      boolean
+    >
+  ) {}
 
   ngOnInit(): void {}
 
   handleRegisterOrderClick(
-    value: RigisterOrderFormValue
+    value: RegisterOrderFormValue
   ): void {
-    // tslint:disable-next-line:no-console
-    console.info(value);
+    this.loading = true;
+    const input: RegisterOrderInputModel = {
+      phone: value.phone,
+      address: {
+        city: value.city,
+        street: value.street,
+        house: value.house,
+        flat: value.flat,
+        entrance: value.entrance,
+        floor: value.floor
+      },
+      listOfDishes: this.data.dishes
+    };
+    console.log('input', input);
+    this.http
+      .post<RegisterOrderInputModel>(
+        `http://127.0.0.1:8080/api//orders`,
+        input
+      )
+      .subscribe(
+        () => {
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        (error) => {
+          this.loading = false;
+          console.error(error);
+        }
+      );
   }
 }

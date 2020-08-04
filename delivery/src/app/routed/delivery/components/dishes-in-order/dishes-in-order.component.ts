@@ -87,7 +87,11 @@ export class DishesInOrderComponent implements OnInit {
   }*/
 
   handleRegisterOrderClick(): void {
-    this.dialog.open(RegisterOrderDialogDialog);
+    this.dialog.open(RegisterOrderDialogDialog, {
+      data: {
+        dishes: this.dishesFromBasket
+      }
+    });
   }
 
   handleDeleteDishFromOrderClick(dishId: number): void {}
