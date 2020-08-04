@@ -8,10 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DishesPage } from './routed/delivery/pages/dishes/dishes.page';
-import {
-  HttpClient,
-  HttpClientModule
-} from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
@@ -23,6 +20,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AllRestaurantsComponent } from './routed/delivery/components/all-restaurants/all-restaurants.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +30,8 @@ import { MatInputModule } from '@angular/material/input';
     RestaurantsPage,
     MainPage,
     DishesInOrderComponent,
-    AllDishesComponent
+    AllDishesComponent,
+    AllRestaurantsComponent
   ],
   imports: [
     BrowserModule,
