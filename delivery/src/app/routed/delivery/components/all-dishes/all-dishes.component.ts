@@ -6,9 +6,9 @@ import {
 } from '@angular/core';
 import { DishModel } from '../../models/dishes.model';
 import { HttpClient } from '@angular/common/http';
-import { DishFromBasketModel } from '../../models/dishesfrombasket.model';
+import { DishFromBasketModel } from '../../models/dishes-from-basket.model';
 import { MatDialog } from '@angular/material/dialog';
-import { RegisterOrderDialogDialog } from '../register-order-dialog/register-order-dialog.dialog';
+import { AddDishToOrderDialogDialog } from '../dialogs/add-dish-to-order-dialog/add-dish-to-order-dialog.dialog';
 
 @Component({
   selector: 'app-all-dishes',
@@ -32,20 +32,15 @@ export class AllDishesComponent implements OnInit {
     this.getAllDishes();
   }
 
-  handleAddDishToOrderClick(dishId: number): void {
-    this.http
-      .post<DishFromBasketModel>(
-        `http://127.0.0.1:8080/api/dishesfrombasket/${dishId}`,
-        this.dishToAddToOrder
-      )
-      .subscribe((result) => {});
-  }
-
   private getAllDishes(): void {
     this.http
       .get<DishModel[]>('http://127.0.0.1:8080/api/dishes')
       .subscribe((result) => {
         this.allDishesList = result;
       });
+  }
+
+  handleAddDishToOrderClick(): void {
+    this.dialog.open(AddDishToOrderDialogDialog);
   }
 }

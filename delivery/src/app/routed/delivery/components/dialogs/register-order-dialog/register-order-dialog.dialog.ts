@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-interface FormValue {
+interface RigisterOrderFormValue {
   phone: string;
   city: string;
   street: string;
@@ -27,7 +27,9 @@ export class RegisterOrderDialogDialog implements OnInit {
 
   ngOnInit(): void {}
 
-  handleRegisterOrderClick(value: FormValue): void {
+  handleRegisterOrderClick(
+    value: RigisterOrderFormValue
+  ): void {
     // tslint:disable-next-line:no-console
     console.info(value);
   }

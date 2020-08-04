@@ -20,11 +20,15 @@ import { MatCardModule } from '@angular/material/card';
 import { DishesInOrderComponent } from './routed/delivery/components/dishes-in-order/dishes-in-order.component';
 import { AllDishesComponent } from './routed/delivery/components/all-dishes/all-dishes.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { FormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RegisterOrderDialogDialog } from './routed/delivery/components/register-order-dialog/register-order-dialog.dialog';
+import { RegisterOrderDialogDialog } from './routed/delivery/components/dialogs/register-order-dialog/register-order-dialog.dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddDishToOrderDialogDialog } from './routed/delivery/components/dialogs/add-dish-to-order-dialog/add-dish-to-order-dialog.dialog';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MainPage,
     DishesInOrderComponent,
     AllDishesComponent,
-    RegisterOrderDialogDialog
+    RegisterOrderDialogDialog,
+    AddDishToOrderDialogDialog
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
