@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Dish } from '../../models/dishes.model';
 import { HttpClient } from '@angular/common/http';
 import { NgModelGroup } from '@angular/forms';
@@ -33,19 +28,15 @@ export class AllDishesComponent implements OnInit {
   }
 
   private refreshLists(): void {
-    this.http
-      .get<Dish[]>('http://127.0.0.1:8080/api/dishes')
-      .subscribe((result) => {
-        this.allDishesList = result;
-      });
+    this.http.get<Dish[]>('http://127.0.0.1:8080/api/dishes').subscribe((result) => {
+      this.allDishesList = result;
+    });
   }
 
   private getDishById(id: number): void {
-    this.http
-      .get<Dish>('http://127.0.0.1:8080/api/dishes/' + id)
-      .subscribe((result) => {
-        this.dishToAddToOrder = result;
-      });
+    this.http.get<Dish>('http://127.0.0.1:8080/api/dishes/' + id).subscribe((result) => {
+      this.dishToAddToOrder = result;
+    });
   }
 
   addDishToOrder(id: number): void {
