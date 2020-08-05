@@ -1,50 +1,46 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { DishFromBasketModel } from '../../../models/dishes-from-basket.model';
 import { HttpClient } from '@angular/common/http';
-import { FormControl, Validators } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef
 } from '@angular/material/dialog';
 import { AddDishToOrderDialogDataModel } from '../../../models/add-dish-to-order-dialog-data.model';
-
-interface FormValue {
-  dishCount: number;
-}
+import { DeleteDishFromOrderDialogDataModel } from '../../../models/delete-dish-from-order-dialog-data.model';
+import { DishFromBasketModel } from '../../../models/dishes-from-basket.model';
 
 @Component({
-  templateUrl: './add-dish-to-order-dialog.dialog.html',
-  styleUrls: ['./add-dish-to-order-dialog.dialog.sass']
+  templateUrl:
+    './delete-dish-from-order-dialog.dialog.html',
+  styleUrls: ['./delete-dish-from-order-dialog.dialog.sass']
 })
-export class AddDishToOrderDialogDialog implements OnInit {
-  count = '';
-
+export class DeleteDishFromOrderDialogDialog
+  implements OnInit {
   loading = false;
 
   constructor(
     private readonly http: HttpClient,
     @Inject(MAT_DIALOG_DATA)
-    public data: AddDishToOrderDialogDataModel,
+    public data: DeleteDishFromOrderDialogDataModel,
     private readonly dialogRef: MatDialogRef<
-      AddDishToOrderDialogDialog,
+      DeleteDishFromOrderDialogDialog,
       boolean
     >
   ) {}
 
   ngOnInit(): void {}
 
-  handleAddDishToOrderClick(value: FormValue): void {
+  handleDeleteDishFromOrderClick(): void {
     this.loading = true;
-    const input: DishFromBasketModel = {
-      count: value.dishCount,
+    const input: DeleteDishFromOrderDialogDataModel = {
       dishId: this.data.dishId,
-      userId: 1 // temporary
+      userId: this.data.userId
     };
     console.log('input', input);
     this.http
-      .post<DishFromBasketModel>(
+      .request<DishFromBasketModel>(
+        'delete',
         `http://127.0.0.1:8080/api/dishesFromBasket`,
-        input
+        { body: input }
       )
       .subscribe(
         () => {
@@ -57,6 +53,4 @@ export class AddDishToOrderDialogDialog implements OnInit {
         }
       );
   }
-
-  addDishToOrder(): void {}
 }

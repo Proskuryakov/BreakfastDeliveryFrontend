@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddDishToOrderDialogDialog } from './routed/delivery/components/dialogs/add-dish-to-order-dialog/add-dish-to-order-dialog.dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { OrderRegistrationSuccessDialogDialog } from './routed/delivery/components/dialogs/order-registration-success-dialog/order-registration-success-dialog.dialog';
+import { DeleteDishFromOrderDialogDialog } from './routed/delivery/components/dialogs/delete-dish-from-order-dialog/delete-dish-from-order-dialog.dialog';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { OrderRegistrationSuccessDialogDialog } from './routed/delivery/componen
     AllDishesComponent,
     RegisterOrderDialogDialog,
     AddDishToOrderDialogDialog,
-    OrderRegistrationSuccessDialogDialog
+    OrderRegistrationSuccessDialogDialog,
+    DeleteDishFromOrderDialogDialog
   ],
   imports: [
     BrowserModule,
