@@ -58,4 +58,9 @@ export class AllDishesComponent implements OnInit {
       }
     });
   }
+
+  checkIfDishAlreadyInBasket(
+    dishId: number,
+    userId: number
+  ): void {}
 }

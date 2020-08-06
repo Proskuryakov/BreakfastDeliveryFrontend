@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DishFromBasketModel } from '../../../models/dishes-from-basket.model';
 import { HttpClient } from '@angular/common/http';
-import { FormControl, Validators } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef
 } from '@angular/material/dialog';
-import { AddDishToOrderDialogDataModel } from '../../../models/add-dish-to-order-dialog-data.model';
+import { DataService } from '../../../../../data.service';
+import { DishIdDataModel } from '../../../models/dish-id-data.model';
 
 interface FormValue {
   dishCount: number;
@@ -14,7 +14,8 @@ interface FormValue {
 
 @Component({
   templateUrl: './add-dish-to-order-dialog.dialog.html',
-  styleUrls: ['./add-dish-to-order-dialog.dialog.sass']
+  styleUrls: ['./add-dish-to-order-dialog.dialog.sass'],
+  providers: [DataService]
 })
 export class AddDishToOrderDialogDialog implements OnInit {
   count = '';
@@ -23,8 +24,9 @@ export class AddDishToOrderDialogDialog implements OnInit {
 
   constructor(
     private readonly http: HttpClient,
+    public dataService: DataService,
     @Inject(MAT_DIALOG_DATA)
-    public data: AddDishToOrderDialogDataModel,
+    public data: DishIdDataModel,
     private readonly dialogRef: MatDialogRef<
       AddDishToOrderDialogDialog,
       boolean
@@ -38,7 +40,7 @@ export class AddDishToOrderDialogDialog implements OnInit {
     const input: DishFromBasketModel = {
       count: value.dishCount,
       dishId: this.data.dishId,
-      userId: 1 // temporary
+      userId: this.dataService.getUserId()
     };
     console.log('input', input);
     this.http

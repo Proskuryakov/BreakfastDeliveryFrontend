@@ -24,7 +24,6 @@ Dishes in order:
             (click)="
               handleChangeDishCountClick(
                 item.id,
-                1,
                 item.count - 1
               )
             "
@@ -43,7 +42,6 @@ Dishes in order:
             (click)="
               handleChangeDishCountClick(
                 item.id,
-                1,
                 item.count + 1
               )
             "
@@ -85,7 +83,7 @@ Dishes in order:
     <mat-card-actions>
       <button
         mat-button
-        (click)="handleDeleteDishFromOrderClick(item.id, 1)"
+        (click)="handleDeleteDishFromOrderClick(item.id)"
       >
         DELETE FROM ORDER
       </button>

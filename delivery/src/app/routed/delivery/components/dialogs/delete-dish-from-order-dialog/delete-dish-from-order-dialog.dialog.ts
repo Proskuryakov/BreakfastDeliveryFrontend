@@ -4,14 +4,18 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef
 } from '@angular/material/dialog';
-import { AddDishToOrderDialogDataModel } from '../../../models/add-dish-to-order-dialog-data.model';
-import { DeleteDishFromOrderDialogDataModel } from '../../../models/delete-dish-from-order-dialog-data.model';
+import { DeleteOrAddDishToOrderDialogDataModel } from '../../../models/delete-or-add-dish-to-order-dialog-data.model';
 import { DishFromBasketModel } from '../../../models/dishes-from-basket.model';
+import { DataService } from '../../../../../data.service';
+import { DishIdDataModel } from '../../../models/dish-id-data.model';
 
 @Component({
   templateUrl:
     './delete-dish-from-order-dialog.dialog.html',
-  styleUrls: ['./delete-dish-from-order-dialog.dialog.sass']
+  styleUrls: [
+    './delete-dish-from-order-dialog.dialog.sass'
+  ],
+  providers: [DataService]
 })
 export class DeleteDishFromOrderDialogDialog
   implements OnInit {
@@ -19,8 +23,9 @@ export class DeleteDishFromOrderDialogDialog
 
   constructor(
     private readonly http: HttpClient,
+    public dataService: DataService,
     @Inject(MAT_DIALOG_DATA)
-    public data: DeleteDishFromOrderDialogDataModel,
+    public data: DishIdDataModel,
     private readonly dialogRef: MatDialogRef<
       DeleteDishFromOrderDialogDialog,
       boolean
@@ -31,9 +36,9 @@ export class DeleteDishFromOrderDialogDialog
 
   handleDeleteDishFromOrderClick(): void {
     this.loading = true;
-    const input: DeleteDishFromOrderDialogDataModel = {
+    const input: DeleteOrAddDishToOrderDialogDataModel = {
       dishId: this.data.dishId,
-      userId: this.data.userId
+      userId: this.dataService.getUserId()
     };
     console.log('input', input);
     this.http

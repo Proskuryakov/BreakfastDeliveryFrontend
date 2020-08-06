@@ -1,28 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  MatDialog,
-  MatDialogRef
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
-import { from, Observable } from 'rxjs';
-import {
-  map,
-  mergeMap,
-  tap,
-  toArray
-} from 'rxjs/operators';
+import { from } from 'rxjs';
+import { mergeMap, tap, toArray } from 'rxjs/operators';
 import { DishFromBasketModel } from '../../models/dishes-from-basket.model';
 import { DishesFromBasketToDisplayModel } from '../../models/dishes-from-basket-to-display.model';
 import { RegisterOrderDialogDialog } from '../dialogs/register-order-dialog/register-order-dialog.dialog';
 import { DeleteDishFromOrderDialogDialog } from '../dialogs/delete-dish-from-order-dialog/delete-dish-from-order-dialog.dialog';
-import { DeleteDishFromOrderDialogDataModel } from '../../models/delete-dish-from-order-dialog-data.model';
 import { UpdateDishCountInputModel } from '../../models/update-dish-count-input.model';
+import { DataService } from '../../../../data.service';
 
 @Component({
   selector: 'app-dishes-in-order',
   templateUrl: './dishes-in-order.component.html',
-  styleUrls: ['./dishes-in-order.component.sass']
+  styleUrls: ['./dishes-in-order.component.sass'],
+  providers: [DataService]
 })
 export class DishesInOrderComponent implements OnInit {
   // tslint:disable-next-line:no-any
@@ -34,7 +27,8 @@ export class DishesInOrderComponent implements OnInit {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +38,7 @@ export class DishesInOrderComponent implements OnInit {
   refreshDishesFromBasketForUserId1(): void {
     this.http
       .get<DishFromBasketModel[]>(
-        'http://127.0.0.1:8080/api/dishesFromBasket/1'
+        `http://127.0.0.1:8080/api/dishesFromBasket/${this.dataService.getUserId()}`
       )
       .subscribe((dishes) => {
         this.dishesFromBasket = dishes;
@@ -98,15 +92,14 @@ export class DishesInOrderComponent implements OnInit {
   }
 
   handleDeleteDishFromOrderClick(
-    dishIdValue: number,
-    userIdValue: number
+    dishIdValue: number
   ): void {
     const dialogRef = this.dialog.open(
       DeleteDishFromOrderDialogDialog,
       {
         data: {
           dishId: dishIdValue,
-          userId: userIdValue
+          userId: this.dataService.getUserId()
         }
       }
     );
@@ -117,12 +110,11 @@ export class DishesInOrderComponent implements OnInit {
 
   changeDishCount(
     dishIdValue: number,
-    userIdValue: number,
     dishCount: number
   ): void {
     const input: UpdateDishCountInputModel = {
       dishId: dishIdValue,
-      userId: userIdValue,
+      userId: this.dataService.getUserId(),
       count: dishCount
     };
     console.log('input', input);
@@ -143,16 +135,11 @@ export class DishesInOrderComponent implements OnInit {
   }
 
   handleChangeDishCountClick(
-    dishIdValue: number,
-    userIdValue: number,
+    dishId: number,
     dishCount: number
   ): void {
     if (dishCount >= 1 && dishCount <= 9) {
-      this.changeDishCount(
-        dishIdValue,
-        userIdValue,
-        dishCount
-      );
+      this.changeDishCount(dishId, dishCount);
     }
   }
 }
