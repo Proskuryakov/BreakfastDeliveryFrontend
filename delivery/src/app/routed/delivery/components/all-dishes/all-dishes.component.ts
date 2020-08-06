@@ -37,6 +37,17 @@ export class AllDishesComponent implements OnInit {
       .get<DishModel[]>('http://127.0.0.1:8080/api/dishes')
       .subscribe((result) => {
         this.allDishesList = result;
+        this.allDishesList.sort((a, b) => {
+          const nameA = a.mainDishInfo.dishName.toLowerCase();
+          const nameB = b.mainDishInfo.dishName.toLowerCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
       });
   }
 

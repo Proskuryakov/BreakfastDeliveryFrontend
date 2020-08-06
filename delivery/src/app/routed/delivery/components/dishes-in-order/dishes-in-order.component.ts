@@ -70,6 +70,17 @@ export class DishesInOrderComponent implements OnInit {
           )
           .subscribe((allResponses) => {
             this.dishesToDisplay = allResponses;
+            this.dishesToDisplay.sort((a, b) => {
+              const nameA = a.mainDishInfo.dishName.toLowerCase();
+              const nameB = b.mainDishInfo.dishName.toLowerCase();
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+              return 0;
+            });
             console.log(
               'dishesToDisplay',
               this.dishesToDisplay
