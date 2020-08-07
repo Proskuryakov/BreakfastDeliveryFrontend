@@ -10,7 +10,7 @@ import { RegisterOrderDialogDialog } from '../dialogs/register-order-dialog/regi
 import { DeleteDishFromOrderDialogDialog } from '../dialogs/delete-dish-from-order-dialog/delete-dish-from-order-dialog.dialog';
 import { UpdateDishCountInputModel } from '../../models/update-dish-count-input.model';
 import { DataService } from '../../../../data.service';
-import { OrderModel } from '../../models/full-order.model';
+import { OrderModel } from '../../models/order.model';
 
 @Component({
   selector: 'app-dishes-in-order',

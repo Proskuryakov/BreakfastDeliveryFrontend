@@ -18,12 +18,40 @@
         </button></mat-list-item
       >
       <mat-list-item
-        >Phone: {{ order.phone }}</mat-list-item
-      >
-      <mat-list-item
         >Order price: {{ order.check }}</mat-list-item
       >
-      <mat-list-item>Dishes: </mat-list-item>
+      <mat-list-item
+        >Phone: {{ order.phone }}</mat-list-item
+      >
+      <mat-list>
+        <span class="list-title">Address:</span>
+        <mat-list-item
+          >City: {{ order.address.city }}</mat-list-item
+        >
+        <mat-list-item
+          >Street: {{ order.address.street }}</mat-list-item
+        >
+        <mat-list-item
+          >House: {{ order.address.house }}</mat-list-item
+        >
+        <mat-list-item
+          >Flat: {{ order.address.flat }}</mat-list-item
+        >
+        <mat-list-item
+          >Entrance:
+          {{ order.address.entrance }}</mat-list-item
+        >
+        <mat-list-item
+          >Floor: {{ order.address.floor }}</mat-list-item
+        >
+      </mat-list>
+
+      <mat-list>
+        <span class="list-title">Dishes:</span>
+        <mat-list-item>
+          {{ order.listOfDishes | json }}
+        </mat-list-item>
+      </mat-list>
     </mat-list>
   </mat-card-content>
 </mat-card>
@@ -120,6 +148,7 @@
     </mat-card-actions>
   </mat-card>
 </mat-list>
+
 <button
   *ngIf="dishesToDisplay.length != 0"
   class="register-button"

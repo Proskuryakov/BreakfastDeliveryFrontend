@@ -10,5 +10,13 @@ export interface OrderModel {
       dishId: number;
     }
   ];
+  address: {
+    city: string;
+    street: string;
+    house: string;
+    flat: string;
+    entrance: string;
+    floor: string;
+  };
   check: number;
 }
