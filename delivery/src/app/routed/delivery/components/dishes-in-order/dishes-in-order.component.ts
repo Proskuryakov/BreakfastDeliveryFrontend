@@ -5,12 +5,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { from } from 'rxjs';
 import { mergeMap, tap, toArray } from 'rxjs/operators';
 import { DishFromBasketModel } from '../../models/dishes-from-basket.model';
-import { DishesFromBasketToDisplayModel } from '../../models/dishes-from-basket-to-display.model';
+import { DishesFromOrderToDisplayModel } from '../../models/dishes-from-order-to-display.model';
 import { RegisterOrderDialogDialog } from '../dialogs/register-order-dialog/register-order-dialog.dialog';
 import { DeleteDishFromOrderDialogDialog } from '../dialogs/delete-dish-from-order-dialog/delete-dish-from-order-dialog.dialog';
 import { UpdateDishCountInputModel } from '../../models/update-dish-count-input.model';
 import { DataService } from '../../../../data.service';
 import { OrderModel } from '../../models/order.model';
+import { DishFromOrderModel } from '../../models/dish-from-order.model';
 
 @Component({
   selector: 'app-dishes-in-order',
@@ -24,7 +25,11 @@ export class DishesInOrderComponent implements OnInit {
 
   dishesFromBasket: DishFromBasketModel[] = [];
 
-  dishesToDisplay: DishesFromBasketToDisplayModel[] = [];
+  dishesFromOrder: DishFromOrderModel[] = [];
+
+  dishesFromBasketToDisplay: DishesFromOrderToDisplayModel[] = [];
+
+  dishesFromOrderToDisplay: DishesFromOrderToDisplayModel[] = [];
 
   order: OrderModel | undefined;
 
@@ -35,11 +40,11 @@ export class DishesInOrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.refreshDishesFromBasket();
+    this.getDishesFromBasket();
     this.getOrderByUserId(this.dataService.getUserId());
   }
 
-  private refreshDishesFromBasket(): void {
+  private getDishesFromBasket(): void {
     this.http
       .get<DishFromBasketModel[]>(
         `http://127.0.0.1:8080/api/dishesFromBasket/${this.dataService.getUserId()}`
@@ -50,7 +55,7 @@ export class DishesInOrderComponent implements OnInit {
           .pipe(
             mergeMap((dish) =>
               this.http
-                .get<DishesFromBasketToDisplayModel>(
+                .get<DishesFromOrderToDisplayModel>(
                   `http://127.0.0.1:8080/api/dishes/${dish.dishId}`
                 )
                 .pipe(
@@ -63,8 +68,8 @@ export class DishesInOrderComponent implements OnInit {
             toArray()
           )
           .subscribe((allResponses) => {
-            this.dishesToDisplay = allResponses;
-            this.dishesToDisplay.sort((a, b) => {
+            this.dishesFromBasketToDisplay = allResponses;
+            this.dishesFromBasketToDisplay.sort((a, b) => {
               const nameA = a.mainDishInfo.dishName.toLowerCase();
               const nameB = b.mainDishInfo.dishName.toLowerCase();
               if (nameA < nameB) {
@@ -79,6 +84,44 @@ export class DishesInOrderComponent implements OnInit {
       });
   }
 
+  private getDishesFromOrder(order: OrderModel): void {
+    console.log(
+      'list of dishes from order',
+      order.listOfDishes
+    );
+    this.dishesFromOrder = order.listOfDishes;
+    from(this.dishesFromOrder)
+      .pipe(
+        mergeMap((dish) =>
+          this.http
+            .get<DishesFromOrderToDisplayModel>(
+              `http://127.0.0.1:8080/api/dishes/${dish.dishId}`
+            )
+            .pipe(
+              tap(
+                (dishToDisplay) =>
+                  (dishToDisplay.count = dish.count)
+              )
+            )
+        ),
+        toArray()
+      )
+      .subscribe((allResponses) => {
+        this.dishesFromOrderToDisplay = allResponses;
+        this.dishesFromOrderToDisplay.sort((a, b) => {
+          const nameA = a.mainDishInfo.dishName.toLowerCase();
+          const nameB = b.mainDishInfo.dishName.toLowerCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
+      });
+  }
+
   private clearBasketAndRefresh(): void {
     this.http
       .request<DishFromBasketModel>(
@@ -87,7 +130,7 @@ export class DishesInOrderComponent implements OnInit {
       )
       .subscribe(
         () => {
-          this.refreshDishesFromBasket();
+          this.getDishesFromBasket();
           this.getOrderByUserId(
             this.dataService.getUserId()
           );
@@ -115,7 +158,7 @@ export class DishesInOrderComponent implements OnInit {
       )
       .subscribe(
         () => {
-          this.refreshDishesFromBasket();
+          this.getDishesFromBasket();
         },
         (error) => {
           console.error(error);
@@ -130,6 +173,7 @@ export class DishesInOrderComponent implements OnInit {
       )
       .subscribe((result) => {
         this.order = result;
+        this.getDishesFromOrder(this.order);
       });
   }
 
@@ -160,7 +204,7 @@ export class DishesInOrderComponent implements OnInit {
       }
     );
     dialogRef.afterClosed().subscribe(() => {
-      this.refreshDishesFromBasket();
+      this.getDishesFromBasket();
     });
   }
 

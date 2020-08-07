@@ -11,12 +11,10 @@
     >
   </mat-card-header>
   <mat-card-content>
-    <mat-list>
-      <mat-list-item
-        ><button color="primary" mat-flat-button>
-          Status: {{ order.status }}
-        </button></mat-list-item
-      >
+    <mat-list
+      ><button color="primary" mat-flat-button>
+        Status: {{ order.status }}
+      </button>
       <mat-list-item
         >Order price: {{ order.check }}</mat-list-item
       >
@@ -48,8 +46,14 @@
 
       <mat-list>
         <span class="list-title">Dishes:</span>
-        <mat-list-item>
-          {{ order.listOfDishes | json }}
+        <mat-list-item
+          *ngFor="
+            let dish of dishesFromOrderToDisplay
+              | filter: searchText
+          "
+        >
+          {{ dish.mainDishInfo.dishName }} :
+          {{ dish.count }}
         </mat-list-item>
       </mat-list>
     </mat-list>
@@ -57,7 +61,7 @@
 </mat-card>
 
 <mat-form-field
-  *ngIf="dishesToDisplay.length != 0"
+  *ngIf="dishesFromBasketToDisplay.length != 0"
   class="search-form"
   color="warn"
   appearance="fill"
@@ -71,7 +75,8 @@
   <mat-card
     class="example-card"
     *ngFor="
-      let item of dishesToDisplay | filter: searchText
+      let item of dishesFromBasketToDisplay
+        | filter: searchText
     "
   >
     <mat-card-header>
@@ -150,7 +155,7 @@
 </mat-list>
 
 <button
-  *ngIf="dishesToDisplay.length != 0"
+  *ngIf="dishesFromBasketToDisplay.length != 0"
   class="register-button"
   mat-raised-button
   color="warn"

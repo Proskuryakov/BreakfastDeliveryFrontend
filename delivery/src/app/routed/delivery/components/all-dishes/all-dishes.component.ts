@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DishModel } from '../../models/dishes.model';
+import { DishModel } from '../../models/dish.model';
 import { HttpClient } from '@angular/common/http';
 import { DishFromBasketModel } from '../../models/dishes-from-basket.model';
 import { MatDialog } from '@angular/material/dialog';
