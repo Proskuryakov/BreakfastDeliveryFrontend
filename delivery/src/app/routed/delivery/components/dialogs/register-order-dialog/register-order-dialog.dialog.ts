@@ -64,7 +64,6 @@ export class RegisterOrderDialogDialog implements OnInit {
       },
       listOfDishes: this.data.dishes
     };
-    console.log('input', input);
     this.http
       .post<RegisterOrderInputModel>(
         `http://127.0.0.1:8080/api//orders`,

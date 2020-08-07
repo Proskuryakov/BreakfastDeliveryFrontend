@@ -1,5 +1,6 @@
 Dishes in order:
 <mat-form-field
+  *ngIf="dishesToDisplay.length != 0"
   class="search-form"
   color="warn"
   appearance="fill"
@@ -91,6 +92,7 @@ Dishes in order:
   </mat-card>
 </mat-list>
 <button
+  *ngIf="dishesToDisplay.length != 0"
   class="register-button"
   mat-raised-button
   color="warn"

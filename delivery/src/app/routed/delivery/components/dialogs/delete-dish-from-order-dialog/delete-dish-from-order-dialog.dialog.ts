@@ -40,7 +40,6 @@ export class DeleteDishFromOrderDialogDialog
       dishId: this.data.dishId,
       userId: this.dataService.getUserId()
     };
-    console.log('input', input);
     this.http
       .request<DishFromBasketModel>(
         'delete',

@@ -42,7 +42,6 @@ export class AddDishToOrderDialogDialog implements OnInit {
       dishId: this.data.dishId,
       userId: this.dataService.getUserId()
     };
-    console.log('input', input);
     this.http
       .post<DishFromBasketModel>(
         `http://127.0.0.1:8080/api/dishesFromBasket`,
