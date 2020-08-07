@@ -4,10 +4,12 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef
 } from '@angular/material/dialog';
-import { DeleteOrAddDishToOrderDialogDataModel } from '../../../models/delete-or-add-dish-to-order-dialog-data.model';
-import { DishFromBasketModel } from '../../../models/dishes-from-basket.model';
 import { DataService } from '../../../../../data.service';
-import { DishIdDataModel } from '../../../models/dish-id-data.model';
+import {
+  DeleteOrAddDishToOrderDialogDataModel,
+  DishFromBasketModel,
+  DishIdDataModel
+} from '../../../../../features/dishes/models/dish.model';
 
 @Component({
   templateUrl:

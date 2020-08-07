@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DishModel } from '../../models/dish.model';
+import { DishModel } from '../../../../features/dishes/models/dish.model';
 
 @Component({
   templateUrl: './order.page.html',

@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { DishModel } from '../../models/dish.model';
+import {
+  DishFromBasketModel,
+  DishIdDataModel,
+  DishModel
+} from '../../../../features/dishes/models/dish.model';
 import { HttpClient } from '@angular/common/http';
-import { DishFromBasketModel } from '../../models/dishes-from-basket.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDishToOrderDialogDialog } from '../dialogs/add-dish-to-order-dialog/add-dish-to-order-dialog.dialog';
 import { DataService } from '../../../../data.service';
 import { DishAlreadyInBasketDialogDialog } from '../dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
-import { DishIdDataModel } from '../../models/dish-id-data.model';
-import { OrderModel } from '../../models/order.model';
+import { OrderModel } from '../../../../features/orders/models/order.model';
 import { OrderAlreadyCreatedDialog } from '../dialogs/order-already-created/order-already-created.dialog';
+import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
 
 @Component({
   selector: 'app-all-dishes',
@@ -29,30 +32,12 @@ export class AllDishesComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
-    private readonly dataService: DataService
+    private readonly dataService: DataService,
+    private readonly dishesApiService: DishesApiService
   ) {}
 
   ngOnInit(): void {
-    this.getAllDishes();
-  }
-
-  private getAllDishes(): void {
-    this.http
-      .get<DishModel[]>('http://127.0.0.1:8080/api/dishes')
-      .subscribe((result) => {
-        this.allDishesList = result;
-        this.allDishesList.sort((a, b) => {
-          const nameA = a.mainDishInfo.dishName.toLowerCase();
-          const nameB = b.mainDishInfo.dishName.toLowerCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
-        });
-      });
+    this.dishesApiService.getAllDishes(this.allDishesList);
   }
 
   handleAddDishToOrderClick(dishIdValue: number): void {

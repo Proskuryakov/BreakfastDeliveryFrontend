@@ -1,15 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { DishFromBasketModel } from '../../../models/dishes-from-basket.model';
 import { HttpClient } from '@angular/common/http';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogRef
 } from '@angular/material/dialog';
-import { RegisterOrderInputModel } from '../../../models/register-order-input.model';
-import { RegisterOrderDataModel } from '../../../models/register-order-data.model';
 import { OrderRegistrationSuccessDialogDialog } from '../order-registration-success-dialog/order-registration-success-dialog.dialog';
 import { DataService } from '../../../../../data.service';
+import {
+  RegisterOrderDataModel,
+  RegisterOrderInputModel
+} from '../../../../../features/orders/models/order.model';
 
 interface RegisterOrderFormValue {
   phone: string;
