@@ -10,6 +10,7 @@ import { RegisterOrderDialogDialog } from '../dialogs/register-order-dialog/regi
 import { DeleteDishFromOrderDialogDialog } from '../dialogs/delete-dish-from-order-dialog/delete-dish-from-order-dialog.dialog';
 import { UpdateDishCountInputModel } from '../../models/update-dish-count-input.model';
 import { DataService } from '../../../../data.service';
+import { OrderModel } from '../../models/full-order.model';
 
 @Component({
   selector: 'app-dishes-in-order',
@@ -25,6 +26,8 @@ export class DishesInOrderComponent implements OnInit {
 
   dishesToDisplay: DishesFromBasketToDisplayModel[] = [];
 
+  order: OrderModel | undefined;
+
   constructor(
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
@@ -32,20 +35,17 @@ export class DishesInOrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.refreshDishesFromBasketForUserId1();
+    this.refreshDishesFromBasket();
+    this.getOrderByUserId(this.dataService.getUserId());
   }
 
-  refreshDishesFromBasketForUserId1(): void {
+  private refreshDishesFromBasket(): void {
     this.http
       .get<DishFromBasketModel[]>(
         `http://127.0.0.1:8080/api/dishesFromBasket/${this.dataService.getUserId()}`
       )
       .subscribe((dishes) => {
         this.dishesFromBasket = dishes;
-        console.log(
-          'dishesFromBasket',
-          this.dishesFromBasket
-        );
         from(this.dishesFromBasket)
           .pipe(
             mergeMap((dish) =>
@@ -75,19 +75,75 @@ export class DishesInOrderComponent implements OnInit {
               }
               return 0;
             });
-            console.log(
-              'dishesToDisplay',
-              this.dishesToDisplay
-            );
           });
       });
   }
 
+  private clearBasketAndRefresh(): void {
+    this.http
+      .request<DishFromBasketModel>(
+        'delete',
+        `http://127.0.0.1:8080/api//dishesFromBasket/${this.dataService.getUserId()}`
+      )
+      .subscribe(
+        () => {
+          this.refreshDishesFromBasket();
+          this.getOrderByUserId(
+            this.dataService.getUserId()
+          );
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }
+
+  private changeDishCount(
+    dishIdValue: number,
+    dishCount: number
+  ): void {
+    const input: UpdateDishCountInputModel = {
+      dishId: dishIdValue,
+      userId: this.dataService.getUserId(),
+      count: dishCount
+    };
+    this.http
+      .request<DishFromBasketModel>(
+        'put',
+        `http://127.0.0.1:8080/api/dishesFromBasket`,
+        { body: input }
+      )
+      .subscribe(
+        () => {
+          this.refreshDishesFromBasket();
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }
+
+  private getOrderByUserId(userId: number): void {
+    this.http
+      .get<OrderModel>(
+        `http://127.0.0.1:8080/api/orders/byUserId/${userId}`
+      )
+      .subscribe((result) => {
+        this.order = result;
+      });
+  }
+
   handleRegisterOrderClick(): void {
-    this.dialog.open(RegisterOrderDialogDialog, {
-      data: {
-        dishes: this.dishesFromBasket
+    const dialogRef = this.dialog.open(
+      RegisterOrderDialogDialog,
+      {
+        data: {
+          dishes: this.dishesFromBasket
+        }
       }
+    );
+    dialogRef.afterClosed().subscribe(() => {
+      this.clearBasketAndRefresh();
     });
   }
 
@@ -104,34 +160,8 @@ export class DishesInOrderComponent implements OnInit {
       }
     );
     dialogRef.afterClosed().subscribe(() => {
-      this.refreshDishesFromBasketForUserId1();
+      this.refreshDishesFromBasket();
     });
-  }
-
-  changeDishCount(
-    dishIdValue: number,
-    dishCount: number
-  ): void {
-    const input: UpdateDishCountInputModel = {
-      dishId: dishIdValue,
-      userId: this.dataService.getUserId(),
-      count: dishCount
-    };
-    console.log('input', input);
-    this.http
-      .request<DishFromBasketModel>(
-        'put',
-        `http://127.0.0.1:8080/api/dishesFromBasket`,
-        { body: input }
-      )
-      .subscribe(
-        () => {
-          this.refreshDishesFromBasketForUserId1();
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
   }
 
   handleChangeDishCountClick(

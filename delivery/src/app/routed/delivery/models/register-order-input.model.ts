@@ -1,6 +1,7 @@
 import { DishFromBasketModel } from './dishes-from-basket.model';
 
 export interface RegisterOrderInputModel {
+  userId: number;
   phone: string;
   address: {
     city: string;

@@ -9,6 +9,7 @@ import {
 import { RegisterOrderInputModel } from '../../../models/register-order-input.model';
 import { RegisterOrderDataModel } from '../../../models/register-order-data.model';
 import { OrderRegistrationSuccessDialogDialog } from '../order-registration-success-dialog/order-registration-success-dialog.dialog';
+import { DataService } from '../../../../../data.service';
 
 interface RegisterOrderFormValue {
   phone: string;
@@ -22,7 +23,8 @@ interface RegisterOrderFormValue {
 
 @Component({
   templateUrl: './register-order-dialog.dialog.html',
-  styleUrls: ['./register-order-dialog.dialog.sass']
+  styleUrls: ['./register-order-dialog.dialog.sass'],
+  providers: [DataService]
 })
 export class RegisterOrderDialogDialog implements OnInit {
   phone = '';
@@ -38,6 +40,7 @@ export class RegisterOrderDialogDialog implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
+    private readonly dataService: DataService,
     @Inject(MAT_DIALOG_DATA)
     public data: RegisterOrderDataModel,
     private readonly dialogRef: MatDialogRef<
@@ -53,6 +56,7 @@ export class RegisterOrderDialogDialog implements OnInit {
   ): void {
     this.loading = true;
     const input: RegisterOrderInputModel = {
+      userId: this.dataService.getUserId(),
       phone: value.phone,
       address: {
         city: value.city,
