@@ -34,6 +34,8 @@ import { OrderRegistrationSuccessDialogDialog } from './routed/delivery/componen
 import { DeleteDishFromOrderDialogDialog } from './routed/delivery/components/dialogs/delete-dish-from-order-dialog/delete-dish-from-order-dialog.dialog';
 import { DishAlreadyInBasketDialogDialog } from './routed/delivery/components/dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
 import { MatTreeModule } from '@angular/material/tree';
+import { OrderAlreadyCreatedDialog } from './routed/delivery/components/dialogs/order-already-created/order-already-created.dialog';
+import { OrderStatusPipe } from './features/order/pipes/order-status.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { MatTreeModule } from '@angular/material/tree';
     AddDishToOrderDialogDialog,
     OrderRegistrationSuccessDialogDialog,
     DeleteDishFromOrderDialogDialog,
-    DishAlreadyInBasketDialogDialog
+    DishAlreadyInBasketDialogDialog,
+    OrderAlreadyCreatedDialog,
+    OrderStatusPipe
   ],
   imports: [
     BrowserModule,

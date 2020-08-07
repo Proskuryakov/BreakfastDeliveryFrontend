@@ -31,6 +31,8 @@ export class DishesInOrderComponent implements OnInit {
 
   dishesFromOrderToDisplay: DishesFromOrderToDisplayModel[] = [];
 
+  date = '';
+
   order: OrderModel | undefined;
 
   constructor(
@@ -85,10 +87,6 @@ export class DishesInOrderComponent implements OnInit {
   }
 
   private getDishesFromOrder(order: OrderModel): void {
-    console.log(
-      'list of dishes from order',
-      order.listOfDishes
-    );
     this.dishesFromOrder = order.listOfDishes;
     from(this.dishesFromOrder)
       .pipe(
@@ -173,6 +171,9 @@ export class DishesInOrderComponent implements OnInit {
       )
       .subscribe((result) => {
         this.order = result;
+        this.date = String(
+          Number(this.order.createdAt) * 1000
+        );
         this.getDishesFromOrder(this.order);
       });
   }

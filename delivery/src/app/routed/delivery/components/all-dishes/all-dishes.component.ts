@@ -7,6 +7,8 @@ import { AddDishToOrderDialogDialog } from '../dialogs/add-dish-to-order-dialog/
 import { DataService } from '../../../../data.service';
 import { DishAlreadyInBasketDialogDialog } from '../dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
 import { DishIdDataModel } from '../../models/dish-id-data.model';
+import { OrderModel } from '../../models/order.model';
+import { OrderAlreadyCreatedDialog } from '../dialogs/order-already-created/order-already-created.dialog';
 
 @Component({
   selector: 'app-all-dishes',
@@ -58,32 +60,45 @@ export class AllDishesComponent implements OnInit {
       dishId: dishIdValue
     };
     this.http
-      .get<DishFromBasketModel>(
-        `http://127.0.0.1:8080/api/dishesFromBasket/${this.dataService.getUserId()}/${
-          input.dishId
-        }`
+      .get<OrderModel>(
+        `http://127.0.0.1:8080/api/orders/byUserId/${this.dataService.getUserId()}`
       )
-      .subscribe(
-        (result) => {
-          this.dishInBasket = result;
-          if (
-            this.dishInBasket === undefined ||
-            this.dishInBasket === null
-          ) {
-            this.dialog.open(AddDishToOrderDialogDialog, {
-              data: {
-                dishId: dishIdValue
+      .subscribe((order) => {
+        if (order !== null) {
+          this.dialog.open(OrderAlreadyCreatedDialog);
+        } else {
+          this.http
+            .get<DishFromBasketModel>(
+              `http://127.0.0.1:8080/api/dishesFromBasket/${this.dataService.getUserId()}/${
+                input.dishId
+              }`
+            )
+            .subscribe(
+              (result) => {
+                this.dishInBasket = result;
+                if (
+                  this.dishInBasket === undefined ||
+                  this.dishInBasket === null
+                ) {
+                  this.dialog.open(
+                    AddDishToOrderDialogDialog,
+                    {
+                      data: {
+                        dishId: dishIdValue
+                      }
+                    }
+                  );
+                } else {
+                  this.dialog.open(
+                    DishAlreadyInBasketDialogDialog
+                  );
+                }
+              },
+              (error) => {
+                console.error(error);
               }
-            });
-          } else {
-            this.dialog.open(
-              DishAlreadyInBasketDialogDialog
             );
-          }
-        },
-        (error) => {
-          console.error(error);
         }
-      );
+      });
   }
 }
