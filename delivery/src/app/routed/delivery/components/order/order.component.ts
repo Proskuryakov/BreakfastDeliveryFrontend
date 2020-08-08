@@ -31,8 +31,6 @@ export class OrderComponent implements OnInit {
 
   dishesFromOrderToDisplay: DishesFromOrderToDisplayModel[] = [];
 
-  date = '';
-
   order: OrderModel | undefined;
 
   constructor(

@@ -4,7 +4,8 @@
       >Order №{{ order.id }}</mat-card-title
     >
     <mat-card-subtitle
-      >Created at: {{ date | date: 'dd.MM.yyyy HH:mm' }}
+      >Created at:
+      {{ order.createdAt | date: 'dd.MM.yyyy HH:mm' }}
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
