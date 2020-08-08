@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {
   DishFromBasketModel,
-  DishIdDataModel,
   DishModel
 } from '../../../../features/dishes/models/dish.model';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { AddDishToOrderDialogDialog } from '../dialogs/add-dish-to-order-dialog/add-dish-to-order-dialog.dialog';
+import { AddDishToBasketDialogDialog } from '../dialogs/add-dish-to-basket-dialog/add-dish-to-basket-dialog.dialog';
 import { DataService } from '../../../../data.service';
 import { DishAlreadyInBasketDialogDialog } from '../dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
-import { OrderModel } from '../../../../features/orders/models/order.model';
 import { OrderAlreadyCreatedDialog } from '../dialogs/order-already-created/order-already-created.dialog';
 import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
+import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 
 @Component({
   selector: 'app-all-dishes',
@@ -33,7 +32,8 @@ export class AllDishesComponent implements OnInit {
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
     private readonly dataService: DataService,
-    private readonly dishesApiService: DishesApiService
+    private readonly dishesApiService: DishesApiService,
+    private readonly ordersApiService: OrdersApiService
   ) {}
 
   ngOnInit(): void {
@@ -47,22 +47,16 @@ export class AllDishesComponent implements OnInit {
   }
 
   handleAddDishToOrderClick(dishIdValue: number): void {
-    const input: DishIdDataModel = {
-      dishId: dishIdValue
-    };
-    this.http
-      .get<OrderModel>(
-        `http://127.0.0.1:8080/api/orders/byUserId/${this.dataService.getUserId()}`
-      )
+    this.ordersApiService
+      .getOrderByUserId(this.dataService.getUserId())
       .subscribe((order) => {
         if (order !== null) {
           this.dialog.open(OrderAlreadyCreatedDialog);
         } else {
-          this.http
-            .get<DishFromBasketModel>(
-              `http://127.0.0.1:8080/api/dishesFromBasket/${this.dataService.getUserId()}/${
-                input.dishId
-              }`
+          this.dishesApiService
+            .getDishFromBasketByDishId(
+              dishIdValue,
+              this.dataService.getUserId()
             )
             .subscribe(
               (result) => {
@@ -72,7 +66,7 @@ export class AllDishesComponent implements OnInit {
                   this.dishInBasket === null
                 ) {
                   this.dialog.open(
-                    AddDishToOrderDialogDialog,
+                    AddDishToBasketDialogDialog,
                     {
                       data: {
                         dishId: dishIdValue

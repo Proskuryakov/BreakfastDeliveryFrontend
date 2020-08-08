@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
+  DeleteOrAddDishToOrderDialogDataModel,
   DishesFromOrderToDisplayModel,
   DishFromBasketModel,
   DishFromOrderModel,
+  DishIdDataModel,
   DishModel,
   UpdateDishCountInputModel
 } from '../models/dish.model';
@@ -29,6 +31,18 @@ export class DishesApiService {
     );
   }
 
+  getDishFromBasketByDishId(
+    dishIdValue: number,
+    userId: number
+  ): Observable<DishFromBasketModel> {
+    const input: DishIdDataModel = {
+      dishId: dishIdValue
+    };
+    return this.http.get<DishFromBasketModel>(
+      `http://127.0.0.1:8080/api/dishesFromBasket/${userId}/${input.dishId}`
+    );
+  }
+
   getDishesFromBasketToDisplay(
     dishesFromBasket: DishFromBasketModel[]
   ): Observable<DishesFromOrderToDisplayModel[]> {
@@ -49,6 +63,69 @@ export class DishesApiService {
     );
   }
 
+  addDishToBasket(
+    dishIdValue: number,
+    userIdValue: number,
+    countValue: number
+  ): Observable<DishFromBasketModel> {
+    const input: DishFromBasketModel = {
+      count: countValue,
+      dishId: dishIdValue,
+      userId: userIdValue
+    };
+    return this.http.post<DishFromBasketModel>(
+      `http://127.0.0.1:8080/api/dishesFromBasket`,
+      input
+    );
+  }
+
+  clearBasket(
+    userId: number
+  ): Observable<DishFromBasketModel> {
+    return this.http.request<DishFromBasketModel>(
+      'delete',
+      `http://127.0.0.1:8080/api//dishesFromBasket/${userId}`
+    );
+  }
+
+  deleteDishFromBasket(
+    dishIdValue: number,
+    userIdValue: number
+  ): Observable<DishFromBasketModel> {
+    const input: DeleteOrAddDishToOrderDialogDataModel = {
+      dishId: dishIdValue,
+      userId: userIdValue
+    };
+    return this.http.request<DishFromBasketModel>(
+      'delete',
+      `http://127.0.0.1:8080/api/dishesFromBasket`,
+      { body: input }
+    );
+  }
+
+  updateDishCount(
+    dishIdValue: number,
+    dishCount: number,
+    userIdValue: number
+  ): Observable<DishFromBasketModel> {
+    const input: UpdateDishCountInputModel = {
+      dishId: dishIdValue,
+      userId: userIdValue,
+      count: dishCount
+    };
+    return this.http.request<DishFromBasketModel>(
+      'put',
+      `http://127.0.0.1:8080/api/dishesFromBasket`,
+      { body: input }
+    );
+  }
+
+  getAllDishes(): Observable<DishModel[]> {
+    return this.http.get<DishModel[]>(
+      'http://127.0.0.1:8080/api/dishes'
+    );
+  }
+
   sortDishesByDishName(a: DishModel, b: DishModel): number {
     const nameA = a.mainDishInfo.dishName.toLowerCase();
     const nameB = b.mainDishInfo.dishName.toLowerCase();
@@ -59,69 +136,5 @@ export class DishesApiService {
       return 1;
     }
     return 0;
-  }
-
-  clearBasketAndRefresh(
-    date: string,
-    order: OrderModel | undefined,
-    dishesFromOrder: DishFromOrderModel[],
-    dishesFromBasket: DishFromBasketModel[],
-    dishesFromBasketToDisplay: DishesFromOrderToDisplayModel[],
-    userId: number
-  ): void {
-    this.http
-      .request<DishFromBasketModel>(
-        'delete',
-        `http://127.0.0.1:8080/api//dishesFromBasket/${userId}`
-      )
-      .subscribe(
-        () => {
-          this.getDishesFromBasketToDisplay(
-            dishesFromBasket
-          );
-          this.ordersApiService.getOrderByUserId(userId);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-  }
-
-  /*changeDishCount(
-    dishesFromBasket: DishFromBasketModel[],
-    dishesFromBasketToDisplay: DishesFromOrderToDisplayModel[],
-    dishIdValue: number,
-    dishCount: number,
-    userIdValue: number
-  ): void {
-    const input: UpdateDishCountInputModel = {
-      dishId: dishIdValue,
-      userId: userIdValue,
-      count: dishCount
-    };
-    this.http
-      .request<DishFromBasketModel>(
-        'put',
-        `http://127.0.0.1:8080/api/dishesFromBasket`,
-        { body: input }
-      )
-      .subscribe(
-        () => {
-          this.getDishesFromBasket(
-            dishesFromBasket,
-            dishesFromBasketToDisplay,
-            userIdValue
-          );
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-  }*/
-
-  getAllDishes(): Observable<DishModel[]> {
-    return this.http.get<DishModel[]>(
-      'http://127.0.0.1:8080/api/dishes'
-    );
   }
 }

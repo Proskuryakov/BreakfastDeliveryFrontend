@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { OrderModel } from '../models/order.model';
+import {
+  OrderModel,
+  RegisterOrderInputModel
+} from '../models/order.model';
 import { from, Observable } from 'rxjs';
 import { mergeMap, tap, toArray } from 'rxjs/operators';
 import {
@@ -35,9 +38,14 @@ export class OrdersApiService {
     return this.http.get<OrderModel>(
       `http://127.0.0.1:8080/api/orders/byUserId/${userId}`
     );
-    /*      .subscribe((result) => {
-        order = result;
-        date = String(Number(order.createdAt) * 1000);
-      });*/
+  }
+
+  createOrder(
+    input: RegisterOrderInputModel
+  ): Observable<RegisterOrderInputModel> {
+    return this.http.post<RegisterOrderInputModel>(
+      `http://127.0.0.1:8080/api/orders`,
+      input
+    );
   }
 }

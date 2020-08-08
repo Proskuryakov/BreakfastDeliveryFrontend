@@ -5,49 +5,44 @@ import {
   MatDialogRef
 } from '@angular/material/dialog';
 import { DataService } from '../../../../../data.service';
-import {
-  DishFromBasketModel,
-  DishIdDataModel
-} from '../../../../../features/dishes/models/dish.model';
+import { DishIdDataModel } from '../../../../../features/dishes/models/dish.model';
+import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
 
 interface FormValue {
   dishCount: number;
 }
 
 @Component({
-  templateUrl: './add-dish-to-order-dialog.dialog.html',
-  styleUrls: ['./add-dish-to-order-dialog.dialog.sass'],
+  templateUrl: './add-dish-to-basket-dialog.dialog.html',
+  styleUrls: ['./add-dish-to-basket-dialog.dialog.sass'],
   providers: [DataService]
 })
-export class AddDishToOrderDialogDialog implements OnInit {
+export class AddDishToBasketDialogDialog implements OnInit {
   count = '';
 
   loading = false;
 
   constructor(
     private readonly http: HttpClient,
-    public dataService: DataService,
+    private readonly dataService: DataService,
+    private readonly dishesApiService: DishesApiService,
     @Inject(MAT_DIALOG_DATA)
-    public data: DishIdDataModel,
+    private data: DishIdDataModel,
     private readonly dialogRef: MatDialogRef<
-      AddDishToOrderDialogDialog,
+      AddDishToBasketDialogDialog,
       boolean
     >
   ) {}
 
   ngOnInit(): void {}
 
-  handleAddDishToOrderClick(value: FormValue): void {
+  handleAddDishToBasketClick(value: FormValue): void {
     this.loading = true;
-    const input: DishFromBasketModel = {
-      count: value.dishCount,
-      dishId: this.data.dishId,
-      userId: this.dataService.getUserId()
-    };
-    this.http
-      .post<DishFromBasketModel>(
-        `http://127.0.0.1:8080/api/dishesFromBasket`,
-        input
+    this.dishesApiService
+      .addDishToBasket(
+        this.dataService.getUserId(),
+        this.data.dishId,
+        value.dishCount
       )
       .subscribe(
         () => {

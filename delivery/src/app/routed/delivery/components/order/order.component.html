@@ -61,7 +61,7 @@
 </mat-card>
 
 <mat-form-field
-  *ngIf="dishesFromBasketToDisplay.length != 0"
+  *ngIf="dishesFromBasketToDisplay != []"
   class="search-form"
   color="warn"
   appearance="fill"
@@ -85,7 +85,7 @@
           <button
             mat-icon-button
             (click)="
-              handleChangeDishCountClick(
+              handleUpdateDishCountClick(
                 item.id,
                 item.count - 1
               )
@@ -103,7 +103,7 @@
           <button
             mat-icon-button
             (click)="
-              handleChangeDishCountClick(
+              handleUpdateDishCountClick(
                 item.id,
                 item.count + 1
               )
@@ -146,7 +146,7 @@
     <mat-card-actions>
       <button
         mat-button
-        (click)="handleDeleteDishFromOrderClick(item.id)"
+        (click)="handleDeleteDishFromBasketClick(item.id)"
       >
         DELETE FROM ORDER
       </button>

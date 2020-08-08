@@ -5,48 +5,41 @@ import {
   MatDialogRef
 } from '@angular/material/dialog';
 import { DataService } from '../../../../../data.service';
-import {
-  DeleteOrAddDishToOrderDialogDataModel,
-  DishFromBasketModel,
-  DishIdDataModel
-} from '../../../../../features/dishes/models/dish.model';
+import { DishIdDataModel } from '../../../../../features/dishes/models/dish.model';
+import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
 
 @Component({
   templateUrl:
-    './delete-dish-from-order-dialog.dialog.html',
+    './delete-dish-from-basket-dialog.dialog.html',
   styleUrls: [
-    './delete-dish-from-order-dialog.dialog.sass'
+    './delete-dish-from-basket-dialog.dialog.sass'
   ],
   providers: [DataService]
 })
-export class DeleteDishFromOrderDialogDialog
+export class DeleteDishFromBasketDialogDialog
   implements OnInit {
   loading = false;
 
   constructor(
     private readonly http: HttpClient,
-    public dataService: DataService,
+    private readonly dataService: DataService,
+    private readonly dishesApiService: DishesApiService,
     @Inject(MAT_DIALOG_DATA)
     public data: DishIdDataModel,
     private readonly dialogRef: MatDialogRef<
-      DeleteDishFromOrderDialogDialog,
+      DeleteDishFromBasketDialogDialog,
       boolean
     >
   ) {}
 
   ngOnInit(): void {}
 
-  handleDeleteDishFromOrderClick(): void {
+  handleDeleteDishFromBasketClick(): void {
     this.loading = true;
-    const input: DeleteOrAddDishToOrderDialogDataModel = {
-      dishId: this.data.dishId,
-      userId: this.dataService.getUserId()
-    };
-    this.http
-      .request<DishFromBasketModel>(
-        'delete',
-        `http://127.0.0.1:8080/api/dishesFromBasket`,
-        { body: input }
+    this.dishesApiService
+      .deleteDishFromBasket(
+        this.data.dishId,
+        this.dataService.getUserId()
       )
       .subscribe(
         () => {

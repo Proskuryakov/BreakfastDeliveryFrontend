@@ -17,7 +17,7 @@ import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
 import { MainPage } from './routed/delivery/pages/main/main.page';
 import { MatCardModule } from '@angular/material/card';
-import { DishesInOrderComponent } from './routed/delivery/components/dishes-in-order/dishes-in-order.component';
+import { OrderComponent } from './routed/delivery/components/order/order.component';
 import { AllDishesComponent } from './routed/delivery/components/all-dishes/all-dishes.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {
@@ -28,10 +28,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RegisterOrderDialogDialog } from './routed/delivery/components/dialogs/register-order-dialog/register-order-dialog.dialog';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AddDishToOrderDialogDialog } from './routed/delivery/components/dialogs/add-dish-to-order-dialog/add-dish-to-order-dialog.dialog';
+import { AddDishToBasketDialogDialog } from './routed/delivery/components/dialogs/add-dish-to-basket-dialog/add-dish-to-basket-dialog.dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { OrderRegistrationSuccessDialogDialog } from './routed/delivery/components/dialogs/order-registration-success-dialog/order-registration-success-dialog.dialog';
-import { DeleteDishFromOrderDialogDialog } from './routed/delivery/components/dialogs/delete-dish-from-order-dialog/delete-dish-from-order-dialog.dialog';
+import { DeleteDishFromBasketDialogDialog } from './routed/delivery/components/dialogs/delete-dish-from-basket-dialog/delete-dish-from-basket-dialog.dialog';
 import { DishAlreadyInBasketDialogDialog } from './routed/delivery/components/dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
 import { MatTreeModule } from '@angular/material/tree';
 import { OrderAlreadyCreatedDialog } from './routed/delivery/components/dialogs/order-already-created/order-already-created.dialog';
@@ -44,12 +44,12 @@ import { OrderStatusPipe } from './features/orders/pipes/order-status.pipe';
     OrderPage,
     RestaurantsPage,
     MainPage,
-    DishesInOrderComponent,
+    OrderComponent,
     AllDishesComponent,
     RegisterOrderDialogDialog,
-    AddDishToOrderDialogDialog,
+    AddDishToBasketDialogDialog,
     OrderRegistrationSuccessDialogDialog,
-    DeleteDishFromOrderDialogDialog,
+    DeleteDishFromBasketDialogDialog,
     DishAlreadyInBasketDialogDialog,
     OrderAlreadyCreatedDialog,
     OrderStatusPipe
