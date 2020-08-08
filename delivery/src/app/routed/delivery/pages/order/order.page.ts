@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Dish } from '../../models/dishes.model';
+import { DishModel } from '../../../../features/dishes/models/dish.model';
 
 @Component({
   templateUrl: './order.page.html',
@@ -10,5 +10,5 @@ export class OrderPage implements OnInit {
 
   ngOnInit(): void {}
 
-  handleDishesListChange(dishesList: Dish[]): void {}
+  handleDishesListChange(dishesList: DishModel[]): void {}
 }
