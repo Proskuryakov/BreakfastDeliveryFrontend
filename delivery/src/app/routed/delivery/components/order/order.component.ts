@@ -42,135 +42,74 @@ export class OrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dishesApiService
-      .getDishesFromBasket(this.dataService.getUserId())
-      .subscribe((result) => {
-        this.dishesFromBasket = result;
-        this.dishesApiService
-          .getDishesFromBasketToDisplay(result)
-          .subscribe((resultToDisplay) => {
-            this.dishesFromBasketToDisplay = resultToDisplay;
-          });
+    this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+      this.dishesFromBasket = result;
+      this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
+        this.dishesFromBasketToDisplay = resultToDisplay;
       });
-    this.orderApiService
-      .getOrderByUserId(this.dataService.getUserId())
-      .subscribe((resultOrder) => {
-        this.order = resultOrder;
-        if (this.order !== null) {
-          this.dishesFromOrder = resultOrder.listOfDishes;
-          this.order.createdAt = String(
-            Number(this.order.createdAt) * 1000
-          );
-          this.orderApiService
-            .getDishesFromOrderToDisplay(
-              this.dishesFromOrder
-            )
-            .subscribe((resultDishes) => {
-              this.dishesFromOrderToDisplay = resultDishes.sort(
-                this.dishesApiService.sortDishesByDishName
-              );
-            });
-        }
-      });
+    });
+    this.orderApiService.getOrderByUserId(this.dataService.getUserId()).subscribe((resultOrder) => {
+      this.order = resultOrder;
+      if (this.order !== null) {
+        this.dishesFromOrder = resultOrder.listOfDishes;
+        this.order.createdAt = String(Number(this.order.createdAt) * 1000);
+        this.orderApiService.getDishesFromOrderToDisplay(this.dishesFromOrder).subscribe((resultDishes) => {
+          this.dishesFromOrderToDisplay = resultDishes.sort(this.dishesApiService.sortDishesByDishName);
+        });
+      }
+    });
   }
 
   handleRegisterOrderClick(): void {
-    const dialogRef = this.dialog.open(
-      RegisterOrderDialogDialog,
-      {
-        data: {
-          dishes: this.dishesFromBasket
-        }
+    const dialogRef = this.dialog.open(RegisterOrderDialogDialog, {
+      data: {
+        dishes: this.dishesFromBasket
       }
-    );
+    });
     dialogRef.afterClosed().subscribe((dialogResult) => {
       if (dialogResult === true) {
-        this.dishesApiService
-          .clearBasket(this.dataService.getUserId())
-          .subscribe(() => {
-            this.dishesFromBasket = [];
-            this.dishesApiService
-              .getDishesFromBasket(
-                this.dataService.getUserId()
-              )
-              .subscribe((result) => {
-                this.dishesApiService
-                  .getDishesFromBasketToDisplay(result)
-                  .subscribe((resultToDisplay) => {
-                    this.dishesFromBasketToDisplay = resultToDisplay.sort(
-                      this.dishesApiService
-                        .sortDishesByDishName
-                    );
-                    this.orderApiService
-                      .getOrderByUserId(
-                        this.dataService.getUserId()
-                      )
-                      .subscribe((orderResult) => {
-                        this.order = orderResult;
-                      });
-                  });
+        this.dishesApiService.clearBasket(this.dataService.getUserId()).subscribe(() => {
+          this.dishesFromBasket = [];
+          this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+            this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
+              this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);
+              this.orderApiService.getOrderByUserId(this.dataService.getUserId()).subscribe((orderResult) => {
+                this.order = orderResult;
               });
+            });
           });
+        });
       }
     });
   }
 
-  handleDeleteDishFromBasketClick(
-    dishIdValue: number
-  ): void {
-    const dialogRef = this.dialog.open(
-      DeleteDishFromBasketDialogDialog,
-      {
-        data: {
-          dishId: dishIdValue,
-          userId: this.dataService.getUserId()
-        }
+  handleDeleteDishFromBasketClick(dishIdValue: number): void {
+    const dialogRef = this.dialog.open(DeleteDishFromBasketDialogDialog, {
+      data: {
+        dishId: dishIdValue,
+        userId: this.dataService.getUserId()
       }
-    );
+    });
     dialogRef.afterClosed().subscribe(() => {
-      this.dishesApiService
-        .getDishesFromBasket(this.dataService.getUserId())
-        .subscribe((result) => {
-          this.dishesFromBasket = result;
-          this.dishesApiService
-            .getDishesFromBasketToDisplay(result)
-            .subscribe((resultToDisplay) => {
-              this.dishesFromBasketToDisplay = resultToDisplay.sort(
-                this.dishesApiService.sortDishesByDishName
-              );
-            });
+      this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+        this.dishesFromBasket = result;
+        this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
+          this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);
         });
+      });
     });
   }
 
-  handleUpdateDishCountClick(
-    dishId: number,
-    dishCount: number
-  ): void {
+  handleUpdateDishCountClick(dishId: number, dishCount: number): void {
     if (dishCount >= 1 && dishCount <= 9) {
-      this.dishesApiService
-        .updateDishCount(
-          dishId,
-          dishCount,
-          this.dataService.getUserId()
-        )
-        .subscribe(() => {
-          this.dishesApiService
-            .getDishesFromBasket(
-              this.dataService.getUserId()
-            )
-            .subscribe((result) => {
-              this.dishesFromBasket = result;
-              this.dishesApiService
-                .getDishesFromBasketToDisplay(result)
-                .subscribe((resultToDisplay) => {
-                  this.dishesFromBasketToDisplay = resultToDisplay.sort(
-                    this.dishesApiService
-                      .sortDishesByDishName
-                  );
-                });
-            });
+      this.dishesApiService.updateDishCount(dishId, dishCount, this.dataService.getUserId()).subscribe(() => {
+        this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+          this.dishesFromBasket = result;
+          this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
+            this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);
+          });
         });
+      });
     }
   }
 }

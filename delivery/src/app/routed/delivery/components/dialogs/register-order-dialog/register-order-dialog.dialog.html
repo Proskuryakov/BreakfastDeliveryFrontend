@@ -6,83 +6,36 @@
   <mat-dialog-content class="register-form">
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input
-        pattern="^\d+$"
-        matInput
-        [(ngModel)]="phone"
-        name="phone"
-        required
-      />
+      <input pattern="^\d+$" matInput [(ngModel)]="phone" name="phone" required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>City</mat-label>
-      <input
-        pattern="^[A-Za-z-]+$"
-        matInput
-        [(ngModel)]="city"
-        name="city"
-        required
-      />
+      <input pattern="^[A-Za-z-]+$" matInput [(ngModel)]="city" name="city" required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Street</mat-label>
-      <input
-        pattern="^[A-Za-z-]+$"
-        matInput
-        [(ngModel)]="street"
-        name="street"
-        required
-      />
+      <input pattern="^[A-Za-z-]+$" matInput [(ngModel)]="street" name="street" required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>House</mat-label>
-      <input
-        pattern="^[\d\/]+$"
-        matInput
-        [(ngModel)]="house"
-        name="house"
-        required
-      />
+      <input pattern="^[\d\/]+$" matInput [(ngModel)]="house" name="house" required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Flat</mat-label>
-      <input
-        pattern="^\d+$"
-        matInput
-        [(ngModel)]="flat"
-        name="flat"
-        required
-      />
+      <input pattern="^\d+$" matInput [(ngModel)]="flat" name="flat" required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Entrance</mat-label>
-      <input
-        pattern="^\d+$"
-        matInput
-        [(ngModel)]="entrance"
-        name="entrance"
-        required
-      />
+      <input pattern="^\d+$" matInput [(ngModel)]="entrance" name="entrance" required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Floor</mat-label>
-      <input
-        pattern="^\d+$"
-        matInput
-        [(ngModel)]="floor"
-        name="floor"
-        required
-      />
+      <input pattern="^\d+$" matInput [(ngModel)]="floor" name="floor" required />
     </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button
-      mat-flat-button
-      color="warn"
-      [disabled]="!form.valid"
-      (click)="handleRegisterOrderClick(form.value)"
-    >
+    <button mat-flat-button color="warn" [disabled]="!form.valid" (click)="handleRegisterOrderClick(form.value)">
       Register
     </button>
     <button mat-button mat-dialog-close="undefined">

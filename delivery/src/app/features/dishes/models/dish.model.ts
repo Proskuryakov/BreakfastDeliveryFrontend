@@ -31,8 +31,7 @@ export interface DishFromBasketModel {
   userId: number;
 }
 
-export interface DishesFromOrderToDisplayModel
-  extends DishModel {
+export interface DishesFromOrderToDisplayModel extends DishModel {
   count: number;
 }
 

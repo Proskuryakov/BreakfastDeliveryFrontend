@@ -1,9 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DataService } from '../../../../../data.service';
 import { DishIdDataModel } from '../../../../../features/dishes/models/dish.model';
 import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
@@ -28,32 +25,23 @@ export class AddDishToBasketDialogDialog implements OnInit {
     private readonly dishesApiService: DishesApiService,
     @Inject(MAT_DIALOG_DATA)
     private data: DishIdDataModel,
-    private readonly dialogRef: MatDialogRef<
-      AddDishToBasketDialogDialog,
-      boolean
-    >
+    private readonly dialogRef: MatDialogRef<AddDishToBasketDialogDialog, boolean>
   ) {}
 
   ngOnInit(): void {}
 
   handleAddDishToBasketClick(value: FormValue): void {
     this.loading = true;
-    this.dishesApiService
-      .addDishToBasket(
-        this.data.dishId,
-        this.dataService.getUserId(),
-        value.dishCount
-      )
-      .subscribe(
-        () => {
-          this.loading = false;
-          this.dialogRef.close(true);
-        },
-        (error) => {
-          this.loading = false;
-          console.error(error);
-        }
-      );
+    this.dishesApiService.addDishToBasket(this.data.dishId, this.dataService.getUserId(), value.dishCount).subscribe(
+      () => {
+        this.loading = false;
+        this.dialogRef.close(true);
+      },
+      (error) => {
+        this.loading = false;
+        console.error(error);
+      }
+    );
   }
 
   addDishToOrder(): void {}

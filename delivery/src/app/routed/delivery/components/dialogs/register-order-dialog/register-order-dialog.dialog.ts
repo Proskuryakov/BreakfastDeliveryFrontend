@@ -1,16 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OrderRegistrationSuccessDialogDialog } from '../order-registration-success-dialog/order-registration-success-dialog.dialog';
 import { DataService } from '../../../../../data.service';
-import {
-  RegisterOrderDataModel,
-  RegisterOrderInputModel
-} from '../../../../../features/orders/models/order.model';
+import { RegisterOrderDataModel, RegisterOrderInputModel } from '../../../../../features/orders/models/order.model';
 import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
 
 interface RegisterOrderFormValue {
@@ -46,17 +39,12 @@ export class RegisterOrderDialogDialog implements OnInit {
     private readonly ordersApiService: OrdersApiService,
     @Inject(MAT_DIALOG_DATA)
     public data: RegisterOrderDataModel,
-    private readonly dialogRef: MatDialogRef<
-      RegisterOrderDialogDialog,
-      boolean
-    >
+    private readonly dialogRef: MatDialogRef<RegisterOrderDialogDialog, boolean>
   ) {}
 
   ngOnInit(): void {}
 
-  handleRegisterOrderClick(
-    value: RegisterOrderFormValue
-  ): void {
+  handleRegisterOrderClick(value: RegisterOrderFormValue): void {
     this.loading = true;
     const input: RegisterOrderInputModel = {
       userId: this.dataService.getUserId(),
@@ -75,9 +63,7 @@ export class RegisterOrderDialogDialog implements OnInit {
       () => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.dialog.open(
-          OrderRegistrationSuccessDialogDialog
-        );
+        this.dialog.open(OrderRegistrationSuccessDialogDialog);
       },
       (error) => {
         this.loading = false;

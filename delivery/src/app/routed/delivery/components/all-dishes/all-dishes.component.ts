@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  DishFromBasketModel,
-  DishModel
-} from '../../../../features/dishes/models/dish.model';
+import { DishFromBasketModel, DishModel } from '../../../../features/dishes/models/dish.model';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDishToBasketDialogDialog } from '../dialogs/add-dish-to-basket-dialog/add-dish-to-basket-dialog.dialog';
@@ -37,53 +34,34 @@ export class AllDishesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dishesApiService
-      .getAllDishes()
-      .subscribe((result) => {
-        this.allDishesList = result.sort(
-          this.dishesApiService.sortDishesByDishName
-        );
-      });
+    this.dishesApiService.getAllDishes().subscribe((result) => {
+      this.allDishesList = result.sort(this.dishesApiService.sortDishesByDishName);
+    });
   }
 
   handleAddDishToOrderClick(dishIdValue: number): void {
-    this.ordersApiService
-      .getOrderByUserId(this.dataService.getUserId())
-      .subscribe((order) => {
-        if (order !== null) {
-          this.dialog.open(OrderAlreadyCreatedDialog);
-        } else {
-          this.dishesApiService
-            .getDishFromBasketByDishId(
-              dishIdValue,
-              this.dataService.getUserId()
-            )
-            .subscribe(
-              (result) => {
-                this.dishInBasket = result;
-                if (
-                  this.dishInBasket === undefined ||
-                  this.dishInBasket === null
-                ) {
-                  this.dialog.open(
-                    AddDishToBasketDialogDialog,
-                    {
-                      data: {
-                        dishId: dishIdValue
-                      }
-                    }
-                  );
-                } else {
-                  this.dialog.open(
-                    DishAlreadyInBasketDialogDialog
-                  );
+    this.ordersApiService.getOrderByUserId(this.dataService.getUserId()).subscribe((order) => {
+      if (order !== null) {
+        this.dialog.open(OrderAlreadyCreatedDialog);
+      } else {
+        this.dishesApiService.getDishFromBasketByDishId(dishIdValue, this.dataService.getUserId()).subscribe(
+          (result) => {
+            this.dishInBasket = result;
+            if (this.dishInBasket === undefined || this.dishInBasket === null) {
+              this.dialog.open(AddDishToBasketDialogDialog, {
+                data: {
+                  dishId: dishIdValue
                 }
-              },
-              (error) => {
-                console.error(error);
-              }
-            );
-        }
-      });
+              });
+            } else {
+              this.dialog.open(DishAlreadyInBasketDialogDialog);
+            }
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      }
+    });
   }
 }
