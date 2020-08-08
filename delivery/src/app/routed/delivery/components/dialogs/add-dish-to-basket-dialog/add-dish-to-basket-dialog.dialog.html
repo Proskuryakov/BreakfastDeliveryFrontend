@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>
+  Enter number of dishes
+</h1>
+
+<mat-progress-bar
+  *ngIf="loading"
+  mode="query"
+></mat-progress-bar>
+
+<form #form="ngForm">
+  <mat-dialog-content class="register-form">
+    <mat-form-field>
+      <mat-label>Number of dishes</mat-label>
+      <input
+        type="number"
+        pattern="^\d$"
+        max="9"
+        min="1"
+        matInput
+        [(ngModel)]="count"
+        name="dishCount"
+        required
+      />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="warn"
+      [disabled]="!form.valid"
+      (click)="handleAddDishToBasketClick(form.value)"
+    >
+      Add to order
+    </button>
+    <button mat-button mat-dialog-close="undefined">
+      Cancel
+    </button>
+  </mat-dialog-actions>
+</form>
