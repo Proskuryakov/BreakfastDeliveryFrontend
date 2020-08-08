@@ -1,17 +1,10 @@
 All dishes:
-<mat-form-field
-  class="search-form"
-  color="warn"
-  appearance="fill"
->
+<mat-form-field class="search-form" color="warn" appearance="fill">
   <mat-label>Search by name</mat-label>
   <input [(ngModel)]="searchText" matInput />
 </mat-form-field>
 <mat-list class="dish-cards-list">
-  <mat-card
-    class="example-card"
-    *ngFor="let item of allDishesList | filter: searchText"
-  >
+  <mat-card class="example-card" *ngFor="let item of allDishesList | filter: searchText">
     <mat-card-header>
       <div
         mat-card-avatar
@@ -24,23 +17,12 @@ All dishes:
         item.dishType
       }}</mat-card-subtitle>
     </mat-card-header>
-    <img
-      mat-card-image
-      src="{{ item.dishImage }}"
-      alt="Photo of a burger"
-    />
+    <img mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
     <mat-card-content>
       <div class="dish-info">
-        <span matLine
-          >Calories: {{ item.dishCalories }}</span
-        >
-        <span matLine
-          >Cooking time:
-          {{ item.dishCookingTimeMinutes }} min</span
-        >
-        <span matLine
-          >Price: {{ item.mainDishInfo.dishPrice }}</span
-        >
+        <span matLine>Calories: {{ item.dishCalories }}</span>
+        <span matLine>Cooking time: {{ item.dishCookingTimeMinutes }} min</span>
+        <span matLine>Price: {{ item.mainDishInfo.dishPrice }}</span>
       </div>
     </mat-card-content>
     <mat-card-actions>

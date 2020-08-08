@@ -8,10 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DishesPage } from './routed/delivery/pages/dishes/dishes.page';
-import {
-  HttpClient,
-  HttpClientModule
-} from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
@@ -38,6 +35,10 @@ import { OrderAlreadyCreatedDialog } from './routed/delivery/components/dialogs/
 import { OrderStatusPipe } from './features/orders/pipes/order-status.pipe';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AllRestaurantsComponent } from './routed/delivery/components/all-restaurants/all-restaurants.component';
+import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/restaurant-dishes.page';
+import { DishesInRestaurantComponent } from './routed/delivery/components/dishes-in-restaurant/dishes-in-restaurant.component';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +56,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     DishAlreadyInBasketDialogDialog,
     OrderAlreadyCreatedDialog,
     OrderStatusPipe
+    AllRestaurantsComponent,
+    RestaurantDishesPage,
+    DishesInRestaurantComponent
   ],
   imports: [
     BrowserModule,
