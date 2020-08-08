@@ -17,10 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { OrderComponent } from './routed/delivery/components/order/order.component';
 import { AllDishesComponent } from './routed/delivery/components/all-dishes/all-dishes.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RegisterOrderDialogDialog } from './routed/delivery/components/dialogs/register-order-dialog/register-order-dialog.dialog';
@@ -39,7 +36,6 @@ import { AllRestaurantsComponent } from './routed/delivery/components/all-restau
 import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/restaurant-dishes.page';
 import { DishesInRestaurantComponent } from './routed/delivery/components/dishes-in-restaurant/dishes-in-restaurant.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +51,7 @@ import { DishesInRestaurantComponent } from './routed/delivery/components/dishes
     DeleteDishFromBasketDialogDialog,
     DishAlreadyInBasketDialogDialog,
     OrderAlreadyCreatedDialog,
-    OrderStatusPipe
+    OrderStatusPipe,
     AllRestaurantsComponent,
     RestaurantDishesPage,
     DishesInRestaurantComponent

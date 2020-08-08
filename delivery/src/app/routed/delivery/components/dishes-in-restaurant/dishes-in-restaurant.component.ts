@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Restaurant } from '../../models/restaurant.model';
-import { Dish } from '../../models/dishes.model';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { DishModel } from '../../../../features/dishes/models/dish.model';
 
 @Component({
   selector: 'app-dishes-in-restaurant',
@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs/operators';
 export class DishesInRestaurantComponent implements OnInit {
   // tslint:disable-next-line:no-any
   searchText: any;
-  dishesList: Dish[] = [];
+  dishesList: DishModel[] = [];
   selectedRestaurant?: Restaurant;
   restaurantId = 0;
 
@@ -35,7 +35,7 @@ export class DishesInRestaurantComponent implements OnInit {
 
   private refreshLists(): void {
     this.http
-      .get<Dish[]>('http://127.0.0.1:8080/api/restaurants/' + this.restaurantId + '/dishes')
+      .get<DishModel[]>('http://127.0.0.1:8080/api/restaurants/' + this.restaurantId + '/dishes')
       .subscribe((result) => {
         this.dishesList = result;
       });
