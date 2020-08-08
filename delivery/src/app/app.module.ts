@@ -36,6 +36,8 @@ import { DishAlreadyInBasketDialogDialog } from './routed/delivery/components/di
 import { MatTreeModule } from '@angular/material/tree';
 import { OrderAlreadyCreatedDialog } from './routed/delivery/components/dialogs/order-already-created/order-already-created.dialog';
 import { OrderStatusPipe } from './features/orders/pipes/order-status.pipe';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { OrderStatusPipe } from './features/orders/pipes/order-status.pipe';
     MatDialogModule,
     ReactiveFormsModule,
     MatProgressBarModule,
-    MatTreeModule
+    MatTreeModule,
+    MatSidenavModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

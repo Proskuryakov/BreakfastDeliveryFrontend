@@ -1,7 +1,4 @@
-<mat-card
-  *ngIf="order != null"
-  class="example-card order-card"
->
+<mat-card *ngIf="order != null" class="order-card">
   <mat-card-header>
     <mat-card-title class="dish-card-name"
       >Order №{{ order.id }}</mat-card-title
@@ -61,7 +58,7 @@
 </mat-card>
 
 <mat-form-field
-  *ngIf="dishesFromBasketToDisplay != []"
+  *ngIf="dishesFromBasketToDisplay.length != 0"
   class="search-form"
   color="warn"
   appearance="fill"
@@ -154,12 +151,14 @@
   </mat-card>
 </mat-list>
 
-<button
-  *ngIf="dishesFromBasketToDisplay.length != 0"
-  class="register-button"
-  mat-raised-button
-  color="warn"
-  (click)="handleRegisterOrderClick()"
->
-  Register your order
-</button>
+<div class="align-center">
+  <button
+    *ngIf="dishesFromBasketToDisplay.length != 0"
+    class="register-button"
+    mat-raised-button
+    color="warn"
+    (click)="handleRegisterOrderClick()"
+  >
+    Register your order
+  </button>
+</div>

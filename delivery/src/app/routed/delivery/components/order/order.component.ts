@@ -85,23 +85,35 @@ export class OrderComponent implements OnInit {
         }
       }
     );
-    dialogRef.afterClosed().subscribe(() => {
-      this.dishesApiService
-        .clearBasket(this.dataService.getUserId())
-        .subscribe(() => {
-          this.dishesFromBasket = [];
-          this.dishesApiService
-            .getDishesFromBasket(
-              this.dataService.getUserId()
-            )
-            .subscribe((result) => {
-              this.dishesApiService
-                .getDishesFromBasketToDisplay(result)
-                .subscribe((resultToDisplay) => {
-                  this.dishesFromBasketToDisplay = resultToDisplay;
-                });
-            });
-        });
+    dialogRef.afterClosed().subscribe((dialogResult) => {
+      if (dialogResult === true) {
+        this.dishesApiService
+          .clearBasket(this.dataService.getUserId())
+          .subscribe(() => {
+            this.dishesFromBasket = [];
+            this.dishesApiService
+              .getDishesFromBasket(
+                this.dataService.getUserId()
+              )
+              .subscribe((result) => {
+                this.dishesApiService
+                  .getDishesFromBasketToDisplay(result)
+                  .subscribe((resultToDisplay) => {
+                    this.dishesFromBasketToDisplay = resultToDisplay.sort(
+                      this.dishesApiService
+                        .sortDishesByDishName
+                    );
+                    this.orderApiService
+                      .getOrderByUserId(
+                        this.dataService.getUserId()
+                      )
+                      .subscribe((orderResult) => {
+                        this.order = orderResult;
+                      });
+                  });
+              });
+          });
+      }
     });
   }
 
@@ -125,7 +137,9 @@ export class OrderComponent implements OnInit {
           this.dishesApiService
             .getDishesFromBasketToDisplay(result)
             .subscribe((resultToDisplay) => {
-              this.dishesFromBasketToDisplay = resultToDisplay;
+              this.dishesFromBasketToDisplay = resultToDisplay.sort(
+                this.dishesApiService.sortDishesByDishName
+              );
             });
         });
     });
@@ -152,7 +166,10 @@ export class OrderComponent implements OnInit {
               this.dishesApiService
                 .getDishesFromBasketToDisplay(result)
                 .subscribe((resultToDisplay) => {
-                  this.dishesFromBasketToDisplay = resultToDisplay;
+                  this.dishesFromBasketToDisplay = resultToDisplay.sort(
+                    this.dishesApiService
+                      .sortDishesByDishName
+                  );
                 });
             });
         });

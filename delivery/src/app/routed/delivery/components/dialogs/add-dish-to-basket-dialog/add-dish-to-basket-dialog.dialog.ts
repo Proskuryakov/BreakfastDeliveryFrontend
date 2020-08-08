@@ -40,8 +40,8 @@ export class AddDishToBasketDialogDialog implements OnInit {
     this.loading = true;
     this.dishesApiService
       .addDishToBasket(
-        this.dataService.getUserId(),
         this.data.dishId,
+        this.dataService.getUserId(),
         value.dishCount
       )
       .subscribe(

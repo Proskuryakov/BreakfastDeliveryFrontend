@@ -11,6 +11,7 @@ import {
   RegisterOrderDataModel,
   RegisterOrderInputModel
 } from '../../../../../features/orders/models/order.model';
+import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
 
 interface RegisterOrderFormValue {
   phone: string;
@@ -42,6 +43,7 @@ export class RegisterOrderDialogDialog implements OnInit {
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
     private readonly dataService: DataService,
+    private readonly ordersApiService: OrdersApiService,
     @Inject(MAT_DIALOG_DATA)
     public data: RegisterOrderDataModel,
     private readonly dialogRef: MatDialogRef<
@@ -69,23 +71,18 @@ export class RegisterOrderDialogDialog implements OnInit {
       },
       listOfDishes: this.data.dishes
     };
-    this.http
-      .post<RegisterOrderInputModel>(
-        `http://127.0.0.1:8080/api//orders`,
-        input
-      )
-      .subscribe(
-        () => {
-          this.loading = false;
-          this.dialogRef.close(true);
-          this.dialog.open(
-            OrderRegistrationSuccessDialogDialog
-          );
-        },
-        (error) => {
-          this.loading = false;
-          console.error(error);
-        }
-      );
+    this.ordersApiService.createOrder(input).subscribe(
+      () => {
+        this.loading = false;
+        this.dialogRef.close(true);
+        this.dialog.open(
+          OrderRegistrationSuccessDialogDialog
+        );
+      },
+      (error) => {
+        this.loading = false;
+        console.error(error);
+      }
+    );
   }
 }
