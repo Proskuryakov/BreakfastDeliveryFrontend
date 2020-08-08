@@ -44,21 +44,24 @@ export class DishesInOrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dishesApiService.getDishesFromBasket(
-      this.dishesFromBasket,
-      this.dishesFromBasketToDisplay,
-      this.dataService.getUserId()
-    );
-    this.orderApiService.getOrderByUserId(
-      this.date,
-      this.order,
-      this.dishesFromOrder,
-      this.dishesFromBasketToDisplay,
-      this.dataService.getUserId()
-    );
+    this.dishesApiService
+      .getDishesFromBasket(this.dataService.getUserId())
+      .subscribe((result) => {
+        this.dishesApiService.getDishesFromBasketToDisplay(
+          result
+        );
+      });
+    this.orderApiService
+      .getOrderByUserId(this.dataService.getUserId())
+      .subscribe((result) => {
+        this.order = result;
+        this.order.createdAt = String(
+          Number(this.order.createdAt) * 1000
+        );
+      });
   }
 
-  handleRegisterOrderClick(): void {
+  /*handleRegisterOrderClick(): void {
     const dialogRef = this.dialog.open(
       RegisterOrderDialogDialog,
       {
@@ -77,9 +80,9 @@ export class DishesInOrderComponent implements OnInit {
         this.dataService.getUserId()
       );
     });
-  }
+  }*/
 
-  handleDeleteDishFromOrderClick(
+  /*handleDeleteDishFromOrderClick(
     dishIdValue: number
   ): void {
     const dialogRef = this.dialog.open(
@@ -98,9 +101,9 @@ export class DishesInOrderComponent implements OnInit {
         this.dataService.getUserId()
       );
     });
-  }
+  }*/
 
-  handleChangeDishCountClick(
+  /*handleChangeDishCountClick(
     dishId: number,
     dishCount: number
   ): void {
@@ -113,5 +116,5 @@ export class DishesInOrderComponent implements OnInit {
         this.dataService.getUserId()
       );
     }
-  }
+  }*/
 }

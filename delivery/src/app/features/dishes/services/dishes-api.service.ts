@@ -7,7 +7,7 @@ import {
   DishModel,
   UpdateDishCountInputModel
 } from '../models/dish.model';
-import { from } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { mergeMap, tap, toArray } from 'rxjs/operators';
 import { OrdersApiService } from '../../orders/services/orders-api.service';
 import { OrderModel } from '../../orders/models/order.model';
@@ -22,47 +22,43 @@ export class DishesApiService {
   ) {}
 
   getDishesFromBasket(
-    dishesFromBasket: DishFromBasketModel[],
-    dishesFromBasketToDisplay: DishesFromOrderToDisplayModel[],
     userId: number
-  ): void {
-    this.http
-      .get<DishFromBasketModel[]>(
-        `http://127.0.0.1:8080/api/dishesFromBasket/${userId}`
-      )
-      .subscribe((dishes) => {
-        dishesFromBasket = dishes;
-        from(dishesFromBasket)
-          .pipe(
-            mergeMap((dish) =>
-              this.http
-                .get<DishesFromOrderToDisplayModel>(
-                  `http://127.0.0.1:8080/api/dishes/${dish.dishId}`
-                )
-                .pipe(
-                  tap(
-                    (dishToDisplay) =>
-                      (dishToDisplay.count = dish.count)
-                  )
-                )
-            ),
-            toArray()
+  ): Observable<DishFromBasketModel[]> {
+    return this.http.get<DishFromBasketModel[]>(
+      `http://127.0.0.1:8080/api/dishesFromBasket/${userId}`
+    );
+  }
+
+  getDishesFromBasketToDisplay(
+    dishesFromBasket: DishFromBasketModel[]
+  ): Observable<DishesFromOrderToDisplayModel[]> {
+    return from(dishesFromBasket).pipe(
+      mergeMap((dish) =>
+        this.http
+          .get<DishesFromOrderToDisplayModel>(
+            `http://127.0.0.1:8080/api/dishes/${dish.dishId}`
           )
-          .subscribe((allResponses) => {
-            dishesFromBasketToDisplay = allResponses;
-            dishesFromBasketToDisplay.sort((a, b) => {
-              const nameA = a.mainDishInfo.dishName.toLowerCase();
-              const nameB = b.mainDishInfo.dishName.toLowerCase();
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-              return 0;
-            });
-          });
-      });
+          .pipe(
+            tap(
+              (dishToDisplay) =>
+                (dishToDisplay.count = dish.count)
+            )
+          )
+      ),
+      toArray()
+    );
+  }
+
+  sortDishesByDishName(a: DishModel, b: DishModel): number {
+    const nameA = a.mainDishInfo.dishName.toLowerCase();
+    const nameB = b.mainDishInfo.dishName.toLowerCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
   }
 
   clearBasketAndRefresh(
@@ -80,18 +76,10 @@ export class DishesApiService {
       )
       .subscribe(
         () => {
-          this.getDishesFromBasket(
-            dishesFromBasket,
-            dishesFromBasketToDisplay,
-            userId
+          this.getDishesFromBasketToDisplay(
+            dishesFromBasket
           );
-          this.ordersApiService.getOrderByUserId(
-            date,
-            order,
-            dishesFromOrder,
-            dishesFromBasketToDisplay,
-            userId
-          );
+          this.ordersApiService.getOrderByUserId(userId);
         },
         (error) => {
           console.error(error);
@@ -99,7 +87,7 @@ export class DishesApiService {
       );
   }
 
-  changeDishCount(
+  /*changeDishCount(
     dishesFromBasket: DishFromBasketModel[],
     dishesFromBasketToDisplay: DishesFromOrderToDisplayModel[],
     dishIdValue: number,
@@ -129,24 +117,11 @@ export class DishesApiService {
           console.error(error);
         }
       );
-  }
+  }*/
 
-  getAllDishes(allDishesList: DishModel[]): void {
-    this.http
-      .get<DishModel[]>('http://127.0.0.1:8080/api/dishes')
-      .subscribe((result) => {
-        allDishesList = result;
-        allDishesList.sort((a, b) => {
-          const nameA = a.mainDishInfo.dishName.toLowerCase();
-          const nameB = b.mainDishInfo.dishName.toLowerCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
-        });
-      });
+  getAllDishes(): Observable<DishModel[]> {
+    return this.http.get<DishModel[]>(
+      'http://127.0.0.1:8080/api/dishes'
+    );
   }
 }

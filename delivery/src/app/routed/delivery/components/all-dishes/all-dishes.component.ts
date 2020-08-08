@@ -37,7 +37,13 @@ export class AllDishesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dishesApiService.getAllDishes(this.allDishesList);
+    this.dishesApiService
+      .getAllDishes()
+      .subscribe((result) => {
+        this.allDishesList = result.sort(
+          this.dishesApiService.sortDishesByDishName
+        );
+      });
   }
 
   handleAddDishToOrderClick(dishIdValue: number): void {
