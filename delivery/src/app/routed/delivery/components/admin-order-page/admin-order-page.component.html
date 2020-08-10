@@ -1,139 +1,144 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  </head>
-  <body style="height: max-content;">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="columns col-12 col-md-5 col-lg-3">
-          <div matLine style="align-items: center;">
-            <mat-form-field>
-              <mat-label> Поиск заказа</mat-label>
-              <input [(ngModel)]="search" matInput />
-            </mat-form-field>
-          </div>
-          <div matLine>
-            <mat-form-field>
-              <mat-label> Введите ID позиции</mat-label>
-              <input type="number" [(ngModel)]="dishId" matInput />
-            </mat-form-field>
-            <button class="btn-sm btn" mat-icon-button (click)="getDishName(dishId)">
-              <mat-icon>search</mat-icon>
-            </button>
-          </div>
-          <div class="alert alert-info" [hidden]="notFound" role="alert">
-            Позиция не найдена
-          </div>
-          <div matLine *ngIf="dish != null">
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header class="bg-secondary">
-                  <mat-panel-title class="text-white">
-                    Информация о позиции
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="forBorder" matLine>Название: {{ dish.mainDishInfo.dishName }}</div>
-                <img mat-card-image src="{{ dish.dishImage }}" />
-                <div class="forBorder" matLine>Цена: {{ dish.mainDishInfo.dishPrice }}</div>
-                <div class="forBorder" matLine>Калорийность: {{ dish.dishCalories }}</div>
-                <div class="forBorder" matLine>Категория: {{ dish.dishType }}</div>
-                <div class="forBorder" matLine>Время приговления: {{ dish.dishCookingTimeMinutes }}</div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-          <div class="analysisDiv" matLine>
-            Анализ заказов:
-          </div>
-          <div class="analysisDiv" matLine>
-            Заказов обрабатывается:<a class="text-info"> {{ countOrdersList[0] }}</a>
-          </div>
-          <div class="analysisDiv" matLine>
-            Заказов готовятся : <a class="text-secondary">{{ countOrdersList[1] }}</a>
-          </div>
-          <div class="analysisDiv" matLine>
-            Заказов доставляется:<a class="text-warning"> {{ countOrdersList[2] }}</a>
-          </div>
-          <div class="analysisDiv" matLine>
-            Заказов доставлено: <a class="text-success">{{ countOrdersList[3] }}</a>
-          </div>
-          <div class="analysisDiv" matLine>
-            Заказов отменено: <a class="text-danger">{{ countOrdersList[4] }}</a>
-          </div>
-        </div>
-        <div class="layer2 col-12 col-md-7 col-lg-9">
-          <div class="insideLayer2" *ngFor="let item of items | filterOrder: search">
-            <mat-card>
-              <mat-card-content>
-                <div matLine>
-                  <div>
-                    ID заказа: {{ item.id }}
-                    <div class="float-right">
-                      <button
-                        class="btn-sm btn btn-outline-danger"
-                        mat-icon-button
-                        (click)="openDialogDeleteOrder(item)"
-                      >
-                        <mat-icon>close</mat-icon>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div matLine>Время создания: {{ item.createdAt * 1000 | date: 'dd.MM.yyyy HH:mm' }}</div>
-                <div matLine>Телефон: {{ item.phone }}</div>
-                <div matLine>
-                  Статус заказа: {{ item.status }}
-                  <div class="float-right">
-                    <button mat-icon-button class="align-middle btn-sm btn center-block" (click)="openDialog(item)">
-                      <mat-icon>edit</mat-icon>
-                    </button>
-                  </div>
-                </div>
-                <div matLine>
-                  <mat-accordion>
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header class="bg-secondary">
-                        <mat-panel-title class="text-white">
-                          Адрес
-                        </mat-panel-title>
-                      </mat-expansion-panel-header>
-                      <div class="forBorder" matLine>Город: {{ item.address.city }}</div>
-                      <div class="forBorder" matLine>Улица: {{ item.address.street }}</div>
-                      <div class="forBorder" matLine>Дом: {{ item.address.house }}</div>
-                      <div class="forBorder" matLine *ngIf="item.address.flat != null">
-                        Квартира: {{ item.address.flat }}
-                      </div>
-                      <div class="forBorder" matLine *ngIf="item.address.entrance != null">
-                        Подъезд: {{ item.address.entrance }}
-                      </div>
-                      <div class="forBorder" matLine *ngIf="item.address.floor != null">
-                        Этаж: {{ item.address.floor }}
-                      </div>
-                    </mat-expansion-panel>
-                  </mat-accordion>
-                </div>
-                <div matLine>
-                  <mat-accordion>
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header class="bg-secondary">
-                        <mat-panel-title class="text-white">
-                          Состав заказа
-                        </mat-panel-title>
-                      </mat-expansion-panel-header>
-                      <div matLine>
-                        <div *ngFor="let dish of item.listOfDishes">
-                          <div class="forBorder" matLine>
-                            Количество: {{ dish.count }}, ID позиции: {{ dish.dishId }}
-                          </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
-                  </mat-accordion>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-        </div>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+</head>
+<body style="height: max-content ;min-height: 100vh">
+<div class="container-fluid">
+  <div class="row">
+    <div class="columns col-12 col-md-5 col-lg-3">
+      <div matLine style="align-items: center;">
+        <mat-form-field style="width: 80%">
+          <mat-label> Поиск заказа</mat-label>
+          <input [(ngModel)]="search" matInput/>
+        </mat-form-field>
+      </div>
+      <div matLine>
+        <mat-form-field style="width: 80%">
+          <mat-label> Введите ID позиции</mat-label>
+          <input type="number" [(ngModel)]="dishId" matInput/>
+        </mat-form-field>
+        <button class="btn-sm btn" mat-icon-button (click)="getDishName(dishId)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <div class="alert alert-info" [hidden]="notFound" role="alert">
+        Позиция не найдена
+      </div>
+      <div matLine *ngIf="dish != null">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header class="bg-secondary">
+              <mat-panel-title class="text-white">
+                Информация о позиции
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="forBorder" matLine>Название: {{ dish.mainDishInfo.dishName }}</div>
+            <img mat-card-image src="{{ dish.dishImage }}"/>
+            <div class="forBorder" matLine>Цена: {{ dish.mainDishInfo.dishPrice }}</div>
+            <div class="forBorder" matLine>Калорийность: {{ dish.dishCalories }}</div>
+            <div class="forBorder" matLine>Категория: {{ dish.dishType }}</div>
+            <div class="forBorder" matLine>Время приговления: {{ dish.dishCookingTimeMinutes }}</div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="analysisDiv" (click)="search=''" matLine>
+        Анализ заказов:
+      </div>
+      <div class="analysisDiv  " matLine (click)="search='ORDER_IN_PROCESSING'">
+        Заказов обрабатывается:<a class="text-info"> {{ countOrdersList[0] }}</a>
+      </div>
+      <div class="analysisDiv  " matLine (click)="search='ORDER_PREPARING'">
+        Заказов готовятся : <a class="text-secondary">{{ countOrdersList[1] }}</a>
+      </div>
+      <div class="analysisDiv" matLine (click)="search='ORDER_DELIVERY'">
+        Заказов доставляется:<a class="text-warning"> {{ countOrdersList[2] }}</a>
+      </div>
+      <div class="analysisDiv" matLine (click)="search='ORDER_DELIVERED'">
+        Заказов доставлено: <a class="text-success">{{ countOrdersList[3] }}</a>
+      </div>
+      <div class="analysisDiv" matLine (click)="search='ORDER_CANCELLED'">
+        Заказов отменено: <a class="text-danger">{{ countOrdersList[4] }}</a>
       </div>
     </div>
-  </body>
+    <div class="layer2 col-12 col-md-7 col-lg-9">
+      <div class="insideLayer2" *ngFor="let item of items | filterOrder: search">
+        <mat-card>
+          <mat-card-content>
+            <div matLine>
+              <div>
+                <h1>ID заказа: {{ item.id }}</h1>
+                <div class="float-right">
+                  <button
+                    class="btn-sm btn btn-outline-danger"
+                    mat-icon-button
+                    (click)="openDialogDeleteOrder(item)"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div matLine>Время создания: {{ item.createdAt * 1000 | date: 'dd.MM.yyyy HH:mm' }}</div>
+            <div matLine>Телефон: {{ item.phone }}</div>
+            <div matLine>
+              Статус заказа: {{ item.status }}
+              <div class="float-right">
+                <button mat-icon-button class="align-middle btn-sm btn center-block" (click)="openDialog(item)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div matLine>Сумма заказа: {{ item.check }}</div>
+
+
+            <div matLine>
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header class="bg-secondary">
+                    <mat-panel-title class="text-white">
+                      Адрес
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="forBorder" matLine>Город: {{ item.address.city }}</div>
+                  <div class="forBorder" matLine>Улица: {{ item.address.street }}</div>
+                  <div class="forBorder" matLine>Дом: {{ item.address.house }}</div>
+                  <div class="forBorder" matLine *ngIf="item.address.flat != null">
+                    Квартира: {{ item.address.flat }}
+                  </div>
+                  <div class="forBorder" matLine *ngIf="item.address.entrance != null">
+                    Подъезд: {{ item.address.entrance }}
+                  </div>
+                  <div class="forBorder" matLine *ngIf="item.address.floor != null">
+                    Этаж: {{ item.address.floor }}
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+            <div matLine>
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class=" text-white">
+                      Состав заказа
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-panel-description>
+                    <div matLine>
+                      <div *ngFor="let dish of item.listOfDishes">
+                        <div class="forBorder" matLine>
+                          Количество: {{ dish.count }}, ID позиции: {{ dish.dishId }}
+                        </div>
+                      </div>
+                    </div>
+                  </mat-panel-description>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
 </html>

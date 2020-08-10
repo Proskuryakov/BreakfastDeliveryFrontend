@@ -22,6 +22,8 @@ export class DeleteOrderDialogAdminDialog implements OnInit {
       const url = 'http://127.0.0.1:8080/api/orders/' + this.idOrder;
       this.http.delete<boolean>(url).subscribe(
         (res) => {
+          // tslint:disable-next-line:no-console
+          console.info(res);
           if (res) {
             this.click = false;
             this.clickBtn = true;
