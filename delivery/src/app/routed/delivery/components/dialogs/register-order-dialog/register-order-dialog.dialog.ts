@@ -5,6 +5,7 @@ import { OrderRegistrationSuccessDialogDialog } from '../order-registration-succ
 import { DataService } from '../../../../../data.service';
 import { RegisterOrderDataModel, RegisterOrderInputModel } from '../../../../../features/orders/models/order.model';
 import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
+import { CookieService } from 'ngx-cookie-service';
 
 interface RegisterOrderFormValue {
   phone: string;
@@ -23,12 +24,13 @@ interface RegisterOrderFormValue {
 })
 export class RegisterOrderDialogDialog implements OnInit {
   phone = '';
-  city = '';
   street = '';
   house = '';
   flat = '';
   entrance = '';
   floor = '';
+
+  city = '';
 
   loading = false;
 
@@ -37,6 +39,7 @@ export class RegisterOrderDialogDialog implements OnInit {
     private readonly dialog: MatDialog,
     private readonly dataService: DataService,
     private readonly ordersApiService: OrdersApiService,
+    private cookieService: CookieService,
     @Inject(MAT_DIALOG_DATA)
     public data: RegisterOrderDataModel,
     private readonly dialogRef: MatDialogRef<RegisterOrderDialogDialog, boolean>
@@ -50,7 +53,7 @@ export class RegisterOrderDialogDialog implements OnInit {
       userId: this.dataService.getUserId(),
       phone: value.phone,
       address: {
-        city: value.city,
+        city: this.cookieService.get('city'),
         street: value.street,
         house: value.house,
         flat: value.flat,

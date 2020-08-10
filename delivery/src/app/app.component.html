@@ -16,8 +16,29 @@
       <div class="space"></div>
       <div fxShow="true" fxHide.lt-md="true" style="margin-left: 25px;">
         <a class="city-toolbar" mat-button
-          ><mat-icon class="toolbar-icon">location_city</mat-icon>Your city: <u>Voronezh</u></a
-        >
+          ><mat-icon class="toolbar-icon">location_city</mat-icon>
+          <mat-form-field floatLabel="never" style="width: 135px;">
+            <u
+              ><mat-select [formControl]="cityCtrl" placeholder="{{ getPlaceholder() }}" #singleSelect>
+                <mat-option style="width: 135px;">
+                  <ngx-mat-select-search
+                    placeholderLabel="Your city"
+                    noEntriesFoundLabel="No such cities"
+                    [formControl]="cityFilterCtrl"
+                  ></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option
+                  *ngFor="let city of filteredCities | async"
+                  [value]="city"
+                  (focusout)="setCityDataService(city)"
+                >
+                  {{ city }}
+                </mat-option>
+              </mat-select>
+            </u></mat-form-field
+          >
+        </a>
       </div>
       <app-user-menu></app-user-menu>
     </mat-toolbar-row>
@@ -40,8 +61,28 @@
           My Account
         </a>
         <a mat-list-item
-          ><mat-icon class="example-icon">location_city</mat-icon>Your city:
-          <u style="margin-left: 5px;">Voronezh</u></a
+          ><mat-icon class="example-icon">location_city</mat-icon
+          ><mat-form-field floatLabel="never" style="width: 135px;">
+            <u
+              ><mat-select [formControl]="cityCtrl" placeholder="{{ getPlaceholder() }}" #singleSelect>
+                <mat-option style="width: 135px;">
+                  <ngx-mat-select-search
+                    placeholderLabel="Your city"
+                    noEntriesFoundLabel="No such cities"
+                    [formControl]="cityFilterCtrl"
+                  ></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option
+                  *ngFor="let city of filteredCities | async"
+                  [value]="city"
+                  (focusout)="setCityDataService(city)"
+                >
+                  {{ city }}
+                </mat-option>
+              </mat-select>
+            </u></mat-form-field
+          ></a
         >
         <a (click)="sidenav.toggle()" mat-list-item>
           <mat-icon class="example-icon">close</mat-icon>
