@@ -20,21 +20,21 @@ export class DishesApiService {
   constructor(private readonly http: HttpClient, private readonly ordersApiService: OrdersApiService) {}
 
   getDishesFromBasket(userId: number): Observable<DishFromBasketModel[]> {
-    return this.http.get<DishFromBasketModel[]>(`${environment.api}/api/dishesFromBasket/${userId}`);
+    return this.http.get<DishFromBasketModel[]>(`${environment.api}/dishesFromBasket/${userId}`);
   }
 
   getDishFromBasketByDishId(dishIdValue: number, userId: number): Observable<DishFromBasketModel> {
     const input: DishIdDataModel = {
       dishId: dishIdValue
     };
-    return this.http.get<DishFromBasketModel>(`${environment.api}/api/dishesFromBasket/${userId}/${input.dishId}`);
+    return this.http.get<DishFromBasketModel>(`${environment.api}/dishesFromBasket/${userId}/${input.dishId}`);
   }
 
   getDishesFromBasketToDisplay(dishesFromBasket: DishFromBasketModel[]): Observable<DishesFromOrderToDisplayModel[]> {
     return from(dishesFromBasket).pipe(
       mergeMap((dish) =>
         this.http
-          .get<DishesFromOrderToDisplayModel>(`${environment.api}/api/dishes/${dish.dishId}`)
+          .get<DishesFromOrderToDisplayModel>(`${environment.api}/dishes/${dish.dishId}`)
           .pipe(tap((dishToDisplay) => (dishToDisplay.count = dish.count)))
       ),
       toArray()
@@ -47,11 +47,11 @@ export class DishesApiService {
       dishId: dishIdValue,
       userId: userIdValue
     };
-    return this.http.post<DishFromBasketModel>(`${environment.api}/api/dishesFromBasket`, input);
+    return this.http.post<DishFromBasketModel>(`${environment.api}/dishesFromBasket`, input);
   }
 
   clearBasket(userId: number): Observable<DishFromBasketModel> {
-    return this.http.request<DishFromBasketModel>('delete', `${environment.api}/api//dishesFromBasket/${userId}`);
+    return this.http.request<DishFromBasketModel>('delete', `${environment.api}/dishesFromBasket/${userId}`);
   }
 
   deleteDishFromBasket(dishIdValue: number, userIdValue: number): Observable<DishFromBasketModel> {
@@ -59,7 +59,7 @@ export class DishesApiService {
       dishId: dishIdValue,
       userId: userIdValue
     };
-    return this.http.request<DishFromBasketModel>('delete', `${environment.api}/api/dishesFromBasket`, {
+    return this.http.request<DishFromBasketModel>('delete', `${environment.api}/dishesFromBasket`, {
       body: input
     });
   }
@@ -70,11 +70,11 @@ export class DishesApiService {
       userId: userIdValue,
       count: dishCount
     };
-    return this.http.request<DishFromBasketModel>('put', `${environment.api}/api/dishesFromBasket`, { body: input });
+    return this.http.request<DishFromBasketModel>('put', `${environment.api}/dishesFromBasket`, { body: input });
   }
 
   getAllDishes(): Observable<DishModel[]> {
-    return this.http.get<DishModel[]>(`${environment.api}/api/dishes`);
+    return this.http.get<DishModel[]>(`${environment.api}/dishes`);
   }
 
   sortDishesByDishName(a: DishModel, b: DishModel): number {
