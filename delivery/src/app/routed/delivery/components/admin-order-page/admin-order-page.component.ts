@@ -5,6 +5,7 @@ import { UpdateStatusAdminDialogDialog } from '../dialogs/update-status-admin-di
 import { DeleteOrderDialogAdminDialog } from '../dialogs/delete-order-dialog-admin/delete-order-dialog-admin.dialog';
 import { DishModel } from '../../../../features/dishes/models/dish.model';
 import { OrderModel } from '../../../../features/orders/models/order.model';
+import {CreateNewDishDialogDialog} from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
 
 @Component({
   selector: 'app-admin-order-page',
@@ -24,7 +25,8 @@ export class AdminOrderPageComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly updateDialog: MatDialog,
-    private readonly deleteOrderDialog: MatDialog
+    private readonly deleteOrderDialog: MatDialog,
+    private readonly createDishDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +80,10 @@ export class AdminOrderPageComponent implements OnInit {
       }
     });
   }
-
+  openDialogCreateDish(): void {
+    this.createDishDialog.afterAllClosed.subscribe( );
+    this.createDishDialog.open(CreateNewDishDialogDialog   );
+  }
   openDialogDeleteOrder(item: OrderModel): void {
     const idc = item.id;
     const statuss = item.status;

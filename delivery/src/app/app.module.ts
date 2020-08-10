@@ -43,6 +43,7 @@ import { UpdateStatusAdminDialogDialog } from './routed/delivery/components/dial
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminOrderPageComponent } from './routed/delivery/components/admin-order-page/admin-order-page.component';
+import { CreateNewDishDialogDialog } from './routed/delivery/components/dialogs/create-new-dish/create-new-dish-dialog.dialog';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { AdminOrderPageComponent } from './routed/delivery/components/admin-orde
     AdminOrderPageComponent,
     FilterOrderPipe,
     DeleteOrderDialogAdminDialog,
-    UpdateStatusAdminDialogDialog
+    UpdateStatusAdminDialogDialog,
+    CreateNewDishDialogDialog
   ],
   imports: [
     BrowserModule,

@@ -59,6 +59,9 @@
       <div class="analysisDiv" matLine (click)="search='ORDER_CANCELLED'">
         Заказов отменено: <a class="text-danger">{{ countOrdersList[4] }}</a>
       </div>
+      <button type="button" class="btn btn-outline-danger " style="width: 80%; margin: auto; margin-bottom: 20px"  (click)="openDialogCreateDish()">
+        Создать блюдо
+      </button>
     </div>
     <div class="layer2 col-12 col-md-7 col-lg-9">
       <div class="insideLayer2" *ngFor="let item of items | filterOrder: search">
