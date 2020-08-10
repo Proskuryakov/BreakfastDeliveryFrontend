@@ -5,6 +5,7 @@ import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
 import { DishesPage } from './routed/delivery/pages/dishes/dishes.page';
 import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/restaurant-dishes.page';
+import { AccountPage } from './routed/delivery/pages/account/account.page';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'restaurants/:id/dishes',
     component: RestaurantDishesPage
+  },
+  {
+    path: 'account',
+    component: AccountPage
   },
   {
     path: 'auth',
