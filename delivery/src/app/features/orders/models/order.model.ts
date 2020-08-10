@@ -40,3 +40,14 @@ export interface RegisterOrderInputModel {
 export interface RegisterOrderDataModel {
   dishes: DishFromBasketModel[];
 }
+export interface DialogModelUpdateOrderStatus {
+  id: number;
+  status: string;
+}
+export enum StatusesOfOrder {
+  ORDER_IN_PROCESSING = 'ORDER_IN_PROCESSING',
+  ORDER_PREPARING = 'ORDER_PREPARING',
+  ORDER_DELIVERY = 'ORDER_DELIVERY',
+  ORDER_DELIVERED = 'ORDER_DELIVERED',
+  ORDER_CANCELLED = 'ORDER_CANCELLED'
+}

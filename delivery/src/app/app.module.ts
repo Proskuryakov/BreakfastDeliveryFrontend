@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,7 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DishesPage } from './routed/delivery/pages/dishes/dishes.page';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
@@ -35,6 +34,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AllRestaurantsComponent } from './routed/delivery/components/all-restaurants/all-restaurants.component';
 import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/restaurant-dishes.page';
 import { DishesInRestaurantComponent } from './routed/delivery/components/dishes-in-restaurant/dishes-in-restaurant.component';
+import { AdminPage } from './routed/delivery/pages/admin-page/admin-page.component';
+import { FilterOrderPipe } from './features/orders/pipes/filter-order-pipe.pipe';
+import { MatExpansionModule } from '@angular/material/expansion';
+// tslint:disable-next-line:max-line-length
+import { DeleteOrderDialogAdminDialog } from './routed/delivery/components/dialogs/delete-order-dialog-admin/delete-order-dialog-admin.dialog';
+import { UpdateStatusAdminDialogDialog } from './routed/delivery/components/dialogs/update-status-admin-dialog/update-status-admin-dialog.dialog';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { AdminOrderPageComponent } from './routed/delivery/components/admin-order-page/admin-order-page.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +62,12 @@ import { DishesInRestaurantComponent } from './routed/delivery/components/dishes
     OrderStatusPipe,
     AllRestaurantsComponent,
     RestaurantDishesPage,
-    DishesInRestaurantComponent
+    DishesInRestaurantComponent,
+    AdminPage,
+    AdminOrderPageComponent,
+    FilterOrderPipe,
+    DeleteOrderDialogAdminDialog,
+    UpdateStatusAdminDialogDialog
   ],
   imports: [
     BrowserModule,
@@ -75,7 +88,10 @@ import { DishesInRestaurantComponent } from './routed/delivery/components/dishes
     MatProgressBarModule,
     MatTreeModule,
     MatSidenavModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatExpansionModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
