@@ -35,6 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AllRestaurantsComponent } from './routed/delivery/components/all-restaurants/all-restaurants.component';
 import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/restaurant-dishes.page';
 import { DishesInRestaurantComponent } from './routed/delivery/components/dishes-in-restaurant/dishes-in-restaurant.component';
+import { CurrentUserModule } from './features/current-user/current-user.module';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { DishesInRestaurantComponent } from './routed/delivery/components/dishes
     MatProgressBarModule,
     MatTreeModule,
     MatSidenavModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CurrentUserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

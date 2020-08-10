@@ -7,6 +7,11 @@ export const environment = {
   api: 'http://127.0.0.1:8080'
 };
 
+export const environmentUsers = {
+  production: false,
+  api: '/api'
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

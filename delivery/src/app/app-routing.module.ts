@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'restaurants/:id/dishes',
     component: RestaurantDishesPage
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./routed/auth/auth.module').then((m) => m.AuthModule)
   }
 ];
 
