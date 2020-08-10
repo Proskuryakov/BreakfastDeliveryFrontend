@@ -16,7 +16,7 @@ export class OrdersApiService {
     return from(dishesFromOrder).pipe(
       mergeMap((dish) =>
         this.http
-          .get<DishesFromOrderToDisplayModel>(`${environment.api}/api/dishes/${dish.dishId}`)
+          .get<DishesFromOrderToDisplayModel>(`${environment.api}/dishes/${dish.dishId}`)
           .pipe(tap((result) => (result.count = dish.count)))
       ),
       toArray()
@@ -24,10 +24,10 @@ export class OrdersApiService {
   }
 
   getOrderByUserId(userId: number): Observable<OrderModel> {
-    return this.http.get<OrderModel>(`${environment.api}/api/orders/byUserId/${userId}`);
+    return this.http.get<OrderModel>(`${environment.api}/orders/byUserId/${userId}`);
   }
 
   createOrder(input: RegisterOrderInputModel): Observable<RegisterOrderInputModel> {
-    return this.http.post<RegisterOrderInputModel>(`${environment.api}/api/orders`, input);
+    return this.http.post<RegisterOrderInputModel>(`${environment.api}/orders`, input);
   }
 }

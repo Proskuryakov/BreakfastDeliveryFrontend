@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title class="list-title">{{ dataService.getUsername() }}</mat-card-title>
+    <mat-card-subtitle
+      >Role:
+      {{ dataService.getRole() }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list
+      ><mat-list>
+        <span class="list-title">Personal info:</span>
+        <mat-list-item>First name: {{ dataService.getPersonalInfo().firstName }}</mat-list-item>
+        <mat-list-item>Last name: {{ dataService.getPersonalInfo().lastName }}</mat-list-item>
+        <mat-list-item>Email: {{ dataService.getPersonalInfo().email }}</mat-list-item>
+        <mat-list-item>Phone: {{ dataService.getPersonalInfo().phone }}</mat-list-item>
+      </mat-list>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
