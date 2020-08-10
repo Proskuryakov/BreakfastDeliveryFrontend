@@ -78,7 +78,7 @@ export class DishesApiService {
   }
 
   getDishesInRestaurant(restaurantId: number): Observable<DishModel[]> {
-    return this.http.get<DishModel[]>(`${environment.api}/api/restaurants/${restaurantId}/dishes`);
+    return this.http.get<DishModel[]>(`${environment.api}/restaurants/${restaurantId}/dishes`);
   }
 
   sortDishesByDishName(a: DishModel, b: DishModel): number {

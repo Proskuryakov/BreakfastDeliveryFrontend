@@ -11,10 +11,10 @@ export class RestaurantsApiService {
   constructor(private readonly http: HttpClient) {}
 
   getAllRestaurants(): Observable<RestaurantModel[]> {
-    return this.http.get<RestaurantModel[]>(`${environment.api}/api/restaurants`);
+    return this.http.get<RestaurantModel[]>(`${environment.api}/restaurants`);
   }
 
   getRestaurant(restaurantId: number): Observable<RestaurantModel> {
-    return this.http.get<RestaurantModel>(`${environment.api}/api/restaurants/${restaurantId}`);
+    return this.http.get<RestaurantModel>(`${environment.api}/restaurants/${restaurantId}`);
   }
 }
