@@ -1,7 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Directive, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {DishModel, DishModelForSend, TypesOfDishes} from '../../../../../features/dishes/models/dish.model';
-import {StatusesOfOrder} from "../../../../../features/orders/models/order.model";
+import {
+  DishModel,
+  DishModelForSend,
+  TypesOfDishes
+} from '../../../../../features/dishes/models/dish.model';
+
+import {FilesApiService} from '../../../../../features/files/services/files-api.service';
+
+import {DishesApiService} from '../../../../../features/dishes/services/dishes-api.service';
 
 interface NewDishFromForm {
   dishImage: File;
@@ -11,6 +18,11 @@ interface NewDishFromForm {
   dishName: string;
   dishPrice: number;
 
+}
+
+class ImageSnippet {
+  constructor(public src: string, public file: File) {
+  }
 }
 
 @Component({
@@ -23,7 +35,9 @@ export class CreateNewDishDialogDialog implements OnInit {
   restrantId = '0';
   private imageLink: string | undefined;
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly http: HttpClient,
+              private readonly filesApiService: FilesApiService,
+              private readonly dishesApiService: DishesApiService) {
 
   }
 
@@ -41,50 +55,60 @@ export class CreateNewDishDialogDialog implements OnInit {
 
   }
 
+  // tslint:disable-next-line:typedef no-any
+  processFile(imageInput: any): void {
+    this.dishImage = imageInput.files[0];
+  }
 
-  createNewDish(value: NewDishFromForm): void {
-    console.info(value.dishImage);
-    if (value.dishImage != undefined) {
-      // const formData = new FormData();
-      // formData.append('file', value.dishImage);
-      // const uploadFilee = 'http://127.0.0.1:8080/api/storage/upload';
-      // this.http.post(uploadFilee,  formData  )
-      //   .subscribe(
-      //     (res) => {
-      //       if (res != undefined) {
-      //         this.click = false;
-      //         //  this.imageLink = res;
-      //       }
-      //     }
-      //   );
-      // if (this.imageLink != undefined) {
-      const dishImageNull = 'Пустая ссылка';
-      const input: DishModelForSend = {
-        dishImage: dishImageNull,
-        dishCalories: value.dishCalories,
-        dishCookingTimeMinutes: value.dishCookingTimeMinutes,
-        dishType: value.dishType,
-        mainDishInfo: {
-          dishName: value.dishName,
-          dishPrice: value.dishPrice,
+  createUrl(): void {
+    if (this.dishImage != undefined) {
+      this.filesApiService.uploadFile(this.dishImage).subscribe(
+        (res) => {
+          console.info(res);
         },
-      };
-      const httpOptions2 = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-      const url = 'http://127.0.0.1:8080/api/restaurants/' + this.restrantId + '/dishes';
-      this.http.post<DishModel>(url, input, httpOptions2)
-        .subscribe(
-          (result) => {
-            if (result) {
-              this.click = false;
-              this.createdDish = result;
-              this.currState = 'Позиция успешно создана';
-            } else {
-              this.click = false;
-              this.currState = 'Ошибка создания';
-            }
-          }
-        );
-      //}
+        (err) => {
+          console.info(err);
+          this.imageLink = err.error.text;
+
+        });
     }
   }
+
+  createNewDishBtn(value: NewDishFromForm): void {
+
+    if (this.dishImage != undefined) {
+      this.filesApiService.uploadFile(this.dishImage).subscribe(
+        (res) => {
+        },
+        (err) => {
+          this.imageLink = err.error.text;
+          if (this.imageLink != undefined) {
+            const input: DishModelForSend = {
+              dishImage: this.imageLink,
+              dishCalories: value.dishCalories,
+              dishCookingTimeMinutes: value.dishCookingTimeMinutes,
+              dishType: value.dishType,
+              mainDishInfo: {
+                dishName: value.dishName,
+                dishPrice: value.dishPrice,
+              },
+            };
+            this.dishesApiService.createNewDish('0', input).subscribe(
+              (result) => {
+                if (result != undefined) {
+                  this.click = false;
+                  this.createdDish = result;
+                  this.currState = 'Позиция успешно создана';
+                } else {
+                  this.click = false;
+                  this.currState = 'Ошибка создания';
+                }
+              }
+            );
+          }
+        }
+      );
+    }
+  }
+
 }

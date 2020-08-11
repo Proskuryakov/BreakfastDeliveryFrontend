@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { OrderModel, RegisterOrderInputModel } from '../models/order.model';
-import { from, Observable } from 'rxjs';
-import { mergeMap, tap, toArray } from 'rxjs/operators';
-import { DishesFromOrderToDisplayModel, DishFromOrderModel } from '../../dishes/models/dish.model';
-import { environment } from '../../../../environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {OrderModel, RegisterOrderInputModel} from '../models/order.model';
+import {from, Observable} from 'rxjs';
+import {mergeMap, tap, toArray} from 'rxjs/operators';
+import {DishesFromOrderToDisplayModel, DishFromOrderModel} from '../../dishes/models/dish.model';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersApiService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+  }
 
   getDishesFromOrderToDisplay(dishesFromOrder: DishFromOrderModel[]): Observable<DishesFromOrderToDisplayModel[]> {
     return from(dishesFromOrder).pipe(
@@ -22,7 +23,21 @@ export class OrdersApiService {
       toArray()
     );
   }
-
+  deleteOrderById(orderId: number ): Observable<boolean> {
+     return this.http.delete<boolean>(`${environment.api}/orders/${orderId}` );
+  }
+  getListCountOfCurrentOrders(): Observable<number[]> {
+    return this.http.get<number[]>(`${environment.api}/orders/analysisOfOrders`);
+  }
+  // @ts-ignore
+  // tslint:disable-next-line:no-any
+  putNewStatus(orderId: number, newStatus: string): Observable<OrderModel> {
+    const httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+    return this.http.put<OrderModel>(`${environment.api}/orders/${orderId}`, {status: newStatus}, httpOptions);
+  }
+  getListOfOrders(): Observable<OrderModel[]> {
+    return this.http.get<OrderModel[]>(`${environment.api}/orders`);
+  }
   getOrderByUserId(userId: number): Observable<OrderModel> {
     return this.http.get<OrderModel>(`${environment.api}/orders/byUserId/${userId}`);
   }
@@ -30,4 +45,6 @@ export class OrdersApiService {
   createOrder(input: RegisterOrderInputModel): Observable<RegisterOrderInputModel> {
     return this.http.post<RegisterOrderInputModel>(`${environment.api}/orders`, input);
   }
+
+
 }

@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DialogModelUpdateOrderStatus, StatusesOfOrder } from '../../../../../features/orders/models/order.model';
-
+import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {
+  DialogModelUpdateOrderStatus,
+  StatusesOfOrder
+} from '../../../../../features/orders/models/order.model';
+import {OrdersApiService} from '../../../../../features/orders/services/orders-api.service';
 interface FormValue {
   status: StatusesOfOrder;
 }
@@ -16,14 +18,14 @@ export class UpdateStatusAdminDialogDialog implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogModelUpdateOrderStatus,
     @Inject(MAT_DIALOG_DATA) private readonly input: UpdateStatusAdminDialogDialog,
-    private readonly http: HttpClient,
-    private ref: ChangeDetectorRef
-  ) {}
+    private ref: ChangeDetectorRef,
+    private readonly orderApiService: OrdersApiService
+  ) {
+  }
 
   statuses = Object.keys(StatusesOfOrder) as StatusesOfOrder[];
   status: StatusesOfOrder | undefined;
   idOrder: number = this.data.id;
-
   currentStatus: string = this.data.status;
   nextStage: string | undefined;
   click = false;
@@ -34,21 +36,23 @@ export class UpdateStatusAdminDialogDialog implements OnInit {
 
   changeStatusAuto(newStatus: StatusesOfOrder): void {
     if (this.idOrder != undefined && newStatus != undefined) {
-      const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-      const url = 'http://127.0.0.1:8080/api/orders/' + this.idOrder;
-      this.http
-        .put(url, { status: newStatus }, httpOptions)
+      this.orderApiService.putNewStatus(this.idOrder, newStatus)
         // tslint:disable-next-line:no-console
-        .subscribe((res) => console.info(res));
-    }
-    const ind = this.statuses.indexOf(newStatus as StatusesOfOrder);
-    this.currentStatus = this.statuses[ind];
-    if (ind < this.statuses.length - 2) {
-      this.click = false;
-      this.nextStage = this.statuses[ind + 1];
-    } else {
-      this.click = true;
-      this.nextStage = this.statuses[ind];
+        .subscribe((res) => {
+          // tslint:disable-next-line:no-console
+          console.info(res);
+          if (res != undefined) {
+            const ind = this.statuses.indexOf(newStatus as StatusesOfOrder);
+            this.currentStatus = this.statuses[ind];
+            if (ind < this.statuses.length - 2) {
+              this.click = false;
+              this.nextStage = this.statuses[ind + 1];
+            } else {
+              this.click = true;
+              this.nextStage = this.statuses[ind];
+            }
+          }
+        });
     }
   }
 
@@ -59,7 +63,6 @@ export class UpdateStatusAdminDialogDialog implements OnInit {
 
   nextLevelBtn(): void {
     const ind = this.statuses.indexOf(this.currentStatus as StatusesOfOrder);
-    // console.info(ind + ' currStat- совпадать с 1');
     if (ind < this.statuses.length - 2) {
       const newInd = ind + 1;
       this.changeStatusAuto(this.statuses[newInd]);
@@ -73,7 +76,6 @@ export class UpdateStatusAdminDialogDialog implements OnInit {
     const ind = this.statuses.indexOf(this.currentStatus as StatusesOfOrder);
     // tslint:disable-next-line:no-console
     console.info('ind ' + ind);
-
     if (ind < this.statuses.length - 2) {
       const newInd = ind + 1;
       this.click = false;

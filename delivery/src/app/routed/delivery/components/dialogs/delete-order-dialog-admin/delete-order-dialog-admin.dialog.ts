@@ -1,26 +1,31 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
-import { DialogModelUpdateOrderStatus } from '../../../../../features/orders/models/order.model';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {HttpClient } from '@angular/common/http';
+import {DialogModelUpdateOrderStatus } from '../../../../../features/orders/models/order.model';
+import {OrdersApiService} from '../../../../../features/orders/services/orders-api.service';
 
 @Component({
   templateUrl: './delete-order-dialog-admin.dialog.html',
   styleUrls: ['./delete-order-dialog-admin.dialog.sass']
 })
 export class DeleteOrderDialogAdminDialog implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogModelUpdateOrderStatus, private readonly http: HttpClient) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogModelUpdateOrderStatus,
+              private readonly http: HttpClient,
+              private readonly orderApiService: OrdersApiService) {
+  }
 
   click = true;
   nextStage = '';
   clickBtn = false;
   idOrder: number = this.data.id;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   deleteOrder(): void {
     if (this.idOrder != undefined) {
-      const url = 'http://127.0.0.1:8080/api/orders/' + this.idOrder;
-      this.http.delete<boolean>(url).subscribe(
+
+      this.orderApiService.deleteOrderById(this.idOrder).subscribe(
         (res) => {
           // tslint:disable-next-line:no-console
           console.info(res);
