@@ -23,7 +23,7 @@ export class OrdersApiService {
       toArray()
     );
   }
-  deleteOrderById(orderId: string ): Observable<boolean> {
+  deleteOrderById(orderId: number ): Observable<boolean> {
      return this.http.delete<boolean>(`${environment.api}/orders/${orderId}` );
   }
   getListCountOfCurrentOrders(): Observable<number[]> {
