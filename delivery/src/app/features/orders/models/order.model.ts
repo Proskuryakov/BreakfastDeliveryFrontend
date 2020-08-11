@@ -1,4 +1,4 @@
-import { DishFromBasketModel } from '../../dishes/models/dish.model';
+import {DishFromBasketModel} from '../../dishes/models/dish.model';
 
 export interface OrderModel {
   id: number;
@@ -39,4 +39,15 @@ export interface RegisterOrderInputModel {
 
 export interface RegisterOrderDataModel {
   dishes: DishFromBasketModel[];
+}
+export interface DialogModelUpdateOrderStatus {
+  id: number;
+  status: string;
+}
+export enum StatusesOfOrder {
+  ORDER_IN_PROCESSING = 'ORDER_IN_PROCESSING',
+  ORDER_PREPARING = 'ORDER_PREPARING',
+  ORDER_DELIVERY = 'ORDER_DELIVERY',
+  ORDER_DELIVERED = 'ORDER_DELIVERED',
+  ORDER_CANCELLED = 'ORDER_CANCELLED'
 }
