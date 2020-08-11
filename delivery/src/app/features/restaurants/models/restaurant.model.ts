@@ -12,3 +12,8 @@ export interface RestaurantModel {
   };
   restaurantImage: string;
 }
+
+export interface DialogModelDeleteRestaurant {
+  id: number;
+  name: string;
+}

@@ -17,4 +17,8 @@ export class RestaurantsApiService {
   getRestaurant(restaurantId: number): Observable<RestaurantModel> {
     return this.http.get<RestaurantModel>(`${environment.api}/restaurants/${restaurantId}`);
   }
+
+  deleteRestaurant(restaurantId: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${environment.api}/restaurants/${restaurantId}`);
+  }
 }
