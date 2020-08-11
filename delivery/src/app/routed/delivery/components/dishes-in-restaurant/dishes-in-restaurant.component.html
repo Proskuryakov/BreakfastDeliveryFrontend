@@ -43,7 +43,7 @@
           <span matLine>Price: {{ item.mainDishInfo.dishPrice }}</span>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>
+          <button mat-flat-button color="warn" (click)="handleAddDishToOrderClick(item.id)">
             ADD TO ORDER
           </button>
         </mat-card-actions>
