@@ -1,11 +1,9 @@
+
 import {Component, Directive, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-
 import {FilesApiService} from '../../../../../features/files/services/files-api.service';
-
 import {DishesApiService} from '../../../../../features/dishes/services/dishes-api.service';
 import {DishModel, DishModelForSend, TypesOfDishes} from '../../../../../features/dishes/models/dish.model';
-
 interface NewDishFromForm {
   dishImage: File;
   dishCalories: number;
@@ -13,7 +11,6 @@ interface NewDishFromForm {
   dishType: string;
   dishName: string;
   dishPrice: number;
-
 }
 
 class ImageSnippet {
@@ -31,12 +28,11 @@ export class CreateNewDishDialogDialog implements OnInit {
   restrantId = '0';
   private imageLink: string | undefined;
 
-  constructor(private readonly http: HttpClient,
-              private readonly filesApiService: FilesApiService,
-              private readonly dishesApiService: DishesApiService) {
-
-  }
-
+  constructor(
+    private readonly http: HttpClient,
+    private readonly filesApiService: FilesApiService,
+    private readonly dishesApiService: DishesApiService
+  ) {}
   typesOfDishes = Object.keys(TypesOfDishes) as TypesOfDishes[];
   dishType: TypesOfDishes | undefined;
   dishCookingTimeMinutes = '';
@@ -47,15 +43,14 @@ export class CreateNewDishDialogDialog implements OnInit {
   createdDish: DishModel | undefined;
   dishImage: File | undefined;
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
 
-  // tslint:disable-next-line:typedef no-any
+// tslint:disable-next-line:typedef no-any
   processFile(imageInput: any): void {
     this.dishImage = imageInput.files[0];
   }
-
+  
   createUrl(): void {
     if (this.dishImage != undefined) {
       this.filesApiService.uploadFile(this.dishImage).subscribe(
@@ -72,7 +67,7 @@ export class CreateNewDishDialogDialog implements OnInit {
     }
   }
 
-  createNewDishBtn(value: NewDishFromForm): void {
+createNewDishBtn(value: NewDishFromForm): void {
 
     if (this.dishImage != undefined) {
       this.filesApiService.uploadFile(this.dishImage).subscribe(
@@ -105,7 +100,6 @@ export class CreateNewDishDialogDialog implements OnInit {
             );
           }
         }
-      );
-    }
+      );    }
   }
 }

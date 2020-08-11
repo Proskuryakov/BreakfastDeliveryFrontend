@@ -5,7 +5,7 @@ import { UpdateStatusAdminDialogDialog } from '../dialogs/update-status-admin-di
 import { DeleteOrderDialogAdminDialog } from '../dialogs/delete-order-dialog-admin/delete-order-dialog-admin.dialog';
 import { DishModel } from '../../../../features/dishes/models/dish.model';
 import { OrderModel } from '../../../../features/orders/models/order.model';
-import {CreateNewDishDialogDialog} from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import {CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
 import {DishesApiService} from '../../../../features/dishes/services/dishes-api.service';
 import {OrdersApiService} from '../../../../features/orders/services/orders-api.service';
 

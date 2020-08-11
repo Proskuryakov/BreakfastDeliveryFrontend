@@ -18,7 +18,7 @@ All restaurants:
     <mat-card-content class="restaurant-info">
       <span matLine>Address: {{ item.address.street + ', ' + item.address.building }} </span>
       <span matLine>Work day: {{ item.workingHours.startWorkDay + ' - ' + item.workingHours.endWorkDay }} </span>
-      <mat-card-actions class="button">
+      <mat-card-actions>
         <button mat-button (click)="handleWatchMenuClick(item.id)">
           WATCH MENU
         </button>

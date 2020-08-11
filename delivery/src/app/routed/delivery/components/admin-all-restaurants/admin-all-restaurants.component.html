@@ -1,0 +1,48 @@
+<div class="root-container root-container-mobile-devices">
+  <div class="button-column button-column-mobile-devices">
+    <div>
+      <mat-form-field class="search-form" color="warn" appearance="fill">
+        <mat-label>Search by name</mat-label>
+        <input [(ngModel)]="searchText" matInput />
+      </mat-form-field>
+
+      <button mat-stroked-button class="button" (click)="openCreateRestaurantDialog()">Add new restaurant</button>
+    </div>
+  </div>
+
+  <div class="content-column content-column-mobile-devices">
+    <mat-list class="restaurant-cards-list">
+      <mat-card class="example-card" *ngFor="let item of allRestaurantList | filter: searchText">
+        <mat-card-header>
+          <mat-card-title>
+            {{ item.restaurantName }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ item.restaurantType }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{ item.restaurantImage }}" alt="Photo of a restaurant" />
+        <mat-card-content class="restaurant-info">
+          <span matLine>Address: {{ item.address.street + ', ' + item.address.building }} </span>
+          <span matLine>Work day: {{ item.workingHours.startWorkDay + ' - ' + item.workingHours.endWorkDay }} </span>
+          <mat-card-actions>
+            <div class="buttons-on-card">
+              <button mat-button (click)="handleUpdateRestaurantClick(item.id)">
+                UPDATE
+              </button>
+              <button type="button" mat-button (click)="handleDeleteRestaurantClick(item.id, item.restaurantName)">
+                DELETE
+              </button>
+              <button mat-button (click)="handleAddDishClick(item.id)">
+                ADD DISH
+              </button>
+              <button mat-button (click)="handleWatchMenuClick(item.id)">
+                WATCH MENU
+              </button>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+    </mat-list>
+  </div>
+</div>
