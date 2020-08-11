@@ -1,4 +1,5 @@
 export class DataService {
+  private city = '';
   private userId = 1;
   private username = 'login1';
   private role = 'user';
@@ -39,5 +40,13 @@ export class DataService {
 
   setPersonalInfo(value: { firstName: string; lastName: string; phone: string; email: string }): void {
     this.personalInfo = value;
+  }
+
+  getCity(): string {
+    return this.city;
+  }
+
+  setCity(value: string): void {
+    this.city = value;
   }
 }
