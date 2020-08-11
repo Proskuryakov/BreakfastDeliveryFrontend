@@ -48,6 +48,7 @@ import { CreateNewDishDialogDialog } from './routed/delivery/components/dialogs/
 import { CurrentUserModule } from './features/current-user/current-user.module';
 import { AccountPage } from './routed/delivery/pages/account/account.page';
 import { AccountInfoComponent } from './routed/delivery/components/account-info/account-info.component';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -79,33 +80,33 @@ import { AccountInfoComponent } from './routed/delivery/components/account-info/
     AccountPage,
     AccountInfoComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatListModule,
-    MatCardModule,
-    Ng2SearchPipeModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    MatProgressBarModule,
-    MatTreeModule,
-    MatSidenavModule,
-    FlexLayoutModule,
-    CurrentUserModule,
-    NgxMatSelectSearchModule,
-    FlexLayoutModule,
-    MatExpansionModule,
-    MatOptionModule,
-    MatSelectModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatListModule,
+        MatCardModule,
+        Ng2SearchPipeModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatProgressBarModule,
+        MatTreeModule,
+        MatSidenavModule,
+        FlexLayoutModule,
+        CurrentUserModule,
+        FlexLayoutModule,
+        MatExpansionModule,
+        MatOptionModule,
+        MatSelectModule,
+        NgxMatSelectSearchModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
