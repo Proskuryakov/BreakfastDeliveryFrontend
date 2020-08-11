@@ -48,7 +48,7 @@ import { CreateNewDishDialogDialog } from './routed/delivery/components/dialogs/
 import { CurrentUserModule } from './features/current-user/current-user.module';
 import { AccountPage } from './routed/delivery/pages/account/account.page';
 import { AccountInfoComponent } from './routed/delivery/components/account-info/account-info.component';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
 
 @NgModule({
   declarations: [
