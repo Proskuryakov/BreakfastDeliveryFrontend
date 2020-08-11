@@ -29,10 +29,8 @@ export enum TypesOfDishes {
   DESSERT = 'DESSERT',
   PIZZA = 'PIZZA',
   SUSHI = 'SUSHI',
-  BAKERY = 'BAKERY',
-
+  BAKERY = 'BAKERY'
 }
-
 
 export interface DeleteOrAddDishToOrderDialogDataModel {
   dishId: number;

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {DishModel, DishModelForSend, TypesOfDishes} from '../../../../../features/dishes/models/dish.model';
-import {StatusesOfOrder} from "../../../../../features/orders/models/order.model";
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DishModel, DishModelForSend, TypesOfDishes } from '../../../../../features/dishes/models/dish.model';
+import { StatusesOfOrder } from '../../../../../features/orders/models/order.model';
 
 interface NewDishFromForm {
   dishImage: File;
@@ -10,7 +10,6 @@ interface NewDishFromForm {
   dishType: string;
   dishName: string;
   dishPrice: number;
-
 }
 
 @Component({
@@ -23,9 +22,7 @@ export class CreateNewDishDialogDialog implements OnInit {
   restrantId = '0';
   private imageLink: string | undefined;
 
-  constructor(private readonly http: HttpClient) {
-
-  }
+  constructor(private readonly http: HttpClient) {}
 
   typesOfDishes = Object.keys(TypesOfDishes) as TypesOfDishes[];
   dishType: TypesOfDishes | undefined;
@@ -37,13 +34,9 @@ export class CreateNewDishDialogDialog implements OnInit {
   createdDish: DishModel | undefined;
   dishImage: File | undefined;
 
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 
   createNewDish(value: NewDishFromForm): void {
-    console.info(value.dishImage);
     if (value.dishImage != undefined) {
       // const formData = new FormData();
       // formData.append('file', value.dishImage);
@@ -66,25 +59,22 @@ export class CreateNewDishDialogDialog implements OnInit {
         dishType: value.dishType,
         mainDishInfo: {
           dishName: value.dishName,
-          dishPrice: value.dishPrice,
-        },
+          dishPrice: value.dishPrice
+        }
       };
-      const httpOptions2 = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+      const httpOptions2 = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
       const url = 'http://127.0.0.1:8080/api/restaurants/' + this.restrantId + '/dishes';
-      this.http.post<DishModel>(url, input, httpOptions2)
-        .subscribe(
-          (result) => {
-            if (result) {
-              this.click = false;
-              this.createdDish = result;
-              this.currState = 'Позиция успешно создана';
-            } else {
-              this.click = false;
-              this.currState = 'Ошибка создания';
-            }
-          }
-        );
-      //}
+      this.http.post<DishModel>(url, input, httpOptions2).subscribe((result) => {
+        if (result) {
+          this.click = false;
+          this.createdDish = result;
+          this.currState = 'Позиция успешно создана';
+        } else {
+          this.click = false;
+          this.currState = 'Ошибка создания';
+        }
+      });
+      // }
     }
   }
 }
