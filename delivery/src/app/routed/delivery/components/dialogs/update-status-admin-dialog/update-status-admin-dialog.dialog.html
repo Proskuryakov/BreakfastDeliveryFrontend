@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <h1 mat-dialog-title style="text-align: center;">
+      Обновить статус
+      <mat-icon style="float: right;" mat-dialog-close="undefined">close</mat-icon>
+    </h1>
+    <div style="width: 650px;">
+      <div style="width: 50%; float: left;" class="currDiv alert alert-secondary" role="alert">
+        <p>
+          ID заказа: {{idOrder}}
+        </p>
+        <div matLine>
+          Текущий статус: {{currentStatus}}
+        </div>
+        <div [hidden]="click">
+          Следующий этап: {{nextStage}}
+        </div>
+      </div>
+      <div>
+        <form #form="ngForm">
+          <mat-dialog-content>
+            <mat-form-field appearance="fill">
+              <mat-label>Статус</mat-label>
+              <mat-select [(ngModel)]="status" name="status">
+                <option value=""></option>
+                <mat-option *ngFor="let status of statuses" [value]="status">
+                  {{status}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-dialog-content>
+        </form>
+      </div>
+      <div style="float: left;">
+        <mat-dialog-actions class="mda">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            [disabled]="status==undefined"
+            (click)="handleSaveCLick(form.value)"
+          >
+            Отправить выбранный статус
+          </button>
+          <button type="button" class="btn btn-outline-info" [disabled]="click" (click)="nextLevelBtn()">
+            Отправить статус по умолчанию
+          </button>
+        </mat-dialog-actions>
+      </div>
+    </div>
+  </body>
+</html>

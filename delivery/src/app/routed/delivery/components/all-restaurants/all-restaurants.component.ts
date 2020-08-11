@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Restaurant } from '../../models/restaurant.model';
+import { RestaurantModel } from '../../../../features/restaurants/models/restaurant.model';
+import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
 
 @Component({
   selector: 'app-all-restaurants',
@@ -12,21 +13,21 @@ export class AllRestaurantsComponent implements OnInit {
   // tslint:disable-next-line:no-any
   searchText: any;
 
-  allRestaurantList: Restaurant[] = [];
+  allRestaurantList: RestaurantModel[] = [];
 
-  constructor(private readonly http: HttpClient, private router: Router) {}
+  constructor(
+    private readonly http: HttpClient,
+    private router: Router,
+    private readonly restaurantsApiService: RestaurantsApiService
+  ) {}
 
   ngOnInit(): void {
-    this.refreshLists();
-  }
-
-  private refreshLists(): void {
-    this.http.get<Restaurant[]>('http://127.0.0.1:8080/api/restaurants').subscribe((result) => {
+    this.restaurantsApiService.getAllRestaurants().subscribe((result) => {
       this.allRestaurantList = result;
     });
   }
 
   handleWatchMenuClick(id: number): void {
-    this.router.navigateByUrl('/restaurants/' + id + '/dishes');
+    this.router.navigateByUrl(`/restaurants/${id}/dishes`);
   }
 }

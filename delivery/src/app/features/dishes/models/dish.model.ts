@@ -10,6 +10,29 @@ export interface DishModel {
     dishPrice: number;
   };
 }
+export interface DishModelForSend {
+  dishCalories: number;
+  dishCookingTimeMinutes: number;
+  dishType: string;
+  dishImage: string;
+  mainDishInfo: {
+    dishName: string;
+    dishPrice: number;
+  };
+}
+
+export enum TypesOfDishes {
+  DRINK = 'DRINK',
+  MAIN = 'MAIN',
+  SALAD = 'SALAD',
+  BURGER = 'BURGER',
+  DESSERT = 'DESSERT',
+  PIZZA = 'PIZZA',
+  SUSHI = 'SUSHI',
+  BAKERY = 'BAKERY',
+
+}
+
 
 export interface DeleteOrAddDishToOrderDialogDataModel {
   dishId: number;

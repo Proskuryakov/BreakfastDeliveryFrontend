@@ -77,6 +77,10 @@ export class DishesApiService {
     return this.http.get<DishModel[]>(`${environment.api}/dishes`);
   }
 
+  getDishesInRestaurant(restaurantId: number): Observable<DishModel[]> {
+    return this.http.get<DishModel[]>(`${environment.api}/restaurants/${restaurantId}/dishes`);
+  }
+
   sortDishesByDishName(a: DishModel, b: DishModel): number {
     const nameA = a.mainDishInfo.dishName.toLowerCase();
     const nameB = b.mainDishInfo.dishName.toLowerCase();
