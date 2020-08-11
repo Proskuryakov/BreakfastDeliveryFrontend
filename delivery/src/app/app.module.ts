@@ -48,8 +48,11 @@ import { CreateNewDishDialogDialog } from './routed/delivery/components/dialogs/
 import { CurrentUserModule } from './features/current-user/current-user.module';
 import { AccountPage } from './routed/delivery/pages/account/account.page';
 import { AccountInfoComponent } from './routed/delivery/components/account-info/account-info.component';
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AdminRestaurantsPage } from './routed/delivery/pages/admin-restaurants/admin-restaurants.page';
+import { AdminAllRestaurantsComponent } from './routed/delivery/components/admin-all-restaurants/admin-all-restaurants.component';
+import { CreateNewRestaurantDialog } from './routed/delivery/components/dialogs/create-new-restaurant/create-new-restaurant.dialog';
+import { DeleteRestaurantDialog } from './routed/delivery/components/dialogs/delete-restaurant/delete-restaurant.dialog';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,11 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
     CreateNewDishDialogDialog,
     DishesInRestaurantComponent,
     AccountPage,
-    AccountInfoComponent
+    AccountInfoComponent,
+    AdminRestaurantsPage,
+    AdminAllRestaurantsComponent,
+    CreateNewRestaurantDialog,
+    DeleteRestaurantDialog
   ],
     imports: [
         BrowserModule,
