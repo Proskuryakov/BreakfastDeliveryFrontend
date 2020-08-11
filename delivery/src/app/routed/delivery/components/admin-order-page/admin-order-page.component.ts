@@ -6,6 +6,8 @@ import { DeleteOrderDialogAdminDialog } from '../dialogs/delete-order-dialog-adm
 import { DishModel } from '../../../../features/dishes/models/dish.model';
 import { OrderModel } from '../../../../features/orders/models/order.model';
 import {CreateNewDishDialogDialog} from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import {DishesApiService} from '../../../../features/dishes/services/dishes-api.service';
+import {OrdersApiService} from '../../../../features/orders/services/orders-api.service';
 
 @Component({
   selector: 'app-admin-order-page',
