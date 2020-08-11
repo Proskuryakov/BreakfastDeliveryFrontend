@@ -39,10 +39,10 @@ export class CreateNewDishDialogDialog implements OnInit {
 
   typesOfDishes = Object.keys(TypesOfDishes) as TypesOfDishes[];
   dishType: TypesOfDishes | undefined;
-  dishCookingTimeMinutes = '56';
-  dishPrice = 56;
-  dishName = 'профитроли';
-  dishCalories = 410;
+  dishCookingTimeMinutes = '';
+  dishPrice = '';
+  dishName = '';
+  dishCalories = '';
   hidden = true;
   createdDish: DishModel | undefined;
   dishImage: File | undefined;
