@@ -1,4 +1,4 @@
-import {DishFromBasketModel} from '../../dishes/models/dish.model';
+import { DishFromBasketModel } from '../../dishes/models/dish.model';
 
 export interface OrderModel {
   id: number;

@@ -110,5 +110,4 @@ export class CreateNewDishDialogDialog implements OnInit {
       );
     }
   }
-
 }

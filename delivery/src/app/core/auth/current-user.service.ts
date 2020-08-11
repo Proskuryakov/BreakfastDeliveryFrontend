@@ -62,23 +62,23 @@ export class CurrentUserService {
     ) as Observable<void>;
   }
 
-  login(username: string, password: string): Observable<void> {
-    const form = new HttpParams({
+  login(usernameValue: string, passwordValue: string): Observable<void> {
+    /*const form = new HttpParams({
       fromObject: {
         username,
         password
       }
-    });
+    });*/
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/form-data'
     });
 
-    return this.http
-      .post<void>(`http://127.0.0.1:8080/api/auth/login`, form.toString(), {
-        headers
-      })
-      .pipe(switchMap(() => this.refreshCurrentUser()));
+    return this.http.post<void>(`${environmentUsers.api}/auth/login`, {
+      username: usernameValue,
+      password: passwordValue
+    });
+    // .pipe(switchMap(() => this.refreshCurrentUser()));
   }
 
   logout(): Observable<void> {

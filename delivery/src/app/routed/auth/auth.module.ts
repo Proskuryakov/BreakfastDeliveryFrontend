@@ -7,10 +7,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterPage } from './pages/register/register.page';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
-  declarations: [LoginPage],
+  declarations: [LoginPage, RegisterPage],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatStepperModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule {}

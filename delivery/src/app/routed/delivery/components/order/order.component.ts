@@ -75,6 +75,11 @@ export class OrderComponent implements OnInit {
               this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);
               this.orderApiService.getOrderByUserId(this.dataService.getUserId()).subscribe((orderResult) => {
                 this.order = orderResult;
+                this.dishesFromOrder = orderResult.listOfDishes;
+                this.order.createdAt = String(Number(this.order.createdAt) * 1000);
+                this.orderApiService.getDishesFromOrderToDisplay(this.dishesFromOrder).subscribe((resultDishes) => {
+                  this.dishesFromOrderToDisplay = resultDishes.sort(this.dishesApiService.sortDishesByDishName);
+                });
               });
             });
           });
