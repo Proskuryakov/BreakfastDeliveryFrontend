@@ -72,10 +72,10 @@ export class AppComponent implements OnInit {
   }
 
   getPlaceholder(): string {
-    if (this.cookieValue !== undefined) {
-      return this.cookieValue;
-    } else {
+    if (this.cookieValue === undefined || this.cookieValue === '') {
       return 'Your city';
+    } else {
+      return this.cookieValue;
     }
   }
 }

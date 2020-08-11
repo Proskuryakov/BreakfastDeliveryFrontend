@@ -74,11 +74,8 @@ export class CurrentUserService {
       'Content-Type': 'application/form-data'
     });
 
-    return this.http
-      .post<void>(`http://127.0.0.1:8080/api/auth/login`, form.toString(), {
-        headers
-      })
-      .pipe(switchMap(() => this.refreshCurrentUser()));
+    return this.http.post<void>(`http://127.0.0.1:8080/api/auth/login`, form.toString());
+    // .pipe(switchMap(() => this.refreshCurrentUser()));
   }
 
   logout(): Observable<void> {
