@@ -25,7 +25,7 @@ export class DishesApiService {
 
   createNewDish(restrantId: string, dishModel: DishModelForSend): Observable<DishModel> {
     const httpOptions2 = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-console.info('beeeeeeeee')
+
     return this.http.post<DishModel>(`${environment.api}/restaurants/${restrantId}/dishes`, dishModel, httpOptions2);
   }
   getDishByDishId(dishId: string): Observable<DishModel> {
