@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,6 +45,9 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminOrderPageComponent } from './routed/delivery/components/admin-order-page/admin-order-page.component';
 import { CreateNewDishDialogDialog } from './routed/delivery/components/dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import { CurrentUserModule } from './features/current-user/current-user.module';
+import { AccountPage } from './routed/delivery/pages/account/account.page';
+import { AccountInfoComponent } from './routed/delivery/components/account-info/account-info.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +73,10 @@ import { CreateNewDishDialogDialog } from './routed/delivery/components/dialogs/
     FilterOrderPipe,
     DeleteOrderDialogAdminDialog,
     UpdateStatusAdminDialogDialog,
-    CreateNewDishDialogDialog
+    CreateNewDishDialogDialog,
+    DishesInRestaurantComponent,
+    AccountPage,
+    AccountInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +97,8 @@ import { CreateNewDishDialogDialog } from './routed/delivery/components/dialogs/
     MatProgressBarModule,
     MatTreeModule,
     MatSidenavModule,
+    FlexLayoutModule,
+    CurrentUserModule,
     FlexLayoutModule,
     MatExpansionModule,
     MatOptionModule,

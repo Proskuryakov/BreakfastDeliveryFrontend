@@ -5,6 +5,7 @@ import { OrderPage } from './routed/delivery/pages/order/order.page';
 import { RestaurantsPage } from './routed/delivery/pages/restaurants/restaurants.page';
 import { DishesPage } from './routed/delivery/pages/dishes/dishes.page';
 import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/restaurant-dishes.page';
+import { AccountPage } from './routed/delivery/pages/account/account.page';
 import { AdminPage } from './routed/delivery/pages/admin-page/admin-page.component';
 
 const routes: Routes = [
@@ -31,6 +32,14 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminPage
+  },
+  {
+    path: 'account',
+    component: AccountPage
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./routed/auth/auth.module').then((m) => m.AuthModule)
   }
 ];
 
