@@ -100,8 +100,7 @@ import { AccountInfoComponent } from './routed/delivery/components/account-info/
     MatSidenavModule,
     FlexLayoutModule,
     CurrentUserModule,
-    NgxMatSelectSearchModule,
-    FlexLayoutModule,
+     FlexLayoutModule,
     MatExpansionModule,
     MatOptionModule,
     MatSelectModule
