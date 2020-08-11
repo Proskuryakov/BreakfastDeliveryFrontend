@@ -1,14 +1,10 @@
 import {Component, Directive, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {
-  DishModel,
-  DishModelForSend,
-  TypesOfDishes
-} from '../../../../../features/dishes/models/dish.model';
 
 import {FilesApiService} from '../../../../../features/files/services/files-api.service';
 
 import {DishesApiService} from '../../../../../features/dishes/services/dishes-api.service';
+import {DishModel, DishModelForSend, TypesOfDishes} from '../../../../../features/dishes/models/dish.model';
 
 interface NewDishFromForm {
   dishImage: File;
@@ -64,9 +60,11 @@ export class CreateNewDishDialogDialog implements OnInit {
     if (this.dishImage != undefined) {
       this.filesApiService.uploadFile(this.dishImage).subscribe(
         (res) => {
+          // tslint:disable-next-line:no-console
           console.info(res);
         },
         (err) => {
+          // tslint:disable-next-line:no-console
           console.info(err);
           this.imageLink = err.error.text;
 
