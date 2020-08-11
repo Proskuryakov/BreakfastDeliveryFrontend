@@ -25,7 +25,7 @@ export class DeleteOrderDialogAdminDialog implements OnInit {
   deleteOrder(): void {
     if (this.idOrder != undefined) {
 
-      this.orderApiService.deleteOrderById(this.idOrder).subscribe(
+      this.orderApiService.deleteOrderById(this.idOrder.toString()).subscribe(
         (res) => {
           // tslint:disable-next-line:no-console
           console.info(res);
