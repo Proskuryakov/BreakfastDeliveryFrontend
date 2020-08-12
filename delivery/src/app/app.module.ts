@@ -55,6 +55,8 @@ import { CreateNewRestaurantDialog } from './routed/delivery/components/dialogs/
 import { DeleteRestaurantDialog } from './routed/delivery/components/dialogs/delete-restaurant/delete-restaurant.dialog';
 import { UpdateRestaurantDialog } from './routed/delivery/components/dialogs/update-restaurant/update-restaurant.dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AdminRestaurantDishesPage } from './routed/delivery/pages/admin-restaurant-dishes/admin-restaurant-dishes.page';
+import { AdminDishesInRestaurantComponent } from './routed/delivery/components/admin-dishes-in-restaurant/admin-dishes-in-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AdminAllRestaurantsComponent,
     CreateNewRestaurantDialog,
     DeleteRestaurantDialog,
-    UpdateRestaurantDialog
+    UpdateRestaurantDialog,
+    AdminRestaurantDishesPage,
+    AdminDishesInRestaurantComponent
   ],
   imports: [
     BrowserModule,

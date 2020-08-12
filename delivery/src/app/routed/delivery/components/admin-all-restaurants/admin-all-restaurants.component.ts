@@ -61,7 +61,7 @@ export class AdminAllRestaurantsComponent implements OnInit {
   }
 
   handleWatchMenuClick(id: number): void {
-    this.router.navigateByUrl(`/restaurants/${id}/dishes`);
+    this.router.navigateByUrl(`/admin/restaurants/${id}/dishes`);
   }
 
   openCreateRestaurantDialog(): void {

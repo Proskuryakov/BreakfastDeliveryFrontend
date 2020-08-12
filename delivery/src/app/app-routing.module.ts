@@ -8,6 +8,7 @@ import { RestaurantDishesPage } from './routed/delivery/pages/restaurant-dishes/
 import { AccountPage } from './routed/delivery/pages/account/account.page';
 import { AdminPage } from './routed/delivery/pages/admin-page/admin-page.component';
 import { AdminRestaurantsPage } from './routed/delivery/pages/admin-restaurants/admin-restaurants.page';
+import { AdminRestaurantDishesPage } from './routed/delivery/pages/admin-restaurant-dishes/admin-restaurant-dishes.page';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'admin/restaurants',
     component: AdminRestaurantsPage
+  },
+  {
+    path: 'admin/restaurants/:id/dishes',
+    component: AdminRestaurantDishesPage
   }
 ];
 

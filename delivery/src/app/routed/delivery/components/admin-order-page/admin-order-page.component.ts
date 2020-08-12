@@ -81,11 +81,6 @@ export class AdminOrderPageComponent implements OnInit {
     });
   }
 
-  openDialogCreateDish(): void {
-    this.createDishDialog.afterAllClosed.subscribe();
-    this.createDishDialog.open(CreateNewDishDialogDialog);
-  }
-
   openDialogDeleteOrder(item: OrderModel): void {
     const idc = item.id;
     const statuss = item.status;

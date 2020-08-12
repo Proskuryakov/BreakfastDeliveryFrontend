@@ -1,0 +1,67 @@
+<div *ngIf="selectedRestaurant != undefined" class="root-container root-container-mobile-devices">
+  <div class="restaurant-column restaurant-column-mobile-devices">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>
+          {{ selectedRestaurant.restaurantName }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ selectedRestaurant.restaurantType }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <img mat-card-image src="{{ selectedRestaurant.restaurantImage }}" alt="Photo of a restaurant" />
+
+      <mat-card-content class="info">
+        <span matLine>
+          Address: {{ selectedRestaurant.address.street }}, {{ selectedRestaurant.address.building }}
+        </span>
+        <span matLine>
+          Work day: {{ selectedRestaurant.workingHours.startWorkDay }} -
+          {{ selectedRestaurant.workingHours.endWorkDay }}
+        </span>
+      </mat-card-content>
+
+      <mat-form-field class="search-form" color="warn" appearance="fill">
+        <mat-label>Search by name</mat-label>
+        <input [(ngModel)]="searchText" matInput />
+      </mat-form-field>
+
+      <button mat-button class="button" (click)="openCreateDishDialog()">
+        ADD DISH
+      </button>
+
+      <button mat-button class="button" (click)="goToRestaurantManagement()">
+        RESTAURANT MANAGEMENT
+      </button>
+    </mat-card>
+  </div>
+
+  <div class="dishes-column dishes-column-mobile-devices">
+    <mat-list class="dish-cards-list">
+      <mat-card class="dish-card" *ngFor="let item of dishesList | filter: searchText">
+        <mat-card-header>
+          <mat-card-title>{{ item.mainDishInfo.dishName }}</mat-card-title>
+          <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
+        <mat-card-content class="info">
+          <span matLine>Calories: {{ item.dishCalories }}</span>
+          <span matLine>Cooking time: {{ item.dishCookingTimeMinutes }} min</span>
+          <span matLine>Price: {{ item.mainDishInfo.dishPrice }}</span>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="buttons-on-card">
+            <button mat-flat-button color="primary">
+              UPDATE
+            </button>
+
+            <button mat-flat-button color="warn">
+              DELETE
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </mat-list>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+.root-container
+  display: flex
+  flex-direction: row
+
+@media screen and (min-width: 960px)
+  .restaurant-column
+    min-width: 30%
+    max-width: 400px
+    margin: 2%
+
+  .dishes-column
+    width: 98%
+    display: flex
+    margin: 2% 2% 2% 0
+
+@media screen and (max-width: 960px)
+  .root-container-mobile-devices
+    flex-direction: column
+
+  .restaurant-column-mobile-devices
+    min-width: 300px
+    max-width: 50%
+    margin: auto
+
+  .dishes-column-mobile-devices
+    display: flex
+    margin: auto
+
+.card
+  margin: 2%
+
+.dish-cards-list
+  display: flex
+  width: 100%
+  flex-direction: row
+  flex-wrap: wrap
+  align-items: center
+  justify-content: center
+
+.dish-card
+  //height: 460px
+  width: 330px
+  margin: 10px 15px
+  background-color: antiquewhite
+
+.info
+  display: flex
+  flex-direction: column
+
+.search-form,
+.button
+  width: 98%
+  margin: 1%
+
+.buttons-on-card
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: space-around

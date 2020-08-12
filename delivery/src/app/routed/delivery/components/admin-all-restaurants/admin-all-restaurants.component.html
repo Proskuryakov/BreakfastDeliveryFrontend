@@ -22,10 +22,8 @@
           </mat-card-subtitle>
         </mat-card-header>
 
-        <div class="image-wrapper">
-          <div class="image">
-            <img src="{{ item.restaurantImage }}" alt="Photo of a restaurant" />
-          </div>
+        <div class="image">
+          <img src="{{ item.restaurantImage }}" alt="Photo of a restaurant" />
         </div>
 
         <mat-card-content class="restaurant-info">
@@ -36,14 +34,14 @@
               <button mat-button (click)="openUpdateRestaurantDialog(item)">
                 UPDATE
               </button>
-              <button type="button" mat-button (click)="openDeleteRestaurantDialog(item.id, item.restaurantName)">
+              <button mat-button (click)="openDeleteRestaurantDialog(item.id, item.restaurantName)">
                 DELETE
               </button>
               <button mat-button (click)="openCreateDishDialog(item.id, item.restaurantName)">
                 ADD DISH
               </button>
               <button mat-button (click)="handleWatchMenuClick(item.id)">
-                WATCH MENU
+                MENU MANAGEMENT
               </button>
             </div>
           </mat-card-actions>
