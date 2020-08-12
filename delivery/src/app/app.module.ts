@@ -59,6 +59,7 @@ import { AdminRestaurantDishesPage } from './routed/delivery/pages/admin-restaur
 import { AdminDishesInRestaurantComponent } from './routed/delivery/components/admin-dishes-in-restaurant/admin-dishes-in-restaurant.component';
 import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/cancel-order-dialog/cancel-order-dialog.dialog';
 import { UpdateDishInfoDialogDialog } from './routed/delivery/components/dialogs/update-dish-info-dialog/update-dish-info-dialog.dialog';
+import { DeleteDishFromRestaurantDialogDialog } from './routed/delivery/components/dialogs/delete-dish-from-restaurant-dialog/delete-dish-from-restaurant-dialog.dialog';
 
 
 @NgModule({
@@ -97,7 +98,8 @@ import { UpdateDishInfoDialogDialog } from './routed/delivery/components/dialogs
     AdminRestaurantDishesPage,
     AdminDishesInRestaurantComponent,
     CancelOrderDialogDialog,
-    UpdateDishInfoDialogDialog
+    UpdateDishInfoDialogDialog,
+    DeleteDishFromRestaurantDialogDialog
   ],
   imports: [
     BrowserModule,

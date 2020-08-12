@@ -84,7 +84,7 @@ export class DishesApiService {
   }
 
   updateDishInfo(updDish: DishModelForUpdateSend, dishId: string): Observable<DishModel> {
-    return this.http.put<DishModel>(`${environment.api}/dishes/${dishId}`,   updDish );
+    return this.http.put<DishModel>(`${environment.api}/dishes/${dishId}`, updDish);
   }
 
   getAllDishes(): Observable<DishModel[]> {
@@ -93,6 +93,11 @@ export class DishesApiService {
 
   getDishesInRestaurant(restaurantId: number): Observable<DishModel[]> {
     return this.http.get<DishModel[]>(`${environment.api}/restaurants/${restaurantId}/dishes`);
+  }
+
+  deleteDishById(dishId: string): Observable<boolean> {
+
+    return this.http.delete<boolean>(`${environment.api}/dishes/${dishId}`);
   }
 
   sortDishesByDishName(a: DishModel, b: DishModel): number {

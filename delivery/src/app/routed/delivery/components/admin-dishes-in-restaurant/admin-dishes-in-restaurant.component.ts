@@ -9,7 +9,8 @@ import {DishesApiService} from '../../../../features/dishes/services/dishes-api.
 import {OrdersApiService} from '../../../../features/orders/services/orders-api.service';
 import {switchMap} from 'rxjs/operators';
 import {CreateNewDishDialogDialog} from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
-import {UpdateDishInfoDialogDialog} from "../dialogs/update-dish-info-dialog/update-dish-info-dialog.dialog";
+import {UpdateDishInfoDialogDialog} from '../dialogs/update-dish-info-dialog/update-dish-info-dialog.dialog';
+import {DeleteDishFromRestaurantDialogDialog} from "../dialogs/delete-dish-from-restaurant-dialog/delete-dish-from-restaurant-dialog.dialog";
 
 @Component({
   selector: 'app-admin-dishes-in-restaurant',
@@ -30,7 +31,8 @@ export class AdminDishesInRestaurantComponent implements OnInit {
     private readonly dataService: DataService,
     private readonly restaurantsApiService: RestaurantsApiService,
     private readonly dishesApiService: DishesApiService,
-    private readonly updateDishDialog: MatDialog
+    private readonly updateDishDialog: MatDialog,
+    private readonly deleteDishDialog: MatDialog
   ) {
   }
 
@@ -67,6 +69,14 @@ export class AdminDishesInRestaurantComponent implements OnInit {
     console.info(dishId);
     this.updateDishDialog.afterAllClosed.subscribe( (data) => this.ngOnInit()) ;
     this.updateDishDialog.open(UpdateDishInfoDialogDialog, {
+      data: {id: dishId.toString()}
+    });
+  }
+  openDeleteDishDialog(dishId: number): void {
+    // tslint:disable-next-line:radix
+    console.info(dishId);
+    this.deleteDishDialog.afterAllClosed.subscribe( (data) => this.ngOnInit()) ;
+    this.deleteDishDialog.open(DeleteDishFromRestaurantDialogDialog, {
       data: {id: dishId.toString()}
     });
   }
