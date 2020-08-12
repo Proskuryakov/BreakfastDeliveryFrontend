@@ -18,12 +18,10 @@ export class DeleteOrderDialogAdminDialog implements OnInit {
   clickBtn = false;
   idOrder: number = this.data.id;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   deleteOrder(): void {
     if (this.idOrder != undefined) {
-
       this.orderApiService.deleteOrderById(this.idOrder.toString()).subscribe(
         (res) => {
           // tslint:disable-next-line:no-console

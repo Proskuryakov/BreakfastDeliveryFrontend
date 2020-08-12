@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../../../data.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-account-info',
@@ -8,7 +9,7 @@ import { DataService } from '../../../../data.service';
   providers: [DataService]
 })
 export class AccountInfoComponent implements OnInit {
-  constructor(readonly dataService: DataService) {}
+  constructor(readonly dataService: DataService, readonly cookieService: CookieService) {}
 
   ngOnInit(): void {}
 }

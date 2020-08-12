@@ -28,7 +28,6 @@ export class DishesApiService {
     const httpOptions2 = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
     return this.http.post<DishModel>(`${environment.api}/restaurants/${restaurantId}/dishes`, dishModel, httpOptions2);
   }
-
   getDishByDishId(dishId: string): Observable<DishModel> {
     return this.http.get<DishModel>(`${environment.api}/dishes/${dishId}`);
   }

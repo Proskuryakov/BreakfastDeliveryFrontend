@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
   }
 
   setCityDataService(value: string): void {
-    this.dataService.setCity(value);
     this.cookieService.set('city', value);
     this.cookieValue = this.cookieService.get('city');
   }
