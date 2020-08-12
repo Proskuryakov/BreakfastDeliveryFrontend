@@ -1,10 +1,7 @@
-import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {
-  DialogModelUpdateOrderStatus,
-  StatusesOfOrder
-} from '../../../../../features/orders/models/order.model';
-import {OrdersApiService} from '../../../../../features/orders/services/orders-api.service';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogModelUpdateOrderStatus, StatusesOfOrder } from '../../../../../features/orders/models/order.model';
+import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
 interface FormValue {
   status: StatusesOfOrder;
 }
@@ -20,8 +17,7 @@ export class UpdateStatusAdminDialogDialog implements OnInit {
     @Inject(MAT_DIALOG_DATA) private readonly input: UpdateStatusAdminDialogDialog,
     private ref: ChangeDetectorRef,
     private readonly orderApiService: OrdersApiService
-  ) {
-  }
+  ) {}
 
   statuses = Object.keys(StatusesOfOrder) as StatusesOfOrder[];
   status: StatusesOfOrder | undefined;
@@ -36,7 +32,8 @@ export class UpdateStatusAdminDialogDialog implements OnInit {
 
   changeStatusAuto(newStatus: StatusesOfOrder): void {
     if (this.idOrder != undefined && newStatus != undefined) {
-      this.orderApiService.putNewStatus(this.idOrder, newStatus)
+      this.orderApiService
+        .putNewStatus(this.idOrder, newStatus)
         // tslint:disable-next-line:no-console
         .subscribe((res) => {
           // tslint:disable-next-line:no-console

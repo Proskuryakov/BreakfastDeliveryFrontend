@@ -5,9 +5,9 @@ import { UpdateStatusAdminDialogDialog } from '../dialogs/update-status-admin-di
 import { DeleteOrderDialogAdminDialog } from '../dialogs/delete-order-dialog-admin/delete-order-dialog-admin.dialog';
 import { DishModel } from '../../../../features/dishes/models/dish.model';
 import { OrderModel } from '../../../../features/orders/models/order.model';
-import {CreateNewDishDialogDialog} from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
-import {DishesApiService} from '../../../../features/dishes/services/dishes-api.service';
-import {OrdersApiService} from '../../../../features/orders/services/orders-api.service';
+import { CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
+import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 
 @Component({
   selector: 'app-admin-order-page',
@@ -31,8 +31,7 @@ export class AdminOrderPageComponent implements OnInit {
     private readonly createDishDialog: MatDialog,
     private readonly orderApiService: OrdersApiService,
     private readonly dishApiService: DishesApiService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.refreshLists();
@@ -45,19 +44,17 @@ export class AdminOrderPageComponent implements OnInit {
     });
   }
 
-
   getDishName(dishId: string): void {
     if (dishId !== undefined && Boolean(dishId)) {
-      this.dishApiService.getDishByDishId(dishId)
-        .subscribe((result) => {
-          if (result != undefined) {
-            this.notFound = true;
-            this.dish = result;
-          } else {
-            this.notFound = false;
-            this.dish = undefined;
-          }
-        });
+      this.dishApiService.getDishByDishId(dishId).subscribe((result) => {
+        if (result != undefined) {
+          this.notFound = true;
+          this.dish = result;
+        } else {
+          this.notFound = false;
+          this.dish = undefined;
+        }
+      });
     } else {
       this.dish = undefined;
       this.notFound = true;

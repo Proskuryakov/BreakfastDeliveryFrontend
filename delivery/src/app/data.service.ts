@@ -1,21 +1,20 @@
 export class DataService {
-  private city = '';
-  private userId = 1;
-  private username = 'login1';
-  private role = 'user';
+  private id = 0;
+  private username = '';
+  private userRole = '';
   private personalInfo = {
-    firstName: 'Alex',
-    lastName: 'Jones',
-    email: 'dea@gmail.com',
-    phone: '79507718178'
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: ''
   };
 
   getUserId(): number {
-    return this.userId;
+    return this.id;
   }
 
   setUserId(value: number): void {
-    this.userId = value;
+    this.id = value;
   }
 
   getUsername(): string {
@@ -27,11 +26,11 @@ export class DataService {
   }
 
   getRole(): string {
-    return this.role;
+    return this.userRole;
   }
 
-  setRole(value: string): void {
-    this.role = value;
+  setUserRole(value: string): void {
+    this.userRole = value;
   }
 
   getPersonalInfo(): { firstName: string; lastName: string; phone: string; email: string } {
@@ -40,13 +39,5 @@ export class DataService {
 
   setPersonalInfo(value: { firstName: string; lastName: string; phone: string; email: string }): void {
     this.personalInfo = value;
-  }
-
-  getCity(): string {
-    return this.city;
-  }
-
-  setCity(value: string): void {
-    this.city = value;
   }
 }

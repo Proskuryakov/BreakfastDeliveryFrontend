@@ -20,14 +20,9 @@ export class LoginPage implements OnInit {
 
   handleFormSubmit(value: LoginFormData): void {
     this.error = false;
-    this.currentUserService.login(value.username, value.password).subscribe(
-      () => {
-        this.router.navigate(['/']);
-      },
-      (error) => {
-        console.error('Error', error);
-        this.error = true;
-      }
-    );
+    this.currentUserService.login(value.username, value.password).subscribe((profile) => {
+      this.currentUserService.refreshCurrentUser(profile);
+      this.router.navigate(['/']);
+    });
   }
 }
