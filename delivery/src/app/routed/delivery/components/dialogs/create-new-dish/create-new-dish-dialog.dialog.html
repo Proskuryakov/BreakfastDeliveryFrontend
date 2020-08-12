@@ -68,7 +68,6 @@
                   <div style="width: 100%; margin-top: 20px; text-align: center;">
                     <img style="width: 80%;" mat-card-image src="{{ createdDish.dishImage }}" />
                   </div>
-
                   <div class="forBorder" matLine>ID позиции: {{ createdDish.id }}</div>
                   <div class="forBorder" matLine>Название: {{ createdDish.mainDishInfo.dishName }}</div>
                   <div class="forBorder" matLine>Стоимость: {{ createdDish.mainDishInfo.dishPrice }}</div>
@@ -79,7 +78,7 @@
               </mat-accordion>
             </div>
           </div>
-          <div [hidden]="hidden" class="alert register-form alert-danger" role="alert">
+          <div [hidden]="!click||hidden" class="alert register-form alert-danger" role="alert">
             Произошла ошибка
           </div>
         </mat-dialog-content>

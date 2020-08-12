@@ -10,7 +10,6 @@ import {OrdersApiService} from '../../../../../features/orders/services/orders-a
 })
 export class DeleteOrderDialogAdminDialog implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogModelUpdateOrderStatus,
-              private readonly http: HttpClient,
               private readonly orderApiService: OrdersApiService) {
   }
 

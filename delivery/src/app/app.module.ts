@@ -58,6 +58,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AdminRestaurantDishesPage } from './routed/delivery/pages/admin-restaurant-dishes/admin-restaurant-dishes.page';
 import { AdminDishesInRestaurantComponent } from './routed/delivery/components/admin-dishes-in-restaurant/admin-dishes-in-restaurant.component';
 import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/cancel-order-dialog/cancel-order-dialog.dialog';
+import { UpdateDishInfoDialogDialog } from './routed/delivery/components/dialogs/update-dish-info-dialog/update-dish-info-dialog.dialog';
 
 
 @NgModule({
@@ -94,8 +95,9 @@ import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/ca
     DeleteRestaurantDialog,
     UpdateRestaurantDialog,
     AdminRestaurantDishesPage,
-    AdminDishesInRestaurantComponent
-    CancelOrderDialogDialog
+    AdminDishesInRestaurantComponent,
+    CancelOrderDialogDialog,
+    UpdateDishInfoDialogDialog
   ],
   imports: [
     BrowserModule,

@@ -1,23 +1,24 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {
   DeleteOrAddDishToOrderDialogDataModel,
   DishesFromOrderToDisplayModel,
   DishFromBasketModel,
   DishIdDataModel,
-  DishModel, DishModelForSend,
+  DishModel, DishModelForSend, DishModelForUpdateSend,
   UpdateDishCountInputModel
 } from '../models/dish.model';
-import { from, Observable } from 'rxjs';
-import { mergeMap, tap, toArray } from 'rxjs/operators';
-import { OrdersApiService } from '../../orders/services/orders-api.service';
-import { environment } from '../../../../environments/environment';
+import {from, Observable} from 'rxjs';
+import {mergeMap, tap, toArray} from 'rxjs/operators';
+import {OrdersApiService} from '../../orders/services/orders-api.service';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishesApiService {
-  constructor(private readonly http: HttpClient, private readonly ordersApiService: OrdersApiService) {}
+  constructor(private readonly http: HttpClient, private readonly ordersApiService: OrdersApiService) {
+  }
 
   getDishesFromBasket(userId: number): Observable<DishFromBasketModel[]> {
     return this.http.get<DishFromBasketModel[]>(`${environment.api}/dishesFromBasket/${userId}`);
@@ -27,6 +28,7 @@ export class DishesApiService {
     const httpOptions2 = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
     return this.http.post<DishModel>(`${environment.api}/restaurants/${restaurantId}/dishes`, dishModel, httpOptions2);
   }
+
   getDishByDishId(dishId: string): Observable<DishModel> {
     return this.http.get<DishModel>(`${environment.api}/dishes/${dishId}`);
   }
@@ -78,7 +80,11 @@ export class DishesApiService {
       userId: userIdValue,
       count: dishCount
     };
-    return this.http.request<DishFromBasketModel>('put', `${environment.api}/dishesFromBasket`, { body: input });
+    return this.http.request<DishFromBasketModel>('put', `${environment.api}/dishesFromBasket`, {body: input});
+  }
+
+  updateDishInfo(updDish: DishModelForUpdateSend, dishId: string): Observable<DishModel> {
+    return this.http.put<DishModel>(`${environment.api}/dishes/${dishId}`,   updDish );
   }
 
   getAllDishes(): Observable<DishModel[]> {
