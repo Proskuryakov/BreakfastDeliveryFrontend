@@ -12,6 +12,7 @@ import {
 } from '../../../../features/dishes/models/dish.model';
 import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
 import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
+import { CancelOrderDialogDialog } from '../dialogs/cancel-order-dialog/cancel-order-dialog.dialog';
 
 @Component({
   selector: 'app-dishes-in-order',
@@ -116,5 +117,18 @@ export class OrderComponent implements OnInit {
         });
       });
     }
+  }
+
+  handleCancelOrderClick(orderId: number): void {
+    const dialogRef = this.dialog.open(CancelOrderDialogDialog);
+    dialogRef.afterClosed().subscribe((dialogResult) => {
+      if (dialogResult === true) {
+        this.orderApiService.putNewStatus(orderId, 'ORDER_CANCELLED').subscribe(() => {
+          if (this.order !== undefined) {
+            this.order.status = 'ORDER_CANCELLED';
+          }
+        });
+      }
+    });
   }
 }

@@ -7,8 +7,16 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-list
-      ><button color="primary" mat-flat-button>Status: {{ order.status | orderStatus }}</button>
+    <mat-list>
+      <ng-container *ngIf="order.status !== 'ORDER_CANCELLED'; else canceled">
+        <button color="primary" mat-flat-button>Status: {{ order.status | orderStatus }}</button>
+        <button color="warn" class="cancel-button" (click)="handleCancelOrderClick(order.id)" mat-flat-button>
+          Cancel
+        </button>
+      </ng-container>
+      <ng-template #canceled
+        ><button color="warn" mat-flat-button>Status: {{ order.status | orderStatus }}</button></ng-template
+      >
       <mat-list-item>Order price: {{ order.check }}</mat-list-item>
       <mat-list-item>Phone: {{ order.phone }}</mat-list-item>
       <mat-list>

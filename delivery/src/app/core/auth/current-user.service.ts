@@ -8,7 +8,7 @@ import { Role } from './role.model';
 
 interface ApiProfile {
   username: string;
-  roles: [Role];
+  role: Role;
 }
 
 export class AnonymousUserImpl implements Anonymous {
@@ -23,12 +23,12 @@ export class CurrentUserImpl implements LoggedUser {
   readonly authenticated: true = true;
   readonly username = this.profile.username;
 
-  private roles: Set<Role> = new Set(this.profile.roles);
+  private role: Role = this.profile.role;
 
   constructor(readonly profile: ApiProfile) {}
 
   hasRole(role: Role): boolean {
-    return this.roles.has(role);
+    return this.role === role;
   }
 }
 
@@ -51,7 +51,7 @@ export class CurrentUserService {
   }
 
   refreshCurrentUser(): Observable<void> {
-    return this.http.get<ApiProfile | undefined>(`${environmentUsers.api}/api/public/profile`).pipe(
+    return this.http.get<ApiProfile | undefined>(`${environmentUsers.api}/user`).pipe(
       tap((profile) => {
         if (profile == undefined) {
           this.user$.next(new AnonymousUserImpl());
@@ -63,17 +63,6 @@ export class CurrentUserService {
   }
 
   login(usernameValue: string, passwordValue: string): Observable<void> {
-    /*const form = new HttpParams({
-      fromObject: {
-        username,
-        password
-      }
-    });*/
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/form-data'
-    });
-
     return this.http.post<void>(`${environmentUsers.api}/auth/login`, {
       username: usernameValue,
       password: passwordValue
