@@ -21,8 +21,9 @@ export class LoginPage implements OnInit {
   handleFormSubmit(value: LoginFormData): void {
     this.error = false;
     this.currentUserService.login(value.username, value.password).subscribe(
-      () => {
+      (profile) => {
         this.router.navigate(['/']);
+        this.currentUserService.getCurrentUser(profile);
       },
       (error) => {
         console.error('Error', error);

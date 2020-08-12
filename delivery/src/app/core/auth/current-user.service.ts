@@ -5,10 +5,16 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environmentUsers } from '../../../environments/environment';
 import { switchMap, tap } from 'rxjs/operators';
 import { Role } from './role.model';
+import { CookieService } from 'ngx-cookie-service';
 
 interface ApiProfile {
+  id: number;
   username: string;
-  role: Role;
+  role: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
 }
 
 export class AnonymousUserImpl implements Anonymous {
@@ -23,7 +29,7 @@ export class CurrentUserImpl implements LoggedUser {
   readonly authenticated: true = true;
   readonly username = this.profile.username;
 
-  private role: Role = this.profile.role;
+  private role: string = this.profile.role;
 
   constructor(readonly profile: ApiProfile) {}
 
@@ -46,7 +52,7 @@ export class CurrentUserImpl implements LoggedUser {
 export class CurrentUserService {
   readonly user$ = new BehaviorSubject<CurrentUser>(new AnonymousUserImpl());
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cookieService: CookieService) {
     console.log('Current User created');
   }
 
@@ -62,12 +68,21 @@ export class CurrentUserService {
     ) as Observable<void>;
   }
 
-  login(usernameValue: string, passwordValue: string): Observable<void> {
-    return this.http.post<void>(`${environmentUsers.api}/auth/login`, {
+  getCurrentUser(profile: ApiProfile): void {
+    this.cookieService.set('id', String(profile.id));
+    this.cookieService.set('username', profile.username);
+    this.cookieService.set('userRole', profile.role);
+    this.cookieService.set('firstName', profile.firstName);
+    this.cookieService.set('lastName', profile.lastName);
+    this.cookieService.set('email', profile.email);
+    this.cookieService.set('phone', profile.phone);
+  }
+
+  login(usernameValue: string, passwordValue: string): Observable<ApiProfile> {
+    return this.http.post<ApiProfile>(`${environmentUsers.api}/auth/login`, {
       username: usernameValue,
       password: passwordValue
     });
-    // .pipe(switchMap(() => this.refreshCurrentUser()));
   }
 
   logout(): Observable<void> {

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   DeleteOrAddDishToOrderDialogDataModel,
   DishesFromOrderToDisplayModel,
   DishFromBasketModel,
   DishIdDataModel,
-  DishModel, DishModelForSend,
+  DishModel,
+  DishModelForSend,
   UpdateDishCountInputModel
 } from '../models/dish.model';
 import { from, Observable } from 'rxjs';
@@ -24,7 +25,7 @@ export class DishesApiService {
   }
 
   createNewDish(restaurantId: number, dishModel: DishModelForSend): Observable<DishModel> {
-    const httpOptions2 = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+    const httpOptions2 = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.post<DishModel>(`${environment.api}/restaurants/${restaurantId}/dishes`, dishModel, httpOptions2);
   }
   getDishByDishId(dishId: string): Observable<DishModel> {

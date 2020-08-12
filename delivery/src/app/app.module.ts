@@ -59,7 +59,6 @@ import { AdminRestaurantDishesPage } from './routed/delivery/pages/admin-restaur
 import { AdminDishesInRestaurantComponent } from './routed/delivery/components/admin-dishes-in-restaurant/admin-dishes-in-restaurant.component';
 import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/cancel-order-dialog/cancel-order-dialog.dialog';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +93,7 @@ import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/ca
     DeleteRestaurantDialog,
     UpdateRestaurantDialog,
     AdminRestaurantDishesPage,
-    AdminDishesInRestaurantComponent
+    AdminDishesInRestaurantComponent,
     CancelOrderDialogDialog
   ],
   imports: [
