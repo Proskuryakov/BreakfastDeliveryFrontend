@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>
+  Are you sure you want to cancel your order?
+</h1>
+
+<mat-dialog-actions>
+  <div class="buttons">
+    <button mat-flat-button color="warn" mat-dialog-close="undefined" (click)="trueResult()">
+      Yes
+    </button>
+    <button mat-button mat-dialog-close="undefined" (click)="falseResult()">
+      No
+    </button>
+  </div>
+</mat-dialog-actions>

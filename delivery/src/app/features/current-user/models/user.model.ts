@@ -4,7 +4,7 @@ export interface RegisterUserInputModel {
   userRole: string;
   personalInfo: {
     firstName: string;
-    lastname: string;
+    lastName: string;
     phone: string;
     email: string;
   };
