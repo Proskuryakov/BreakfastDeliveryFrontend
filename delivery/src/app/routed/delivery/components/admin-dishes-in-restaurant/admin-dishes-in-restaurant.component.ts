@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { DishModel } from '../../../../features/dishes/models/dish.model';
-import { RestaurantModel } from '../../../../features/restaurants/models/restaurant.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../../../../data.service';
-import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
-import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
-import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
-import { switchMap } from 'rxjs/operators';
-import { CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import {Component, OnInit} from '@angular/core';
+import {DishModel} from '../../../../features/dishes/models/dish.model';
+import {RestaurantModel} from '../../../../features/restaurants/models/restaurant.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {DataService} from '../../../../data.service';
+import {RestaurantsApiService} from '../../../../features/restaurants/services/restaurants-api.service';
+import {DishesApiService} from '../../../../features/dishes/services/dishes-api.service';
+import {OrdersApiService} from '../../../../features/orders/services/orders-api.service';
+import {switchMap} from 'rxjs/operators';
+import {CreateNewDishDialogDialog} from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import {UpdateDishInfoDialogDialog} from '../dialogs/update-dish-info-dialog/update-dish-info-dialog.dialog';
+import {DeleteDishFromRestaurantDialogDialog} from "../dialogs/delete-dish-from-restaurant-dialog/delete-dish-from-restaurant-dialog.dialog";
 
 @Component({
   selector: 'app-admin-dishes-in-restaurant',
@@ -28,8 +30,11 @@ export class AdminDishesInRestaurantComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly dataService: DataService,
     private readonly restaurantsApiService: RestaurantsApiService,
-    private readonly dishesApiService: DishesApiService
-  ) {}
+    private readonly dishesApiService: DishesApiService,
+    private readonly updateDishDialog: MatDialog,
+    private readonly deleteDishDialog: MatDialog
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap
@@ -56,6 +61,23 @@ export class AdminDishesInRestaurantComponent implements OnInit {
         id: this.restaurantId,
         name: this.selectedRestaurant?.restaurantName
       }
+    });
+  }
+
+  openUpdateDishDialog(dishId: number): void {
+    // tslint:disable-next-line:radix
+    console.info(dishId);
+    this.updateDishDialog.afterAllClosed.subscribe( (data) => this.ngOnInit()) ;
+    this.updateDishDialog.open(UpdateDishInfoDialogDialog, {
+      data: {id: dishId.toString()}
+    });
+  }
+  openDeleteDishDialog(dishId: number): void {
+    // tslint:disable-next-line:radix
+    console.info(dishId);
+    this.deleteDishDialog.afterAllClosed.subscribe( (data) => this.ngOnInit()) ;
+    this.deleteDishDialog.open(DeleteDishFromRestaurantDialogDialog, {
+      data: {id: dishId.toString()}
     });
   }
 }

@@ -10,7 +10,7 @@
         </mat-card-subtitle>
       </mat-card-header>
 
-      <img mat-card-image src="{{ selectedRestaurant.restaurantImage }}" alt="Photo of a restaurant" />
+      <img mat-card-image src="{{ selectedRestaurant.restaurantImage }}" alt="Photo of a restaurant"/>
 
       <mat-card-content class="info">
         <span matLine>
@@ -24,7 +24,7 @@
 
       <mat-form-field class="search-form" color="warn" appearance="fill">
         <mat-label>Search by name</mat-label>
-        <input [(ngModel)]="searchText" matInput />
+        <input [(ngModel)]="searchText" matInput/>
       </mat-form-field>
 
       <button mat-button class="button" (click)="openCreateDishDialog()">
@@ -44,7 +44,8 @@
           <mat-card-title>{{ item.mainDishInfo.dishName }}</mat-card-title>
           <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
+        <img mat-card-image class="listImage"
+             src="{{ item.dishImage }}" alt="Photo of a burger"/>
         <mat-card-content class="info">
           <span matLine>Calories: {{ item.dishCalories }}</span>
           <span matLine>Cooking time: {{ item.dishCookingTimeMinutes }} min</span>
@@ -52,11 +53,11 @@
         </mat-card-content>
         <mat-card-actions>
           <div class="buttons-on-card">
-            <button mat-flat-button color="primary">
+            <button mat-flat-button color="primary" (click)="openUpdateDishDialog(item.id)">
               UPDATE
             </button>
 
-            <button mat-flat-button color="warn">
+            <button mat-flat-button color="warn" (click)="openDeleteDishDialog(item.id)">
               DELETE
             </button>
           </div>

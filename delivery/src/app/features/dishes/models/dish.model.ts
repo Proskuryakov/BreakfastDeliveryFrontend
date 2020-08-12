@@ -21,6 +21,18 @@ export interface DishModelForSend {
   };
 }
 
+export interface DishModelForUpdateSend {
+  dishCalories?: number;
+  dishCookingTimeMinutes?: number;
+  dishType?: string;
+  dishImage?: string;
+  dishName?: string;
+  dishPrice?: number;
+}
+
+export interface DialogUpdateDIshModel {
+  id: string;
+}
 export enum TypesOfDishes {
   DRINK = 'DRINK',
   MAIN = 'MAIN',

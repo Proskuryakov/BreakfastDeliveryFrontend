@@ -46,21 +46,6 @@ export class CreateNewDishDialogDialog implements OnInit {
     this.dishImage = imageInput.files[0];
   }
 
-  createUrl(): void {
-    if (this.dishImage != undefined) {
-      this.filesApiService.uploadFile(this.dishImage).subscribe(
-        (res) => {
-          // tslint:disable-next-line:no-console
-          console.info(res);
-        },
-        (err) => {
-          // tslint:disable-next-line:no-console
-          console.info(err);
-          this.imageLink = err.error.text;
-        }
-      );
-    }
-  }
 
   createNewDishBtn(value: NewDishFromForm): void {
     if (this.dishImage != undefined) {
@@ -82,10 +67,12 @@ export class CreateNewDishDialogDialog implements OnInit {
             this.dishesApiService.createNewDish(this.data.id, input).subscribe((result) => {
               if (result != undefined) {
                 this.click = false;
+                this.hidden = true;
                 this.createdDish = result;
                 this.currState = 'Позиция успешно создана';
               } else {
-                this.click = false;
+                this.click = true;
+                this.hidden = false;
                 this.currState = 'Ошибка создания';
               }
             });

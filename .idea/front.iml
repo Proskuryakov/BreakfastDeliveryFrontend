@@ -6,6 +6,8 @@
       <excludeFolder url="file://$MODULE_DIR$/delivery/dist" />
       <excludeFolder url="file://$MODULE_DIR$/delivery/tmp" />
     </content>
+       <orderEntry type="library" name="bootstrap" level="application" />
+
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

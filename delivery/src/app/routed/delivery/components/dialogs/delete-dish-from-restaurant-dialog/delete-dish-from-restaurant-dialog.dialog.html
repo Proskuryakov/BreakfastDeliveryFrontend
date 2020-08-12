@@ -1,0 +1,17 @@
+
+<mat-dialog-content>
+  <div style="text-align: center;">
+    <mat-label [hidden]="!click">Удалить позицию? </mat-label>
+  </div>
+  <div class="alert alert-secondary" role="alert" [hidden]="click">
+    Состояние: {{nextStage}}
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button [disabled]="clickBtn" mat-button (click)="deleteDish()">
+    Удалить
+  </button>
+  <button mat-button mat-dialog-close="undefined">
+    Назад
+  </button>
+</mat-dialog-actions>

@@ -36,7 +36,7 @@
           <mat-card-title>{{ item.mainDishInfo.dishName }}</mat-card-title>
           <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
+        <img class="listImage" mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
         <mat-card-content class="info">
           <span matLine>Calories: {{ item.dishCalories }}</span>
           <span matLine>Cooking time: {{ item.dishCookingTimeMinutes }} min</span>
