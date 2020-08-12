@@ -53,6 +53,8 @@ import { AdminRestaurantsPage } from './routed/delivery/pages/admin-restaurants/
 import { AdminAllRestaurantsComponent } from './routed/delivery/components/admin-all-restaurants/admin-all-restaurants.component';
 import { CreateNewRestaurantDialog } from './routed/delivery/components/dialogs/create-new-restaurant/create-new-restaurant.dialog';
 import { DeleteRestaurantDialog } from './routed/delivery/components/dialogs/delete-restaurant/delete-restaurant.dialog';
+import { UpdateRestaurantDialog } from './routed/delivery/components/dialogs/update-restaurant/update-restaurant.dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -85,35 +87,37 @@ import { DeleteRestaurantDialog } from './routed/delivery/components/dialogs/del
     AdminRestaurantsPage,
     AdminAllRestaurantsComponent,
     CreateNewRestaurantDialog,
-    DeleteRestaurantDialog
+    DeleteRestaurantDialog,
+    UpdateRestaurantDialog
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        MatListModule,
-        MatCardModule,
-        Ng2SearchPipeModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatProgressBarModule,
-        MatTreeModule,
-        MatSidenavModule,
-        FlexLayoutModule,
-        CurrentUserModule,
-        FlexLayoutModule,
-        MatExpansionModule,
-        MatOptionModule,
-        MatSelectModule,
-        NgxMatSelectSearchModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatListModule,
+    MatCardModule,
+    Ng2SearchPipeModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatTreeModule,
+    MatSidenavModule,
+    FlexLayoutModule,
+    CurrentUserModule,
+    FlexLayoutModule,
+    MatExpansionModule,
+    MatOptionModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    MatProgressSpinnerModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

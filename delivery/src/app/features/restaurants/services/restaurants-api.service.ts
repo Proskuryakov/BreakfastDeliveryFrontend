@@ -25,4 +25,8 @@ export class RestaurantsApiService {
   createRestaurant(restaurantModel: RestaurantModelForSend): Observable<RestaurantModel> {
     return this.http.post<RestaurantModel>(`${environment.api}/restaurants`, restaurantModel);
   }
+
+  updateRestaurant(restaurantId: number, restaurantModel: RestaurantModelForSend): Observable<RestaurantModel> {
+    return this.http.put<RestaurantModel>(`${environment.api}/restaurants/${restaurantId}`, restaurantModel);
+  }
 }

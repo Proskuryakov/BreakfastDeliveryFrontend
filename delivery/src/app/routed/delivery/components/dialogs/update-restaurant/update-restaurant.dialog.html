@@ -1,45 +1,52 @@
-<div>
-  <div class="header">
-    <h1>New Restaurant</h1>
+<div class="header">
+  <h1>New Restaurant</h1>
 
-    <button mat-icon-button mat-dialog-close="undefined">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
+  <button mat-icon-button mat-dialog-close="undefined">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 
+<mat-dialog-content>
   <div>
-    <form #form="ngForm">
+    <form>
       <div class="dialog-form-content">
+        <img
+          mat-card-xl-image
+          *ngIf="restaurantImageFile == undefined"
+          src="{{ this.data.restaurantImage }}"
+          alt="Photo of a restaurant"
+        />
+
         <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)" />
 
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input type="text" matInput [(ngModel)]="restaurantName" name="restaurantName" required />
+          <input type="text" matInput [(ngModel)]="this.data.restaurantName" name="restaurantName" required />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Street</mat-label>
-          <input type="text" matInput [(ngModel)]="street" name="street" required />
+          <input type="text" matInput [(ngModel)]="this.data.address.street" name="street" required />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Building</mat-label>
-          <input type="text" matInput [(ngModel)]="building" name="building" required />
+          <input type="text" matInput [(ngModel)]="this.data.address.building" name="building" required />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Start work day</mat-label>
-          <input type="time" matInput [(ngModel)]="startWorkDay" name="startWorkDay" required />
+          <input type="time" matInput [(ngModel)]="this.data.workingHours.startWorkDay" name="startWorkDay" required />
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>End work day</mat-label>
-          <input type="time" matInput [(ngModel)]="endWorkDay" name="endWorkDay" required />
+          <input type="time" matInput [(ngModel)]="this.data.workingHours.endWorkDay" name="endWorkDay" required />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Type</mat-label>
-          <mat-select [(ngModel)]="restaurantType" name="restaurantType">
+          <mat-select [(ngModel)]="this.data.restaurantType" name="restaurantType">
             <option value=""></option>
             <mat-option *ngFor="let types of typesOfRestaurants" [value]="types">
               {{types}}
@@ -54,12 +61,11 @@
           mat-dialog-close="undefined"
           color="warn"
           class="create-button"
-          [disabled]=" !form.valid||restaurantType==undefined||restaurantImageFile==undefined "
-          (click)="createNewRestaurant(form.value)"
+          (click)="updateRestaurant()"
         >
-          CREATE
+          UPDATE
         </button>
       </mat-dialog-actions>
     </form>
   </div>
-</div>
+</mat-dialog-content>

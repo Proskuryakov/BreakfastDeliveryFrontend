@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateNewRestaurantDialog } from '../dialogs/create-new-restaurant/create-new-restaurant.dialog';
 import { DeleteRestaurantDialog } from '../dialogs/delete-restaurant/delete-restaurant.dialog';
 import { CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import { UpdateRestaurantDialog } from '../dialogs/update-restaurant/update-restaurant.dialog';
 
 @Component({
   selector: 'app-admin-all-restaurants',
@@ -23,9 +24,7 @@ export class AdminAllRestaurantsComponent implements OnInit {
     private readonly http: HttpClient,
     private router: Router,
     private readonly restaurantsApiService: RestaurantsApiService,
-    private readonly createRestaurantDialog: MatDialog,
-    private readonly deleteRestaurantDialog: MatDialog,
-    private readonly createDishDialog: MatDialog
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -34,11 +33,16 @@ export class AdminAllRestaurantsComponent implements OnInit {
     });
   }
 
-  handleUpdateRestaurantClick(id: number): void {}
+  openUpdateRestaurantDialog(restaurant: RestaurantModel): void {
+    this.dialog.afterAllClosed.subscribe((data) => this.ngOnInit());
+    this.dialog.open(UpdateRestaurantDialog, {
+      data: restaurant
+    });
+  }
 
-  handleDeleteRestaurantClick(restaurantId: number, restaurantName: string): void {
-    this.deleteRestaurantDialog.afterAllClosed.subscribe((data) => this.ngOnInit());
-    this.deleteRestaurantDialog.open(DeleteRestaurantDialog, {
+  openDeleteRestaurantDialog(restaurantId: number, restaurantName: string): void {
+    this.dialog.afterAllClosed.subscribe((data) => this.ngOnInit());
+    this.dialog.open(DeleteRestaurantDialog, {
       data: {
         id: restaurantId,
         name: restaurantName
@@ -47,8 +51,8 @@ export class AdminAllRestaurantsComponent implements OnInit {
   }
 
   openCreateDishDialog(restaurantId: number, restaurantName: string): void {
-    this.createDishDialog.afterAllClosed.subscribe();
-    this.createDishDialog.open(CreateNewDishDialogDialog, {
+    this.dialog.afterAllClosed.subscribe();
+    this.dialog.open(CreateNewDishDialogDialog, {
       data: {
         id: restaurantId,
         name: restaurantName
@@ -61,7 +65,7 @@ export class AdminAllRestaurantsComponent implements OnInit {
   }
 
   openCreateRestaurantDialog(): void {
-    this.createRestaurantDialog.afterAllClosed.subscribe((data) => this.ngOnInit());
-    this.createRestaurantDialog.open(CreateNewRestaurantDialog);
+    this.dialog.afterAllClosed.subscribe((data) => this.ngOnInit());
+    this.dialog.open(CreateNewRestaurantDialog);
   }
 }

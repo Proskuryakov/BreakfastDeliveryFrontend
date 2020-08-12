@@ -33,10 +33,10 @@
           <span matLine>Work day: {{ item.workingHours.startWorkDay + ' - ' + item.workingHours.endWorkDay }} </span>
           <mat-card-actions>
             <div class="buttons-on-card">
-              <button mat-button (click)="handleUpdateRestaurantClick(item.id)">
+              <button mat-button (click)="openUpdateRestaurantDialog(item)">
                 UPDATE
               </button>
-              <button type="button" mat-button (click)="handleDeleteRestaurantClick(item.id, item.restaurantName)">
+              <button type="button" mat-button (click)="openDeleteRestaurantDialog(item.id, item.restaurantName)">
                 DELETE
               </button>
               <button mat-button (click)="openCreateDishDialog(item.id, item.restaurantName)">
