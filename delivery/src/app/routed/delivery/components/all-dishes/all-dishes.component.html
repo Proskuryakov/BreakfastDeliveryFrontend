@@ -1,27 +1,30 @@
 All dishes:
 <mat-form-field class="search-form" color="warn" appearance="fill">
   <mat-label>Search by name</mat-label>
-  <input [(ngModel)]="searchText" matInput />
+  <input [(ngModel)]="searchText" matInput/>
 </mat-form-field>
-<mat-list class="dish-cards-list">
-  <mat-card class="example-card" *ngFor="let item of allDishesList | filter: searchText">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image-macdonalds"></div>
-      <mat-card-title class="dish-card-name">{{ item.mainDishInfo.dishName }}</mat-card-title>
-      <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
-    <mat-card-content>
-      <div class="dish-info">
-        <span matLine>Calories: {{ item.dishCalories }}</span>
-        <span matLine>Cooking time: {{ item.dishCookingTimeMinutes }} min</span>
-        <span matLine>Price: {{ item.mainDishInfo.dishPrice }}</span>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-flat-button color="warn" (click)="handleAddDishToOrderClick(item.id)">
-        ADD TO ORDER
-      </button>
-    </mat-card-actions>
-  </mat-card>
+<mat-list  >
+  <div class="dish-cards-list">
+    <mat-card class="example-card" *ngFor="let item of allDishesList | filter: searchText">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image-macdonalds"></div>
+        <mat-card-title class="dish-card-name">{{ item.mainDishInfo.dishName }}</mat-card-title>
+        <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
+      </mat-card-header>
+      <img     src="{{ item.dishImage }}" alt="Photo of a burger"/>
+
+      <mat-card-content>
+        <div class="dish-info">
+          <span matLine>Calories: {{ item.dishCalories }}</span>
+          <span matLine>Cooking time: {{ item.dishCookingTimeMinutes }} min</span>
+          <span matLine>Price: {{ item.mainDishInfo.dishPrice }}</span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="warn" (click)="handleAddDishToOrderClick(item.id)">
+          ADD TO ORDER
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </mat-list>
