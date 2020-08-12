@@ -21,7 +21,13 @@
             {{ item.restaurantType }}
           </mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{ item.restaurantImage }}" alt="Photo of a restaurant" />
+
+        <div class="image-wrapper">
+          <div class="image">
+            <img src="{{ item.restaurantImage }}" alt="Photo of a restaurant" />
+          </div>
+        </div>
+
         <mat-card-content class="restaurant-info">
           <span matLine>Address: {{ item.address.street + ', ' + item.address.building }} </span>
           <span matLine>Work day: {{ item.workingHours.startWorkDay + ' - ' + item.workingHours.endWorkDay }} </span>
@@ -33,7 +39,7 @@
               <button type="button" mat-button (click)="handleDeleteRestaurantClick(item.id, item.restaurantName)">
                 DELETE
               </button>
-              <button mat-button (click)="handleAddDishClick(item.id)">
+              <button mat-button (click)="openCreateDishDialog(item.id, item.restaurantName)">
                 ADD DISH
               </button>
               <button mat-button (click)="handleWatchMenuClick(item.id)">

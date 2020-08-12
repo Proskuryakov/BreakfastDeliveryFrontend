@@ -6,6 +6,7 @@ import { RestaurantsApiService } from '../../../../features/restaurants/services
 import { MatDialog } from '@angular/material/dialog';
 import { CreateNewRestaurantDialog } from '../dialogs/create-new-restaurant/create-new-restaurant.dialog';
 import { DeleteRestaurantDialog } from '../dialogs/delete-restaurant/delete-restaurant.dialog';
+import { CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
 
 @Component({
   selector: 'app-admin-all-restaurants',
@@ -23,7 +24,8 @@ export class AdminAllRestaurantsComponent implements OnInit {
     private router: Router,
     private readonly restaurantsApiService: RestaurantsApiService,
     private readonly createRestaurantDialog: MatDialog,
-    private readonly deleteRestaurantDialog: MatDialog
+    private readonly deleteRestaurantDialog: MatDialog,
+    private readonly createDishDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -34,25 +36,32 @@ export class AdminAllRestaurantsComponent implements OnInit {
 
   handleUpdateRestaurantClick(id: number): void {}
 
-  handleDeleteRestaurantClick(id: number, name: string): void {
-    // this.restaurantsApiService.deleteRestaurant(id);
+  handleDeleteRestaurantClick(restaurantId: number, restaurantName: string): void {
     this.deleteRestaurantDialog.afterAllClosed.subscribe((data) => this.ngOnInit());
     this.deleteRestaurantDialog.open(DeleteRestaurantDialog, {
       data: {
-        id: id,
-        name: name
+        id: restaurantId,
+        name: restaurantName
       }
     });
   }
 
-  handleAddDishClick(id: number): void {}
+  openCreateDishDialog(restaurantId: number, restaurantName: string): void {
+    this.createDishDialog.afterAllClosed.subscribe();
+    this.createDishDialog.open(CreateNewDishDialogDialog, {
+      data: {
+        id: restaurantId,
+        name: restaurantName
+      }
+    });
+  }
 
   handleWatchMenuClick(id: number): void {
     this.router.navigateByUrl(`/restaurants/${id}/dishes`);
   }
 
   openCreateRestaurantDialog(): void {
-    this.createRestaurantDialog.afterAllClosed.subscribe();
+    this.createRestaurantDialog.afterAllClosed.subscribe((data) => this.ngOnInit());
     this.createRestaurantDialog.open(CreateNewRestaurantDialog);
   }
 }

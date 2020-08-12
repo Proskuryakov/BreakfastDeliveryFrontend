@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogModelDeleteRestaurant } from '../../../../../features/restaurants/models/restaurant.model';
+import { DialogModelRestaurant } from '../../../../../features/restaurants/models/restaurant.model';
 import { RestaurantsApiService } from '../../../../../features/restaurants/services/restaurants-api.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { RestaurantsApiService } from '../../../../../features/restaurants/servi
 })
 export class DeleteRestaurantDialog implements OnInit {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogModelDeleteRestaurant,
+    @Inject(MAT_DIALOG_DATA) public data: DialogModelRestaurant,
     private readonly restaurantsApiService: RestaurantsApiService
   ) {}
 

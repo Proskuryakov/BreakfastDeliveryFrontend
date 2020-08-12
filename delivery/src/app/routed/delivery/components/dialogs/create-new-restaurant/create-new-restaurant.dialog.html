@@ -1,57 +1,65 @@
-<h1>New Restaurant</h1>
-
 <div>
-  <form #form="ngForm">
-    <mat-dialog-content class="dialog-form-content">
-      <!--      <input type="file" [(ngModel)]="restaurantImageFile" name="restaurantImageFile" />-->
+  <div class="header">
+    <h1>New Restaurant</h1>
 
-      <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)" />
+    <button mat-icon-button>
+      <mat-icon mat-dialog-close="undefined">close</mat-icon>
+    </button>
+  </div>
 
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input type="text" matInput [(ngModel)]="restaurantName" name="restaurantName" required />
-      </mat-form-field>
+  <div>
+    <form #form="ngForm">
+      <mat-dialog-content class="dialog-form-content">
+        <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)" />
 
-      <mat-form-field>
-        <mat-label>Street</mat-label>
-        <input type="text" matInput [(ngModel)]="street" name="street" required />
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input type="text" matInput [(ngModel)]="restaurantName" name="restaurantName" required />
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Building</mat-label>
-        <input type="text" matInput [(ngModel)]="building" name="building" required />
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>Street</mat-label>
+          <input type="text" matInput [(ngModel)]="street" name="street" required />
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Start work day</mat-label>
-        <input type="time" matInput [(ngModel)]="startWorkDay" name="startWorkDay" required />
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>Building</mat-label>
+          <input type="text" matInput [(ngModel)]="building" name="building" required />
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>End work day</mat-label>
-        <input type="time" matInput [(ngModel)]="endWorkDay" name="endWorkDay" required />
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>Start work day</mat-label>
+          <input type="time" matInput [(ngModel)]="startWorkDay" name="startWorkDay" required />
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Type</mat-label>
-        <mat-select [(ngModel)]="restaurantType" name="restaurantType">
-          <option value=""></option>
-          <mat-option *ngFor="let types of typesOfRestaurants" [value]="types">
-            {{types}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-dialog-content>
+        <mat-form-field>
+          <mat-label>End work day</mat-label>
+          <input type="time" matInput [(ngModel)]="endWorkDay" name="endWorkDay" required />
+        </mat-form-field>
 
-    <mat-dialog-actions>
-      <button
-        mat-flat-button
-        color="warn"
-        [disabled]=" !form.valid||restaurantType==undefined||restaurantImageFile==undefined "
-        (click)="createNewRestaurant()"
-      >
-        CREATE
-      </button>
-    </mat-dialog-actions>
-  </form>
+        <mat-form-field appearance="fill">
+          <mat-label>Type</mat-label>
+          <mat-select [(ngModel)]="restaurantType" name="restaurantType">
+            <option value=""></option>
+            <mat-option *ngFor="let types of typesOfRestaurants" [value]="types">
+              {{types}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-dialog-content>
+
+      <mat-dialog-actions>
+        <button
+          mat-flat-button
+          mat-dialog-close="undefined"
+          color="warn"
+          class="create-button"
+          [disabled]=" !form.valid||restaurantType==undefined||restaurantImageFile==undefined "
+          (click)="createNewRestaurant(form.value)"
+        >
+          CREATE
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div>
 </div>

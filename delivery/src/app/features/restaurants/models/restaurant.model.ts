@@ -13,7 +13,21 @@ export interface RestaurantModel {
   restaurantImage: string;
 }
 
-export interface DialogModelDeleteRestaurant {
+export interface RestaurantModelForSend {
+  restaurantName: string;
+  restaurantType: string;
+  address: {
+    street: string;
+    building: string;
+  };
+  workingHours: {
+    startWorkDay: string;
+    endWorkDay: string;
+  };
+  restaurantImage: string;
+}
+
+export interface DialogModelRestaurant {
   id: number;
   name: string;
 }

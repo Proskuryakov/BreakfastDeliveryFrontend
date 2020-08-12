@@ -23,9 +23,9 @@ export class DishesApiService {
     return this.http.get<DishFromBasketModel[]>(`${environment.api}/dishesFromBasket/${userId}`);
   }
 
-  createNewDish(restrantId: string, dishModel: DishModelForSend): Observable<DishModel> {
+  createNewDish(restaurantId: number, dishModel: DishModelForSend): Observable<DishModel> {
     const httpOptions2 = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
-    return this.http.post<DishModel>(`${environment.api}/restaurants/${restrantId}/dishes`, dishModel, httpOptions2);
+    return this.http.post<DishModel>(`${environment.api}/restaurants/${restaurantId}/dishes`, dishModel, httpOptions2);
   }
   getDishByDishId(dishId: string): Observable<DishModel> {
     return this.http.get<DishModel>(`${environment.api}/dishes/${dishId}`);

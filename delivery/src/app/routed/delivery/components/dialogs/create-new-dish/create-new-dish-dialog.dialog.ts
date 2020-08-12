@@ -1,9 +1,10 @@
-
-import {Component, Directive, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FilesApiService} from '../../../../../features/files/services/files-api.service';
-import {DishesApiService} from '../../../../../features/dishes/services/dishes-api.service';
-import {DishModel, DishModelForSend, TypesOfDishes} from '../../../../../features/dishes/models/dish.model';
+import { Component, Directive, Inject, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FilesApiService } from '../../../../../features/files/services/files-api.service';
+import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
+import { DishModel, DishModelForSend, TypesOfDishes } from '../../../../../features/dishes/models/dish.model';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogModelRestaurant } from '../../../../../features/restaurants/models/restaurant.model';
 interface NewDishFromForm {
   dishImage: File;
   dishCalories: number;
@@ -13,11 +14,6 @@ interface NewDishFromForm {
   dishPrice: number;
 }
 
-class ImageSnippet {
-  constructor(public src: string, public file: File) {
-  }
-}
-
 @Component({
   templateUrl: './create-new-dish-dialog.dialog.html',
   styleUrls: ['./create-new-dish-dialog.dialog.sass']
@@ -25,10 +21,10 @@ class ImageSnippet {
 export class CreateNewDishDialogDialog implements OnInit {
   click = true;
   currState = '';
-  restrantId = '0';
   private imageLink: string | undefined;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogModelRestaurant,
     private readonly http: HttpClient,
     private readonly filesApiService: FilesApiService,
     private readonly dishesApiService: DishesApiService
@@ -45,12 +41,11 @@ export class CreateNewDishDialogDialog implements OnInit {
 
   ngOnInit(): void {}
 
-
-// tslint:disable-next-line:typedef no-any
+  // tslint:disable-next-line:typedef no-any
   processFile(imageInput: any): void {
     this.dishImage = imageInput.files[0];
   }
-  
+
   createUrl(): void {
     if (this.dishImage != undefined) {
       this.filesApiService.uploadFile(this.dishImage).subscribe(
@@ -62,17 +57,15 @@ export class CreateNewDishDialogDialog implements OnInit {
           // tslint:disable-next-line:no-console
           console.info(err);
           this.imageLink = err.error.text;
-
-        });
+        }
+      );
     }
   }
 
-createNewDishBtn(value: NewDishFromForm): void {
-
+  createNewDishBtn(value: NewDishFromForm): void {
     if (this.dishImage != undefined) {
       this.filesApiService.uploadFile(this.dishImage).subscribe(
-        (res) => {
-        },
+        (res) => {},
         (err) => {
           this.imageLink = err.error.text;
           if (this.imageLink != undefined) {
@@ -83,23 +76,22 @@ createNewDishBtn(value: NewDishFromForm): void {
               dishType: value.dishType,
               mainDishInfo: {
                 dishName: value.dishName,
-                dishPrice: value.dishPrice,
-              },
-            };
-            this.dishesApiService.createNewDish('0', input).subscribe(
-              (result) => {
-                if (result != undefined) {
-                  this.click = false;
-                  this.createdDish = result;
-                  this.currState = 'Позиция успешно создана';
-                } else {
-                  this.click = false;
-                  this.currState = 'Ошибка создания';
-                }
+                dishPrice: value.dishPrice
               }
-            );
+            };
+            this.dishesApiService.createNewDish(this.data.id, input).subscribe((result) => {
+              if (result != undefined) {
+                this.click = false;
+                this.createdDish = result;
+                this.currState = 'Позиция успешно создана';
+              } else {
+                this.click = false;
+                this.currState = 'Ошибка создания';
+              }
+            });
           }
         }
-      );    }
+      );
+    }
   }
 }
