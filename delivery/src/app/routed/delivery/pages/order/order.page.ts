@@ -9,6 +9,4 @@ export class OrderPage implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  handleDishesListChange(dishesList: DishModel[]): void {}
 }

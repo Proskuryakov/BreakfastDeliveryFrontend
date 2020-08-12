@@ -25,7 +25,7 @@ export class RegisterPage implements OnInit {
   username = '';
   password = '';
   firstName = '';
-  lastname = '';
+  lastName = '';
   phone = '';
   email = '';
 
@@ -40,36 +40,6 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  // tslint:disable-next-line:no-any
-  onKeyUsername(event: any): void {
-    this.username = event.target.value;
-  }
-
-  // tslint:disable-next-line:no-any
-  onKeyPassword(event: any): void {
-    this.password = event.target.value;
-  }
-
-  // tslint:disable-next-line:no-any
-  onKeyFirstName(event: any): void {
-    this.firstName = event.target.value;
-  }
-
-  // tslint:disable-next-line:no-any
-  onKeyLastname(event: any): void {
-    this.lastname = event.target.value;
-  }
-
-  // tslint:disable-next-line:no-any
-  onKeyEmail(event: any): void {
-    this.email = event.target.value;
-  }
-
-  // tslint:disable-next-line:no-any
-  onKeyPhone(event: any): void {
-    this.phone = event.target.value;
-  }
-
   handleRegisterUser(): void {
     const input: RegisterUserInputModel = {
       username: this.username,
@@ -77,11 +47,36 @@ export class RegisterPage implements OnInit {
       userRole: 'CLIENT',
       personalInfo: {
         firstName: this.firstName,
-        lastname: this.lastname,
+        lastName: this.lastName,
         email: this.email,
         phone: this.phone
       }
     };
     this.usersApiService.createUser(input).subscribe();
+  }
+
+  /* tslint:disable */
+  onKeyUsername(event: any): void {
+    this.username = event.target.value;
+  }
+
+  onKeyPassword(event: any): void {
+    this.password = event.target.value;
+  }
+
+  onKeyFirstName(event: any): void {
+    this.firstName = event.target.value;
+  }
+
+  onKeyLastName(event: any): void {
+    this.lastName = event.target.value;
+  }
+
+  onKeyEmail(event: any): void {
+    this.email = event.target.value;
+  }
+
+  onKeyPhone(event: any): void {
+    this.phone = event.target.value;
   }
 }

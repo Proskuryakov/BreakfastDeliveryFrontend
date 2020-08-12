@@ -37,6 +37,7 @@ export class AllDishesComponent implements OnInit {
     this.dishesApiService.getAllDishes().subscribe((result) => {
       this.allDishesList = result.sort(this.dishesApiService.sortDishesByDishName);
     });
+    console.log('dishes', this.allDishesList);
   }
 
   handleAddDishToOrderClick(dishIdValue: number): void {

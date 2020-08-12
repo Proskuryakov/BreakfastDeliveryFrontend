@@ -1,12 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from './data.service';
-import { HttpClient } from '@angular/common/http';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { OrdersApiService } from './features/orders/services/orders-api.service';
-import { RegisterOrderDataModel } from './features/orders/models/order.model';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { MatSelect } from '@angular/material/select';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -27,7 +23,7 @@ export class AppComponent implements OnInit {
   private cookieValue: string | undefined;
 
   city = '';
-  cities = ['Moscow', 'Voronezh', 'Saint-Petersburg'];
+  cities = ['Moscow', 'Saint-Petersburg', 'Voronezh', 'Kazan', 'Samara', 'Khabarovsk', 'Vladivostok'];
 
   filteredCities: ReplaySubject<string[]> = new ReplaySubject<string[]>();
 
@@ -56,7 +52,6 @@ export class AppComponent implements OnInit {
     this.cookieValue = this.cookieService.get('city');
   }
 
-  /* tslint:disable */
   protected filterCities(): void {
     if (!this.cities) {
       return;
