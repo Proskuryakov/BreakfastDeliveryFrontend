@@ -1,0 +1,12 @@
+<div class="root-container">
+  <h1>Are you sure you want to delete this restaurant?</h1>
+  <h2>{{this.data.name}}</h2>
+  <mat-dialog-actions class="buttons">
+    <button mat-flat-button mat-dialog-close="undefined" class="button" color="warn" (click)="deleteRestaurant()">
+      YES
+    </button>
+    <button mat-flat-button mat-dialog-close="undefined" class="button" color="primary">
+      NO
+    </button>
+  </mat-dialog-actions>
+</div>

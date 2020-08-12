@@ -29,7 +29,6 @@ export class DishesInRestaurantComponent implements OnInit {
   dishInBasket: DishFromBasketModel | undefined;
 
   constructor(
-    private readonly http: HttpClient,
     private readonly route: ActivatedRoute,
     private readonly dialog: MatDialog,
     private readonly dataService: DataService,

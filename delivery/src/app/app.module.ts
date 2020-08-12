@@ -49,7 +49,16 @@ import { CurrentUserModule } from './features/current-user/current-user.module';
 import { AccountPage } from './routed/delivery/pages/account/account.page';
 import { AccountInfoComponent } from './routed/delivery/components/account-info/account-info.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AdminRestaurantsPage } from './routed/delivery/pages/admin-restaurants/admin-restaurants.page';
+import { AdminAllRestaurantsComponent } from './routed/delivery/components/admin-all-restaurants/admin-all-restaurants.component';
+import { CreateNewRestaurantDialog } from './routed/delivery/components/dialogs/create-new-restaurant/create-new-restaurant.dialog';
+import { DeleteRestaurantDialog } from './routed/delivery/components/dialogs/delete-restaurant/delete-restaurant.dialog';
+import { UpdateRestaurantDialog } from './routed/delivery/components/dialogs/update-restaurant/update-restaurant.dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AdminRestaurantDishesPage } from './routed/delivery/pages/admin-restaurant-dishes/admin-restaurant-dishes.page';
+import { AdminDishesInRestaurantComponent } from './routed/delivery/components/admin-dishes-in-restaurant/admin-dishes-in-restaurant.component';
 import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/cancel-order-dialog/cancel-order-dialog.dialog';
+
 
 @NgModule({
   declarations: [
@@ -79,6 +88,13 @@ import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/ca
     DishesInRestaurantComponent,
     AccountPage,
     AccountInfoComponent,
+    AdminRestaurantsPage,
+    AdminAllRestaurantsComponent,
+    CreateNewRestaurantDialog,
+    DeleteRestaurantDialog,
+    UpdateRestaurantDialog,
+    AdminRestaurantDishesPage,
+    AdminDishesInRestaurantComponent
     CancelOrderDialogDialog
   ],
   imports: [
@@ -106,6 +122,8 @@ import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/ca
     MatExpansionModule,
     MatOptionModule,
     MatSelectModule,
+    NgxMatSelectSearchModule,
+    MatProgressSpinnerModule,
     NgxMatSelectSearchModule
   ],
   providers: [],
