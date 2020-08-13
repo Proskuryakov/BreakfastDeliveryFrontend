@@ -4,24 +4,33 @@
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm="true">
         <mat-icon>menu</mat-icon>
       </button>
-      <span><a routerLink="/" class="main-page-link  ">Breakfast Delivery</a></span>
+      <span><a routerLink="/" class="main-page-link">Breakfast Delivery</a></span>
       <span class="example-spacer"></span>
-      <div fxShow="true" fxHide.lt-md="true"    style="margin-left: 25px;">
+      <div fxShow="true" fxHide.lt-md="true" style="margin-left: 25px;">
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-        <a class="toolbar-icon main-page-link" routerLink="/dishes" mat-button><mat-icon class="toolbar-icon">fastfood</mat-icon>Dishes</a>
-        <a class="toolbar-icon main-page-link" routerLink="/restaurants" mat-button><mat-icon class="toolbar-icon">house</mat-icon>Restaurants</a>
-        <a class="toolbar-icon  main-page-link"  routerLink="/order" mat-button><mat-icon class="toolbar-icon">shopping_basket</mat-icon>My order</a>
-        <a class="toolbar-icon main-page-link" routerLink="/account" mat-button><mat-icon class="toolbar-icon">person</mat-icon>My account</a>
-        <a  class="toolbar-icon main-page-link" routerLink="/admin" mat-button><mat-icon class="toolbar-icon">person</mat-icon>Admin page</a>
-
+        <a class="toolbar-icon main-page-link" routerLink="/dishes" mat-button
+          ><mat-icon class="toolbar-icon">fastfood</mat-icon>Dishes</a
+        >
+        <a class="toolbar-icon main-page-link" routerLink="/restaurants" mat-button
+          ><mat-icon class="toolbar-icon">house</mat-icon>Restaurants</a
+        >
+        <a class="toolbar-icon main-page-link" routerLink="/order" mat-button
+          ><mat-icon class="toolbar-icon">shopping_basket</mat-icon>My order</a
+        >
+        <a class="toolbar-icon main-page-link" routerLink="/account" mat-button
+          ><mat-icon class="toolbar-icon">person</mat-icon>My account</a
+        >
+        <a class="toolbar-icon main-page-link" routerLink="/admin" mat-button
+          ><mat-icon class="toolbar-icon">person</mat-icon>Admin page</a
+        >
       </div>
-      <div class="space  "></div>
-      <div fxShow="true"  fxHide.lt-md="true" style="margin-left: 25px;">
-        <a class="city-toolbar  main-page-link " mat-button
-          ><mat-icon class="toolbar-icon  ">location_city</mat-icon>
-          <mat-form-field  floatLabel="never" style="width: 135px;">
+      <div class="space"></div>
+      <div fxShow="true" fxHide.lt-md="true" style="margin-left: 25px;">
+        <a class="city-toolbar main-page-link" mat-button
+          ><mat-icon class="toolbar-icon">location_city</mat-icon>
+          <mat-form-field floatLabel="never" style="width: 135px;">
             <u
-              ><mat-select [formControl]="cityCtrl"  placeholder="{{ getPlaceholder() }}"  #singleSelect>
+              ><mat-select [formControl]="cityCtrl" placeholder="{{ getPlaceholder() }}" #singleSelect>
                 <mat-option style="width: 135px;">
                   <ngx-mat-select-search
                     placeholderLabel="Your city"
@@ -46,24 +55,23 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-sidenav-container fxFlexFill   >
-
+  <mat-sidenav-container fxFlexFill>
     <mat-sidenav #sidenav style="width: 80%;">
-      <mat-nav-list    >
-        <a (click)="sidenav.toggle()" style="width: 100% " routerLink="/dishes" mat-list-item
+      <mat-nav-list>
+        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/dishes" mat-list-item
           ><mat-icon class="example-icon">fastfood</mat-icon>Dishes</a
         >
-        <a (click)="sidenav.toggle()" style="width: 100%" routerLink="/restaurants" mat-list-item
+        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/restaurants" mat-list-item
           ><mat-icon class="example-icon">house</mat-icon>Restaurants</a
         >
-        <a (click)="sidenav.toggle()" style="width: 100%"  routerLink="/order" mat-list-item
+        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/order" mat-list-item
           ><mat-icon class="example-icon">shopping_basket</mat-icon>My order</a
         >
-        <a (click)="sidenav.toggle()" style="width: 100%"  routerLink="/account" mat-list-item>
+        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/account" mat-list-item>
           <mat-icon class="example-icon">person</mat-icon>
           My Account
         </a>
-        <a (click)="sidenav.toggle()" style="width: 100%"  routerLink="/admin" mat-list-item>
+        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/admin" mat-list-item>
           <mat-icon class="example-icon">person</mat-icon>
           Admin page
         </a>
@@ -97,6 +105,6 @@
         </a>
       </mat-nav-list>
     </mat-sidenav>
-<mat-sidenav-content fxFlexFill><router-outlet></router-outlet> </mat-sidenav-content>
-   </mat-sidenav-container>
+    <mat-sidenav-content fxFlexFill><router-outlet></router-outlet> </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

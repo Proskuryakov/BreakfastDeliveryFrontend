@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Injectable, Provider } from '@angular/core';
+import { APP_INITIALIZER, Inject, Injectable, Provider } from '@angular/core';
 import { Anonymous, CurrentUser, LoggedUser } from './current-user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -52,30 +52,17 @@ export class CurrentUserImpl implements LoggedUser {
 export class CurrentUserService {
   readonly user$ = new BehaviorSubject<CurrentUser>(new AnonymousUserImpl());
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient) {
     console.log('Current User created');
   }
-
-  refreshCurrentUser(): Observable<void> {
-    return this.http.get<ApiProfile | undefined>(`${environmentUsers.api}/user`).pipe(
-      tap((profile) => {
-        if (profile == undefined) {
-          this.user$.next(new AnonymousUserImpl());
-        } else {
-          this.user$.next(new CurrentUserImpl(profile));
-        }
-      })
-    ) as Observable<void>;
-  }
-
   getCurrentUser(profile: ApiProfile): void {
-    this.cookieService.set('id', String(profile.id));
-    this.cookieService.set('username', profile.username);
-    this.cookieService.set('userRole', profile.role);
-    this.cookieService.set('firstName', profile.firstName);
-    this.cookieService.set('lastName', profile.lastName);
-    this.cookieService.set('email', profile.email);
-    this.cookieService.set('phone', profile.phone);
+    localStorage.setItem('id', String(profile.id));
+    localStorage.setItem('username', profile.username);
+    localStorage.setItem('role', profile.role);
+    localStorage.setItem('firstName', profile.firstName);
+    localStorage.setItem('lastName', profile.lastName);
+    localStorage.setItem('email', profile.email);
+    localStorage.setItem('phone', profile.phone);
   }
 
   login(usernameValue: string, passwordValue: string): Observable<ApiProfile> {
@@ -89,6 +76,18 @@ export class CurrentUserService {
     return this.http
       .post<void>(`${environmentUsers.api}/auth/logout`, undefined)
       .pipe(tap(() => this.user$.next(new AnonymousUserImpl())));
+  }
+
+  refreshCurrentUser(): Observable<void> {
+    return this.http.get<ApiProfile | undefined>(`${environmentUsers.api}/user`).pipe(
+      tap((profile) => {
+        if (profile == undefined) {
+          this.user$.next(new AnonymousUserImpl());
+        } else {
+          this.user$.next(new CurrentUserImpl(profile));
+        }
+      })
+    ) as Observable<void>;
   }
 }
 

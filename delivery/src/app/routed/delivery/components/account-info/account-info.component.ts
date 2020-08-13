@@ -9,7 +9,21 @@ import { CookieService } from 'ngx-cookie-service';
   providers: [DataService]
 })
 export class AccountInfoComponent implements OnInit {
-  constructor(readonly dataService: DataService, readonly cookieService: CookieService) {}
+  username: string | null = '';
+  role: string | null = '';
+  firstName: string | null = '';
+  lastName: string | null = '';
+  email: string | null = '';
+  phone: string | null = '';
 
-  ngOnInit(): void {}
+  constructor(readonly dataService: DataService) {}
+
+  ngOnInit(): void {
+    this.username = localStorage.getItem('username');
+    this.role = localStorage.getItem('role');
+    this.firstName = localStorage.getItem('firstName');
+    this.lastName = localStorage.getItem('lastName');
+    this.email = localStorage.getItem('email');
+    this.phone = localStorage.getItem('phone');
+  }
 }

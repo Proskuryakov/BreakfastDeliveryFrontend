@@ -61,7 +61,6 @@ import { CancelOrderDialogDialog } from './routed/delivery/components/dialogs/ca
 import { UpdateDishInfoDialogDialog } from './routed/delivery/components/dialogs/update-dish-info-dialog/update-dish-info-dialog.dialog';
 import { DeleteDishFromRestaurantDialogDialog } from './routed/delivery/components/dialogs/delete-dish-from-restaurant-dialog/delete-dish-from-restaurant-dialog.dialog';
 
-
 @NgModule({
   declarations: [
     AppComponent,

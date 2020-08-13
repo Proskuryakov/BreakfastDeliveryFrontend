@@ -1,87 +1,79 @@
+<mat-icon style="float: right;" mat-dialog-close="undefined">close</mat-icon>
+<div style="width: 100%; padding-left: 25px; align-items: center;">
+  <h1>Новое блюдо в "{{this.data.name}}"</h1>
+  <div style="float: left; width: 300px;">
+    <label class="image-upload-container btn btn-bwm">
+      <span></span>
+      <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)" />
+    </label>
 
-    <mat-icon style="float: right;" mat-dialog-close="undefined">close</mat-icon>
-    <div style="width: 100%; padding-left: 25px; align-items: center;">
-      <h1>Новое блюдо в "{{this.data.name}}"</h1>
-      <div style="float: left; width: 300px;">
-        <label class="image-upload-container btn btn-bwm">
-          <span></span>
-          <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)" />
-        </label>
-
-        <form #form="ngForm">
-          <mat-dialog-content class="register-form">
-            <mat-form-field>
-              <mat-label>Название</mat-label>
-              <input type="text" matInput [(ngModel)]="dishName" name="dishName" required />
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Калорийность</mat-label>
-              <input type="number" matInput [(ngModel)]="dishCalories" name="dishCalories" required />
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Стоимость</mat-label>
-              <input type="number" matInput [(ngModel)]="dishPrice" name="dishPrice" required />
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Время приготовления</mat-label>
-              <input
-                type="number"
-                matInput
-                [(ngModel)]="dishCookingTimeMinutes"
-                name="dishCookingTimeMinutes"
-                required
-              />
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Категории</mat-label>
-              <mat-select [(ngModel)]="dishType" name="dishType">
-                <option value=""></option>
-                <mat-option *ngFor="let types of typesOfDishes" [value]="types">
-                  {{types}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <button
-              mat-flat-button
-              color="warn"
-              class="register-form"
-              [disabled]=" !form.valid||dishType==undefined||dishImage==undefined"
-              (click)="createNewDishBtn(form.value)"
-            >
-              Создать
-            </button>
-          </mat-dialog-content>
-        </form>
+    <form #form="ngForm">
+      <mat-dialog-content class="register-form">
+        <mat-form-field>
+          <mat-label>Название</mat-label>
+          <input type="text" matInput [(ngModel)]="dishName" name="dishName" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Калорийность</mat-label>
+          <input type="number" matInput [(ngModel)]="dishCalories" name="dishCalories" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Стоимость</mat-label>
+          <input type="number" matInput [(ngModel)]="dishPrice" name="dishPrice" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Время приготовления</mat-label>
+          <input type="number" matInput [(ngModel)]="dishCookingTimeMinutes" name="dishCookingTimeMinutes" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Категории</mat-label>
+          <mat-select [(ngModel)]="dishType" name="dishType">
+            <option value=""></option>
+            <mat-option *ngFor="let types of typesOfDishes" [value]="types">
+              {{types}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="warn"
+          class="register-form"
+          [disabled]=" !form.valid||dishType==undefined||dishImage==undefined"
+          (click)="createNewDishBtn(form.value)"
+        >
+          Создать
+        </button>
+      </mat-dialog-content>
+    </form>
+  </div>
+  <div style="float: right;">
+    <mat-dialog-content>
+      <div [hidden]="click" style="width: 300px; margin: 10px auto auto;" class="alert alert-success" role="alert">
+        <p style="margin-left: 28%;">Успешное создание</p>
+        <div matLine *ngIf="createdDish!=undefined">
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Сведения
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div style="width: 100%; margin-top: 20px; text-align: center;">
+                <img style="width: 80%;" mat-card-image src="{{ createdDish.dishImage }}" />
+              </div>
+              <div class="forBorder" matLine>ID позиции: {{ createdDish.id }}</div>
+              <div class="forBorder" matLine>Название: {{ createdDish.mainDishInfo.dishName }}</div>
+              <div class="forBorder" matLine>Стоимость: {{ createdDish.mainDishInfo.dishPrice }}</div>
+              <div class="forBorder" matLine>Категория: {{createdDish.dishType }}</div>
+              <div class="forBorder" matLine>Калорийность: {{ createdDish.dishCalories }}</div>
+              <div class="forBorder" matLine>Время приготовления: {{ createdDish.dishCookingTimeMinutes }}</div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
       </div>
-      <div style="float: right;">
-        <mat-dialog-content>
-          <div [hidden]="click" style="width: 300px; margin: 10px auto auto;" class="alert alert-success" role="alert">
-            <p style="margin-left: 28%;">Успешное создание</p>
-            <div matLine *ngIf="createdDish!=undefined">
-              <mat-accordion>
-                <mat-expansion-panel>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Сведения
-                    </mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <div style="width: 100%; margin-top: 20px; text-align: center;">
-                    <img style="width: 80%;" mat-card-image src="{{ createdDish.dishImage }}" />
-                  </div>
-                  <div class="forBorder" matLine>ID позиции: {{ createdDish.id }}</div>
-                  <div class="forBorder" matLine>Название: {{ createdDish.mainDishInfo.dishName }}</div>
-                  <div class="forBorder" matLine>Стоимость: {{ createdDish.mainDishInfo.dishPrice }}</div>
-                  <div class="forBorder" matLine>Категория: {{createdDish.dishType }}</div>
-                  <div class="forBorder" matLine>Калорийность: {{ createdDish.dishCalories }}</div>
-                  <div class="forBorder" matLine>Время приготовления: {{ createdDish.dishCookingTimeMinutes }}</div>
-                </mat-expansion-panel>
-              </mat-accordion>
-            </div>
-          </div>
-          <div [hidden]="!click||hidden" class="alert register-form alert-danger" role="alert">
-            Произошла ошибка
-          </div>
-        </mat-dialog-content>
+      <div [hidden]="!click||hidden" class="alert register-form alert-danger" role="alert">
+        Произошла ошибка
       </div>
-    </div>
-
+    </mat-dialog-content>
+  </div>
+</div>

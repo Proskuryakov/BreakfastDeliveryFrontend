@@ -46,7 +46,6 @@ export class CreateNewDishDialogDialog implements OnInit {
     this.dishImage = imageInput.files[0];
   }
 
-
   createNewDishBtn(value: NewDishFromForm): void {
     if (this.dishImage != undefined) {
       this.filesApiService.uploadFile(this.dishImage).subscribe(

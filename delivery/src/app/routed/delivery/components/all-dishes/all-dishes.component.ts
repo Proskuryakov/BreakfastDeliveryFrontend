@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {DishFromBasketModel, DishModel} from '../../../../features/dishes/models/dish.model';
-import {HttpClient} from '@angular/common/http';
-import {MatDialog} from '@angular/material/dialog';
-import {AddDishToBasketDialogDialog} from '../dialogs/add-dish-to-basket-dialog/add-dish-to-basket-dialog.dialog';
-import {DataService} from '../../../../data.service';
-import {DishAlreadyInBasketDialogDialog} from '../dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
-import {OrderAlreadyCreatedDialog} from '../dialogs/order-already-created/order-already-created.dialog';
-import {DishesApiService} from '../../../../features/dishes/services/dishes-api.service';
-import {OrdersApiService} from '../../../../features/orders/services/orders-api.service';
-import {RestaurantsApiService} from "../../../../features/restaurants/services/restaurants-api.service";
-import {RestaurantModel} from "../../../../features/restaurants/models/restaurant.model";
+import { Component, OnInit } from '@angular/core';
+import { DishFromBasketModel, DishModel } from '../../../../features/dishes/models/dish.model';
+import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDishToBasketDialogDialog } from '../dialogs/add-dish-to-basket-dialog/add-dish-to-basket-dialog.dialog';
+import { DataService } from '../../../../data.service';
+import { DishAlreadyInBasketDialogDialog } from '../dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
+import { OrderAlreadyCreatedDialog } from '../dialogs/order-already-created/order-already-created.dialog';
+import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
+import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
+import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
+import { RestaurantModel } from '../../../../features/restaurants/models/restaurant.model';
 
 @Component({
   selector: 'app-all-dishes',
@@ -35,13 +35,9 @@ export class AllDishesComponent implements OnInit {
     private readonly dishesApiService: DishesApiService,
     private readonly ordersApiService: OrdersApiService,
     private readonly restaurantsApiService: RestaurantsApiService
-  ) {
-  }
+  ) {}
 
-  redacphoto(): void {
-
-
-  }
+  redacphoto(): void {}
 
   ngOnInit(): void {
     this.getRestaurant();
@@ -67,7 +63,6 @@ export class AllDishesComponent implements OnInit {
           return this.allRestaurant[i].restaurantImage;
           // tslint:disable-next-line:align
         }
-
       }
       // tslint:disable-next-line:align
     }

@@ -1,19 +1,19 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title class="list-title">{{ cookieService.get('username') }}</mat-card-title>
+    <mat-card-title class="list-title">{{ username }}</mat-card-title>
     <mat-card-subtitle
       >Role:
-      {{ cookieService.get('userRole') }}
+      {{ role }}
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-list
       ><mat-list>
         <span class="list-title">Personal info:</span>
-        <mat-list-item>First name: {{ cookieService.get('firstName') }}</mat-list-item>
-        <mat-list-item>Last name: {{ cookieService.get('lastName') }}</mat-list-item>
-        <mat-list-item>Email: {{ cookieService.get('email') }}</mat-list-item>
-        <mat-list-item>Phone: {{ cookieService.get('phone') }}</mat-list-item>
+        <mat-list-item>First name: {{ firstName }}</mat-list-item>
+        <mat-list-item>Last name: {{ lastName }}</mat-list-item>
+        <mat-list-item>Email: {{ email }}</mat-list-item>
+        <mat-list-item>Phone: {{ phone }}</mat-list-item>
       </mat-list>
     </mat-list>
   </mat-card-content>

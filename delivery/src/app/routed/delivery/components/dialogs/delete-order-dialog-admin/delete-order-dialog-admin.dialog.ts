@@ -1,17 +1,18 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {HttpClient } from '@angular/common/http';
-import {DialogModelUpdateOrderStatus } from '../../../../../features/orders/models/order.model';
-import {OrdersApiService} from '../../../../../features/orders/services/orders-api.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { DialogModelUpdateOrderStatus } from '../../../../../features/orders/models/order.model';
+import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
 
 @Component({
   templateUrl: './delete-order-dialog-admin.dialog.html',
   styleUrls: ['./delete-order-dialog-admin.dialog.sass']
 })
 export class DeleteOrderDialogAdminDialog implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogModelUpdateOrderStatus,
-              private readonly orderApiService: OrdersApiService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogModelUpdateOrderStatus,
+    private readonly orderApiService: OrdersApiService
+  ) {}
 
   click = true;
   nextStage = '';
