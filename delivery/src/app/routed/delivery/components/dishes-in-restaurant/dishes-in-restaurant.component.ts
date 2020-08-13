@@ -6,22 +6,21 @@ import { switchMap } from 'rxjs/operators';
 import { DishFromBasketModel, DishModel } from '../../../../features/dishes/models/dish.model';
 import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
 import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
-import { OrderAlreadyCreatedDialog } from '../dialogs/order-already-created/order-already-created.dialog';
-import { AddDishToBasketDialogDialog } from '../dialogs/add-dish-to-basket-dialog/add-dish-to-basket-dialog.dialog';
-import { DishAlreadyInBasketDialogDialog } from '../dialogs/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
-import { DataService } from '../../../../data.service';
+import { OrderAlreadyCreatedDialog } from '../dialogs/orders/order-already-created/order-already-created.dialog';
+import { AddDishToBasketDialogDialog } from '../dialogs/dishes/add-dish-to-basket-dialog/add-dish-to-basket-dialog.dialog';
+import { DishAlreadyInBasketDialogDialog } from '../dialogs/dishes/dish-already-in-basket-dialog/dish-already-in-basket-dialog.dialog';
 import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dishes-in-restaurant',
   templateUrl: './dishes-in-restaurant.component.html',
-  styleUrls: ['./dishes-in-restaurant.component.sass'],
-  providers: [DataService]
+  styleUrls: ['./dishes-in-restaurant.component.sass']
 })
 export class DishesInRestaurantComponent implements OnInit {
   // tslint:disable-next-line:no-any
   searchText: any;
+  role = localStorage.getItem('role');
   dishesList: DishModel[] = [];
   selectedRestaurant?: RestaurantModel;
   restaurantId = 0;
@@ -31,7 +30,6 @@ export class DishesInRestaurantComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly dialog: MatDialog,
-    private readonly dataService: DataService,
     private readonly restaurantsApiService: RestaurantsApiService,
     private readonly dishesApiService: DishesApiService,
     private readonly ordersApiService: OrdersApiService
@@ -52,11 +50,11 @@ export class DishesInRestaurantComponent implements OnInit {
   }
 
   handleAddDishToOrderClick(dishIdValue: number): void {
-    this.ordersApiService.getOrderByUserId(this.dataService.getUserId()).subscribe((order) => {
+    this.ordersApiService.getOrderByUserId(localStorage.getItem('id')).subscribe((order) => {
       if (order !== null) {
         this.dialog.open(OrderAlreadyCreatedDialog);
       } else {
-        this.dishesApiService.getDishFromBasketByDishId(dishIdValue, this.dataService.getUserId()).subscribe(
+        this.dishesApiService.getDishFromBasketByDishId(dishIdValue, localStorage.getItem('id')).subscribe(
           (result) => {
             this.dishInBasket = result;
             if (this.dishInBasket === undefined || this.dishInBasket === null) {

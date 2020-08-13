@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { UpdateStatusAdminDialogDialog } from '../dialogs/update-status-admin-dialog/update-status-admin-dialog.dialog';
-import { DeleteOrderDialogAdminDialog } from '../dialogs/delete-order-dialog-admin/delete-order-dialog-admin.dialog';
+import { UpdateStatusAdminDialogDialog } from '../dialogs/admin/update-status-admin-dialog/update-status-admin-dialog.dialog';
+import { DeleteOrderDialogAdminDialog } from '../dialogs/admin/delete-order-dialog-admin/delete-order-dialog-admin.dialog';
 import { DishModel } from '../../../../features/dishes/models/dish.model';
 import { OrderModel } from '../../../../features/orders/models/order.model';
-import { CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
+import { CreateNewDishDialogDialog } from '../dialogs/admin/create-new-dish/create-new-dish-dialog.dialog';
 import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
 import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 import { Router } from '@angular/router';

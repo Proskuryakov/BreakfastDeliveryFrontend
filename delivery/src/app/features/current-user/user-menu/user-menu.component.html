@@ -1,12 +1,12 @@
-<ng-container *ngIf="user$ | async as user">
-  <ng-container *ngIf="user.authenticated; else anonymousMenu">
-    <span>{{ user.username }}</span>
-    <button mat-icon-button [mat-menu-trigger-for]="menu">
+<ng-container>
+  <ng-container *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'; else anonymousMenu">
+    <span>{{ username }}</span>
+    <button class="none-outline" mat-icon-button [mat-menu-trigger-for]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="handleLogoutClick()">
+      <button class="none-outline" mat-menu-item (click)="handleLogoutClick()" routerLink="/auth/login">
         Log out
       </button>
     </mat-menu>

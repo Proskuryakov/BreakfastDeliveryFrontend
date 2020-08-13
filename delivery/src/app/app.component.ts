@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataService } from './data.service';
 import { FormControl } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,12 +12,13 @@ interface CityFormValue {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass'],
-  providers: [DataService]
+  styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
   // tslint:disable-next-line:no-any
   searchText: any;
+
+  role = localStorage.getItem('role');
 
   private cookieValue: string | undefined;
 
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 
   protected _onDestroy = new Subject<void>();
 
-  constructor(private readonly dataService: DataService, private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.cookieValue = this.cookieService.get('city');
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  setCityDataService(value: string): void {
+  setCityDataCookie(value: string): void {
     this.cookieService.set('city', value);
     this.cookieValue = this.cookieService.get('city');
   }

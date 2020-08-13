@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogModelUpdateOrderStatus, StatusesOfOrder } from '../../../../../features/orders/models/order.model';
-import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
+import { DialogModelUpdateOrderStatus, StatusesOfOrder } from '../../../../../../features/orders/models/order.model';
+import { OrdersApiService } from '../../../../../../features/orders/services/orders-api.service';
 interface FormValue {
   status: StatusesOfOrder;
 }

@@ -3,9 +3,9 @@ import {
   RestaurantModel,
   RestaurantModelForSend,
   TypesOfRestaurants
-} from '../../../../../features/restaurants/models/restaurant.model';
-import { FilesApiService } from '../../../../../features/files/services/files-api.service';
-import { RestaurantsApiService } from '../../../../../features/restaurants/services/restaurants-api.service';
+} from '../../../../../../features/restaurants/models/restaurant.model';
+import { FilesApiService } from '../../../../../../features/files/services/files-api.service';
+import { RestaurantsApiService } from '../../../../../../features/restaurants/services/restaurants-api.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({

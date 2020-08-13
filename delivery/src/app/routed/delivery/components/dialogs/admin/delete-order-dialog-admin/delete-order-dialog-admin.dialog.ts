@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { DialogModelUpdateOrderStatus } from '../../../../../features/orders/models/order.model';
-import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
+import { DialogModelUpdateOrderStatus } from '../../../../../../features/orders/models/order.model';
+import { OrdersApiService } from '../../../../../../features/orders/services/orders-api.service';
 
 @Component({
   templateUrl: './delete-order-dialog-admin.dialog.html',

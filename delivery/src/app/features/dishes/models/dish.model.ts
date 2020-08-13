@@ -46,7 +46,7 @@ export enum TypesOfDishes {
 
 export interface DeleteOrAddDishToOrderDialogDataModel {
   dishId: number;
-  userId: number;
+  userId: string | null;
 }
 
 export interface DishFromOrderModel {
@@ -61,7 +61,7 @@ export interface DishIdDataModel {
 export interface DishFromBasketModel {
   count: number;
   dishId: number;
-  userId: number;
+  userId: string | null;
 }
 
 export interface DishesFromOrderToDisplayModel extends DishModel {
@@ -70,6 +70,6 @@ export interface DishesFromOrderToDisplayModel extends DishModel {
 
 export interface UpdateDishCountInputModel {
   dishId: number;
-  userId: number;
+  userId: string | null;
   count: number;
 }

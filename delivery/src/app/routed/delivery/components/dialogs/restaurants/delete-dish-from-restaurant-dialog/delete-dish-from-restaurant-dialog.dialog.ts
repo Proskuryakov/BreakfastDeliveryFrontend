@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
-import { DialogUpdateDIshModel } from '../../../../../features/dishes/models/dish.model';
+import { DishesApiService } from '../../../../../../features/dishes/services/dishes-api.service';
+import { DialogUpdateDIshModel } from '../../../../../../features/dishes/models/dish.model';
 
 @Component({
   templateUrl: './delete-dish-from-restaurant-dialog.dialog.html',

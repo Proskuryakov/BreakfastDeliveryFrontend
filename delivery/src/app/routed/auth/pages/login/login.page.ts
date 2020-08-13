@@ -16,14 +16,18 @@ export class LoginPage implements OnInit {
 
   constructor(private readonly currentUserService: CurrentUserService, private readonly router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.length > 0) {
+      this.router.navigate(['/dishes']);
+    }
+  }
 
   handleFormSubmit(value: LoginFormData): void {
     this.error = false;
     this.currentUserService.login(value.username, value.password).subscribe(
       (profile) => {
-        this.router.navigate(['/']);
         this.currentUserService.getCurrentUser(profile);
+        window.location.reload();
       },
       (error) => {
         console.error('Error', error);

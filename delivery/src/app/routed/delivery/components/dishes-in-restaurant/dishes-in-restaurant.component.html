@@ -43,9 +43,19 @@
           <span matLine>Price: {{ item.mainDishInfo.dishPrice }}</span>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-flat-button color="warn" (click)="handleAddDishToOrderClick(item.id)">
+          <button
+            *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'; else login"
+            mat-flat-button
+            color="warn"
+            (click)="handleAddDishToOrderClick(item.id)"
+          >
             ADD TO ORDER
           </button>
+          <ng-template #login>
+            <button mat-flat-button color="warn" routerLink="/auth/login">
+              ADD TO ORDER
+            </button>
+          </ng-template>
         </mat-card-actions>
       </mat-card>
     </mat-list>

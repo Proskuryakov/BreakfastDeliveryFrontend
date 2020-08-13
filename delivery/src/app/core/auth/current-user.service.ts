@@ -52,9 +52,8 @@ export class CurrentUserImpl implements LoggedUser {
 export class CurrentUserService {
   readonly user$ = new BehaviorSubject<CurrentUser>(new AnonymousUserImpl());
 
-  constructor(private http: HttpClient) {
-    console.log('Current User created');
-  }
+  constructor(private http: HttpClient) {}
+
   getCurrentUser(profile: ApiProfile): void {
     localStorage.setItem('id', String(profile.id));
     localStorage.setItem('username', profile.username);
@@ -73,9 +72,7 @@ export class CurrentUserService {
   }
 
   logout(): Observable<void> {
-    return this.http
-      .post<void>(`${environmentUsers.api}/auth/logout`, undefined)
-      .pipe(tap(() => this.user$.next(new AnonymousUserImpl())));
+    return this.http.post<void>(`${environmentUsers.api}/logout`, undefined);
   }
 
   refreshCurrentUser(): Observable<void> {

@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateNewRestaurantDialog } from '../dialogs/create-new-restaurant/create-new-restaurant.dialog';
-import { DeleteRestaurantDialog } from '../dialogs/delete-restaurant/delete-restaurant.dialog';
-import { CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
-import { UpdateRestaurantDialog } from '../dialogs/update-restaurant/update-restaurant.dialog';
+import { CreateNewRestaurantDialog } from '../dialogs/restaurants/create-new-restaurant/create-new-restaurant.dialog';
+import { DeleteRestaurantDialog } from '../dialogs/admin/delete-restaurant/delete-restaurant.dialog';
+import { CreateNewDishDialogDialog } from '../dialogs/admin/create-new-dish/create-new-dish-dialog.dialog';
+import { UpdateRestaurantDialog } from '../dialogs/restaurants/update-restaurant/update-restaurant.dialog';
 
 @Component({
   selector: 'app-admin-all-restaurants',

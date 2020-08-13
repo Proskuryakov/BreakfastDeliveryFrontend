@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { RegisterOrderDialogDialog } from '../dialogs/register-order-dialog/register-order-dialog.dialog';
-import { DeleteDishFromBasketDialogDialog } from '../dialogs/delete-dish-from-basket-dialog/delete-dish-from-basket-dialog.dialog';
-import { DataService } from '../../../../data.service';
+import { RegisterOrderDialogDialog } from '../dialogs/orders/register-order-dialog/register-order-dialog.dialog';
+import { DeleteDishFromBasketDialogDialog } from '../dialogs/dishes/delete-dish-from-basket-dialog/delete-dish-from-basket-dialog.dialog';
 import { OrderModel } from '../../../../features/orders/models/order.model';
 import {
   DishesFromOrderToDisplayModel,
@@ -12,13 +11,12 @@ import {
 } from '../../../../features/dishes/models/dish.model';
 import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
 import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
-import { CancelOrderDialogDialog } from '../dialogs/cancel-order-dialog/cancel-order-dialog.dialog';
+import { CancelOrderDialogDialog } from '../dialogs/orders/cancel-order-dialog/cancel-order-dialog.dialog';
 
 @Component({
   selector: 'app-dishes-in-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.sass'],
-  providers: [DataService]
+  styleUrls: ['./order.component.sass']
 })
 export class OrderComponent implements OnInit {
   // tslint:disable-next-line:no-any
@@ -37,22 +35,22 @@ export class OrderComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
-    private readonly dataService: DataService,
     private readonly dishesApiService: DishesApiService,
     private readonly orderApiService: OrdersApiService
   ) {}
 
   ngOnInit(): void {
-    this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+    this.dishesApiService.getDishesFromBasket(localStorage.getItem('id')).subscribe((result) => {
       this.dishesFromBasket = result;
       this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
-        this.dishesFromBasketToDisplay = resultToDisplay;
+        this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);
       });
     });
-    this.orderApiService.getOrderByUserId(this.dataService.getUserId()).subscribe((resultOrder) => {
+    this.orderApiService.getOrderByUserId(localStorage.getItem('id')).subscribe((resultOrder) => {
       this.order = resultOrder;
       if (this.order !== null) {
         this.dishesFromOrder = resultOrder.listOfDishes;
+        console.log('dishes from order', this.dishesFromOrder);
         this.order.createdAt = String(Number(this.order.createdAt) * 1000);
         this.orderApiService.getDishesFromOrderToDisplay(this.dishesFromOrder).subscribe((resultDishes) => {
           this.dishesFromOrderToDisplay = resultDishes.sort(this.dishesApiService.sortDishesByDishName);
@@ -69,12 +67,12 @@ export class OrderComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((dialogResult) => {
       if (dialogResult === true) {
-        this.dishesApiService.clearBasket(this.dataService.getUserId()).subscribe(() => {
+        this.dishesApiService.clearBasket(localStorage.getItem('id')).subscribe(() => {
           this.dishesFromBasket = [];
-          this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+          this.dishesApiService.getDishesFromBasket(localStorage.getItem('id')).subscribe((result) => {
             this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
               this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);
-              this.orderApiService.getOrderByUserId(this.dataService.getUserId()).subscribe((orderResult) => {
+              this.orderApiService.getOrderByUserId(localStorage.getItem('id')).subscribe((orderResult) => {
                 this.order = orderResult;
                 this.dishesFromOrder = orderResult.listOfDishes;
                 this.order.createdAt = String(Number(this.order.createdAt) * 1000);
@@ -93,11 +91,11 @@ export class OrderComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteDishFromBasketDialogDialog, {
       data: {
         dishId: dishIdValue,
-        userId: this.dataService.getUserId()
+        userId: localStorage.getItem('id')
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+      this.dishesApiService.getDishesFromBasket(localStorage.getItem('id')).subscribe((result) => {
         this.dishesFromBasket = result;
         this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
           this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);
@@ -108,8 +106,8 @@ export class OrderComponent implements OnInit {
 
   handleUpdateDishCountClick(dishId: number, dishCount: number): void {
     if (dishCount >= 1 && dishCount <= 9) {
-      this.dishesApiService.updateDishCount(dishId, dishCount, this.dataService.getUserId()).subscribe(() => {
-        this.dishesApiService.getDishesFromBasket(this.dataService.getUserId()).subscribe((result) => {
+      this.dishesApiService.updateDishCount(dishId, dishCount, localStorage.getItem('id')).subscribe(() => {
+        this.dishesApiService.getDishesFromBasket(localStorage.getItem('id')).subscribe((result) => {
           this.dishesFromBasket = result;
           this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
             this.dishesFromBasketToDisplay = resultToDisplay.sort(this.dishesApiService.sortDishesByDishName);

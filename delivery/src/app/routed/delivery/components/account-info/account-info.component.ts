@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../../data.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
-  styleUrls: ['./account-info.component.sass'],
-  providers: [DataService]
+  styleUrls: ['./account-info.component.sass']
 })
 export class AccountInfoComponent implements OnInit {
   username: string | null = '';
@@ -16,7 +14,7 @@ export class AccountInfoComponent implements OnInit {
   email: string | null = '';
   phone: string | null = '';
 
-  constructor(readonly dataService: DataService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username');

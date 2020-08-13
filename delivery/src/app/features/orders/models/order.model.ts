@@ -24,7 +24,7 @@ export interface OrderModel {
 }
 
 export interface RegisterOrderInputModel {
-  userId: number;
+  userId: string | null;
   phone: string;
   address: {
     city: string;

@@ -1,10 +1,10 @@
 import { Component, Directive, Inject, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FilesApiService } from '../../../../../features/files/services/files-api.service';
-import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
-import { DishModel, DishModelForSend, TypesOfDishes } from '../../../../../features/dishes/models/dish.model';
+import { FilesApiService } from '../../../../../../features/files/services/files-api.service';
+import { DishesApiService } from '../../../../../../features/dishes/services/dishes-api.service';
+import { DishModel, DishModelForSend, TypesOfDishes } from '../../../../../../features/dishes/models/dish.model';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogModelRestaurant } from '../../../../../features/restaurants/models/restaurant.model';
+import { DialogModelRestaurant } from '../../../../../../features/restaurants/models/restaurant.model';
 interface NewDishFromForm {
   dishImage: File;
   dishCalories: number;

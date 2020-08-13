@@ -13,6 +13,7 @@ export class OrdersApiService {
   constructor(private readonly http: HttpClient) {}
 
   getDishesFromOrderToDisplay(dishesFromOrder: DishFromOrderModel[]): Observable<DishesFromOrderToDisplayModel[]> {
+    console.log('dishes from order', dishesFromOrder);
     return from(dishesFromOrder).pipe(
       mergeMap((dish) =>
         this.http
@@ -37,7 +38,8 @@ export class OrdersApiService {
   getListOfOrders(): Observable<OrderModel[]> {
     return this.http.get<OrderModel[]>(`${environment.api}/orders`);
   }
-  getOrderByUserId(userId: number): Observable<OrderModel> {
+
+  getOrderByUserId(userId: string | null): Observable<OrderModel> {
     return this.http.get<OrderModel>(`${environment.api}/orders/byUserId/${userId}`);
   }
 

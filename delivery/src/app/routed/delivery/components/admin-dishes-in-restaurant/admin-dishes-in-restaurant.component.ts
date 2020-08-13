@@ -3,14 +3,12 @@ import { DishModel } from '../../../../features/dishes/models/dish.model';
 import { RestaurantModel } from '../../../../features/restaurants/models/restaurant.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../../../../data.service';
 import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
 import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
-import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 import { switchMap } from 'rxjs/operators';
-import { CreateNewDishDialogDialog } from '../dialogs/create-new-dish/create-new-dish-dialog.dialog';
-import { UpdateDishInfoDialogDialog } from '../dialogs/update-dish-info-dialog/update-dish-info-dialog.dialog';
-import { DeleteDishFromRestaurantDialogDialog } from '../dialogs/delete-dish-from-restaurant-dialog/delete-dish-from-restaurant-dialog.dialog';
+import { CreateNewDishDialogDialog } from '../dialogs/admin/create-new-dish/create-new-dish-dialog.dialog';
+import { UpdateDishInfoDialogDialog } from '../dialogs/admin/update-dish-info-dialog/update-dish-info-dialog.dialog';
+import { DeleteDishFromRestaurantDialogDialog } from '../dialogs/restaurants/delete-dish-from-restaurant-dialog/delete-dish-from-restaurant-dialog.dialog';
 
 @Component({
   selector: 'app-admin-dishes-in-restaurant',
@@ -28,7 +26,6 @@ export class AdminDishesInRestaurantComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private router: Router,
     private readonly dialog: MatDialog,
-    private readonly dataService: DataService,
     private readonly restaurantsApiService: RestaurantsApiService,
     private readonly dishesApiService: DishesApiService,
     private readonly updateDishDialog: MatDialog,

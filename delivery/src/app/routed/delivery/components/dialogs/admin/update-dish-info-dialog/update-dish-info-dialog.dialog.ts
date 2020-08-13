@@ -5,9 +5,9 @@ import {
   DishModel,
   DishModelForUpdateSend,
   TypesOfDishes
-} from '../../../../../features/dishes/models/dish.model';
-import { FilesApiService } from '../../../../../features/files/services/files-api.service';
-import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
+} from '../../../../../../features/dishes/models/dish.model';
+import { FilesApiService } from '../../../../../../features/files/services/files-api.service';
+import { DishesApiService } from '../../../../../../features/dishes/services/dishes-api.service';
 
 interface NewDishFromForm {
   dishImage: File;

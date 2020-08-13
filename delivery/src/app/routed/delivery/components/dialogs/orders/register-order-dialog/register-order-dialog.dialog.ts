@@ -2,9 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OrderRegistrationSuccessDialogDialog } from '../order-registration-success-dialog/order-registration-success-dialog.dialog';
-import { DataService } from '../../../../../data.service';
-import { RegisterOrderDataModel, RegisterOrderInputModel } from '../../../../../features/orders/models/order.model';
-import { OrdersApiService } from '../../../../../features/orders/services/orders-api.service';
+import { RegisterOrderDataModel, RegisterOrderInputModel } from '../../../../../../features/orders/models/order.model';
+import { OrdersApiService } from '../../../../../../features/orders/services/orders-api.service';
 import { CookieService } from 'ngx-cookie-service';
 
 interface RegisterOrderFormValue {
@@ -19,8 +18,7 @@ interface RegisterOrderFormValue {
 
 @Component({
   templateUrl: './register-order-dialog.dialog.html',
-  styleUrls: ['./register-order-dialog.dialog.sass'],
-  providers: [DataService]
+  styleUrls: ['./register-order-dialog.dialog.sass']
 })
 export class RegisterOrderDialogDialog implements OnInit {
   phone = '';
@@ -37,7 +35,6 @@ export class RegisterOrderDialogDialog implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
-    private readonly dataService: DataService,
     private readonly ordersApiService: OrdersApiService,
     private cookieService: CookieService,
     @Inject(MAT_DIALOG_DATA)
@@ -50,7 +47,7 @@ export class RegisterOrderDialogDialog implements OnInit {
   handleRegisterOrderClick(value: RegisterOrderFormValue): void {
     this.loading = true;
     const input: RegisterOrderInputModel = {
-      userId: this.dataService.getUserId(),
+      userId: localStorage.getItem('id'),
       phone: value.phone,
       address: {
         city: this.cookieService.get('city'),

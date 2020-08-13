@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogModelRestaurant } from '../../../../../features/restaurants/models/restaurant.model';
-import { RestaurantsApiService } from '../../../../../features/restaurants/services/restaurants-api.service';
+import { DialogModelRestaurant } from '../../../../../../features/restaurants/models/restaurant.model';
+import { RestaurantsApiService } from '../../../../../../features/restaurants/services/restaurants-api.service';
 
 @Component({
   selector: 'app-delete-restaurant',

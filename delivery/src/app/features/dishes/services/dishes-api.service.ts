@@ -21,7 +21,7 @@ import { environment } from '../../../../environments/environment';
 export class DishesApiService {
   constructor(private readonly http: HttpClient, private readonly ordersApiService: OrdersApiService) {}
 
-  getDishesFromBasket(userId: number): Observable<DishFromBasketModel[]> {
+  getDishesFromBasket(userId: string | null): Observable<DishFromBasketModel[]> {
     return this.http.get<DishFromBasketModel[]>(`${environment.api}/dishesFromBasket/${userId}`);
   }
 
@@ -33,7 +33,7 @@ export class DishesApiService {
     return this.http.get<DishModel>(`${environment.api}/dishes/${dishId}`);
   }
 
-  getDishFromBasketByDishId(dishIdValue: number, userId: number): Observable<DishFromBasketModel> {
+  getDishFromBasketByDishId(dishIdValue: number, userId: string | null): Observable<DishFromBasketModel> {
     const input: DishIdDataModel = {
       dishId: dishIdValue
     };
@@ -51,7 +51,11 @@ export class DishesApiService {
     );
   }
 
-  addDishToBasket(dishIdValue: number, userIdValue: number, countValue: number): Observable<DishFromBasketModel> {
+  addDishToBasket(
+    dishIdValue: number,
+    userIdValue: string | null,
+    countValue: number
+  ): Observable<DishFromBasketModel> {
     const input: DishFromBasketModel = {
       count: countValue,
       dishId: dishIdValue,
@@ -60,11 +64,11 @@ export class DishesApiService {
     return this.http.post<DishFromBasketModel>(`${environment.api}/dishesFromBasket`, input);
   }
 
-  clearBasket(userId: number): Observable<DishFromBasketModel> {
+  clearBasket(userId: string | null): Observable<DishFromBasketModel> {
     return this.http.request<DishFromBasketModel>('delete', `${environment.api}/dishesFromBasket/${userId}`);
   }
 
-  deleteDishFromBasket(dishIdValue: number, userIdValue: number): Observable<DishFromBasketModel> {
+  deleteDishFromBasket(dishIdValue: number, userIdValue: string | null): Observable<DishFromBasketModel> {
     const input: DeleteOrAddDishToOrderDialogDataModel = {
       dishId: dishIdValue,
       userId: userIdValue
@@ -74,7 +78,7 @@ export class DishesApiService {
     });
   }
 
-  updateDishCount(dishIdValue: number, dishCount: number, userIdValue: number): Observable<DishFromBasketModel> {
+  updateDishCount(dishIdValue: number, dishCount: number, userIdValue: string | null): Observable<DishFromBasketModel> {
     const input: UpdateDishCountInputModel = {
       dishId: dishIdValue,
       userId: userIdValue,

@@ -14,18 +14,31 @@
         <a class="toolbar-icon main-page-link" routerLink="/restaurants" mat-button
           ><mat-icon class="toolbar-icon">house</mat-icon>Restaurants</a
         >
-        <a class="toolbar-icon main-page-link" routerLink="/order" mat-button
+        <a
+          *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'"
+          class="toolbar-icon main-page-link"
+          routerLink="/order"
+          mat-button
           ><mat-icon class="toolbar-icon">shopping_basket</mat-icon>My order</a
         >
-        <a class="toolbar-icon main-page-link" routerLink="/account" mat-button
+        <a
+          *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'"
+          class="toolbar-icon main-page-link"
+          routerLink="/account"
+          mat-button
           ><mat-icon class="toolbar-icon">person</mat-icon>My account</a
         >
-        <a class="toolbar-icon main-page-link" routerLink="/admin" mat-button
-          ><mat-icon class="toolbar-icon">person</mat-icon>Admin page</a
+        <a *ngIf="role === 'ADMIN'" class="toolbar-icon main-page-link" routerLink="/admin" mat-button
+          ><mat-icon class="toolbar-icon">admin_panel_settings</mat-icon>Admin page</a
         >
       </div>
       <div class="space"></div>
-      <div fxShow="true" fxHide.lt-md="true" style="margin-left: 25px;">
+      <div
+        *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'"
+        fxShow="true"
+        fxHide.lt-md="true"
+        style="margin-left: 25px;"
+      >
         <a class="city-toolbar main-page-link" mat-button
           ><mat-icon class="toolbar-icon">location_city</mat-icon>
           <mat-form-field floatLabel="never" style="width: 135px;">
@@ -42,7 +55,7 @@
                 <mat-option
                   *ngFor="let city of filteredCities | async"
                   [value]="city"
-                  (focusout)="setCityDataService(city)"
+                  (focusout)="setCityDataCookie(city)"
                 >
                   {{ city }}
                 </mat-option>
@@ -64,18 +77,29 @@
         <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/restaurants" mat-list-item
           ><mat-icon class="example-icon">house</mat-icon>Restaurants</a
         >
-        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/order" mat-list-item
+        <a
+          *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'"
+          (click)="sidenav.toggle()"
+          style="width: 100%;"
+          routerLink="/order"
+          mat-list-item
           ><mat-icon class="example-icon">shopping_basket</mat-icon>My order</a
         >
-        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/account" mat-list-item>
+        <a
+          *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'"
+          (click)="sidenav.toggle()"
+          style="width: 100%;"
+          routerLink="/account"
+          mat-list-item
+        >
           <mat-icon class="example-icon">person</mat-icon>
           My Account
         </a>
-        <a (click)="sidenav.toggle()" style="width: 100%;" routerLink="/admin" mat-list-item>
-          <mat-icon class="example-icon">person</mat-icon>
+        <a *ngIf="role === 'ADMIN'" (click)="sidenav.toggle()" style="width: 100%;" routerLink="/admin" mat-list-item>
+          <mat-icon class="example-icon">admin_panel_settings</mat-icon>
           Admin page
         </a>
-        <a mat-list-item
+        <a mat-list-item *ngIf="role === 'CLIENT' || role === 'COURIER' || role === 'ADMIN'"
           ><mat-icon class="example-icon">location_city</mat-icon
           ><mat-form-field floatLabel="never" style="width: 135px;">
             <u
@@ -91,7 +115,7 @@
                 <mat-option
                   *ngFor="let city of filteredCities | async"
                   [value]="city"
-                  (focusout)="setCityDataService(city)"
+                  (focusout)="setCityDataCookie(city)"
                 >
                   {{ city }}
                 </mat-option>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentUserService } from '../../../core/auth/current-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-menu',
@@ -7,16 +8,19 @@ import { CurrentUserService } from '../../../core/auth/current-user.service';
   styleUrls: ['./user-menu.component.sass']
 })
 export class UserMenuComponent implements OnInit {
-  readonly user$ = this.currentUserService.user$;
+  role = localStorage.getItem('role');
+  username = localStorage.getItem('username');
 
-  constructor(private readonly currentUserService: CurrentUserService) {}
+  constructor(private readonly currentUserService: CurrentUserService, private readonly router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(localStorage);
+  }
 
   handleLogoutClick(): void {
-    this.currentUserService.logout().subscribe(
-      () => {},
-      (error) => console.error(error)
-    );
+    this.currentUserService.logout().subscribe(() => {});
+    localStorage.clear();
+    this.router.navigate(['/dishes']);
+    window.location.reload();
   }
 }

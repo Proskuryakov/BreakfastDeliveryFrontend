@@ -1,21 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DataService } from '../../../../../data.service';
-import { DishIdDataModel } from '../../../../../features/dishes/models/dish.model';
-import { DishesApiService } from '../../../../../features/dishes/services/dishes-api.service';
+import { DishIdDataModel } from '../../../../../../features/dishes/models/dish.model';
+import { DishesApiService } from '../../../../../../features/dishes/services/dishes-api.service';
 
 @Component({
   templateUrl: './delete-dish-from-basket-dialog.dialog.html',
-  styleUrls: ['./delete-dish-from-basket-dialog.dialog.sass'],
-  providers: [DataService]
+  styleUrls: ['./delete-dish-from-basket-dialog.dialog.sass']
 })
 export class DeleteDishFromBasketDialogDialog implements OnInit {
   loading = false;
 
   constructor(
     private readonly http: HttpClient,
-    private readonly dataService: DataService,
     private readonly dishesApiService: DishesApiService,
     @Inject(MAT_DIALOG_DATA)
     public data: DishIdDataModel,
@@ -26,7 +23,7 @@ export class DeleteDishFromBasketDialogDialog implements OnInit {
 
   handleDeleteDishFromBasketClick(): void {
     this.loading = true;
-    this.dishesApiService.deleteDishFromBasket(this.data.dishId, this.dataService.getUserId()).subscribe(
+    this.dishesApiService.deleteDishFromBasket(this.data.dishId, localStorage.getItem('id')).subscribe(
       () => {
         this.loading = false;
         this.dialogRef.close(true);

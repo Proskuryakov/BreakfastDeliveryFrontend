@@ -1,3 +1,5 @@
+<h1 *ngIf="order === null && dishesFromBasket.length === 0" class="basket-empty">The basket is empty!</h1>
+
 <mat-card *ngIf="order != null" class="order-card">
   <mat-card-header>
     <mat-card-title class="dish-card-name">Order №{{ order.id }}</mat-card-title>
@@ -45,7 +47,7 @@
   <input [(ngModel)]="searchText" matInput />
 </mat-form-field>
 <mat-list class="dish-cards-list d-flex justify-content-center">
-  <mat-card class="example-card" *ngFor="let item of dishesFromBasketToDisplay | filter: searchText">
+  <mat-card class="basket-card" *ngFor="let item of dishesFromBasketToDisplay | filter: searchText">
     <mat-card-header>
       <div class="count-block">
         <div class="count-buttons-block">
@@ -62,7 +64,7 @@
       <mat-card-title class="dish-card-name">{{ item.mainDishInfo.dishName }}</mat-card-title>
       <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
+    <img class="listImage" mat-card-image src="{{ item.dishImage }}" alt="Photo of a burger" />
     <mat-card-content>
       <div class="dish-info">
         <span matLine>Calories: {{ item.dishCalories }}</span>
