@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environmentUsers } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,6 @@ export class FilesApiService {
   uploadFile(file: File): Observable<Response> {
     const formData = new FormData();
     formData.append('file', file, file.name);
-    return this.http.post<Response>('http://127.0.0.1:8080/api/storage/upload', formData);
+    return this.http.post<Response>(`${environmentUsers.api}/storage/upload`, formData);
   }
 }
