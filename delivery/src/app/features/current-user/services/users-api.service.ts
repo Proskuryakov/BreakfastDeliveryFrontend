@@ -12,6 +12,6 @@ export class UsersApiService {
   constructor(private readonly http: HttpClient) {}
 
   createUser(input: RegisterUserInputModel): Observable<RegisterUserInputModel> {
-    return this.http.post<RegisterUserInputModel>(`${environment.api}/public/users`, input);
+    return this.http.post<RegisterUserInputModel>(`${environment.api}/users`, input);
   }
 }
