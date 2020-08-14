@@ -4,6 +4,7 @@ import { RegisterOrderInputModel } from '../../../../features/orders/models/orde
 import { RegisterUserInputModel } from '../../../../features/current-user/models/user.model';
 import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 import { UsersApiService } from '../../../../features/current-user/services/users-api.service';
+import { Router } from '@angular/router';
 
 interface RegisterUserFormValue {
   username: string;
@@ -29,7 +30,13 @@ export class RegisterPage implements OnInit {
   phone = '';
   email = '';
 
-  constructor(private _formBuilder: FormBuilder, private readonly usersApiService: UsersApiService) {}
+  error = false;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private readonly usersApiService: UsersApiService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -68,7 +75,15 @@ export class RegisterPage implements OnInit {
         phone: this.phone
       }
     };
-    this.usersApiService.createUser(input).subscribe();
+    this.usersApiService.createUser(input).subscribe(
+      () => {
+        this.router.navigate(['/auth/login']);
+      },
+      (error) => {
+        console.error('Error', error);
+        this.error = true;
+      }
+    );
   }
 
   /* tslint:disable */
