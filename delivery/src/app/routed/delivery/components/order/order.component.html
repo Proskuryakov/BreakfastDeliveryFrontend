@@ -60,7 +60,14 @@
           </button>
         </div>
       </div>
-      <div mat-card-avatar class="example-header-image-macdonalds"></div>
+      <div mat-card-avatar>
+        <img
+          routerLink="/restaurants/{{ item.restaurantId }}/dishes"
+          class="AvatarOfRestaurant"
+          src="{{ getPhotoOfRestaurant(item.restaurantId) }}"
+          alt="Photo of a restaurant"
+        />
+      </div>
       <mat-card-title class="dish-card-name">{{ item.mainDishInfo.dishName }}</mat-card-title>
       <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
     </mat-card-header>

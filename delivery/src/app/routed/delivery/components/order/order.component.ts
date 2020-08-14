@@ -12,6 +12,8 @@ import {
 import { DishesApiService } from '../../../../features/dishes/services/dishes-api.service';
 import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 import { CancelOrderDialogDialog } from '../dialogs/orders/cancel-order-dialog/cancel-order-dialog.dialog';
+import { RestaurantModel } from '../../../../features/restaurants/models/restaurant.model';
+import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
 
 @Component({
   selector: 'app-dishes-in-order',
@@ -30,16 +32,20 @@ export class OrderComponent implements OnInit {
 
   dishesFromOrderToDisplay: DishesFromOrderToDisplayModel[] = [];
 
+  private allRestaurant: RestaurantModel[] | undefined;
+
   order: OrderModel | undefined;
 
   constructor(
     private readonly http: HttpClient,
     private readonly dialog: MatDialog,
     private readonly dishesApiService: DishesApiService,
-    private readonly orderApiService: OrdersApiService
+    private readonly orderApiService: OrdersApiService,
+    private readonly restaurantsApiService: RestaurantsApiService
   ) {}
 
   ngOnInit(): void {
+    this.getRestaurant();
     this.dishesApiService.getDishesFromBasket(localStorage.getItem('id')).subscribe((result) => {
       this.dishesFromBasket = result;
       this.dishesApiService.getDishesFromBasketToDisplay(result).subscribe((resultToDisplay) => {
@@ -127,6 +133,28 @@ export class OrderComponent implements OnInit {
           }
         });
       }
+    });
+  }
+
+  getPhotoOfRestaurant(id: number): string {
+    // tslint:disable-next-line:label-position
+    const imagelink = '';
+    if (this.allRestaurant != undefined) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.allRestaurant.length; i++) {
+        if (id === this.allRestaurant[i].id) {
+          return this.allRestaurant[i].restaurantImage;
+          // tslint:disable-next-line:align
+        }
+      }
+      // tslint:disable-next-line:align
+    }
+    return '';
+  }
+
+  getRestaurant(): void {
+    this.restaurantsApiService.getAllRestaurants().subscribe((result) => {
+      this.allRestaurant = result;
     });
   }
 }

@@ -8,7 +8,12 @@ All dishes:
     <mat-card class="example-card" *ngFor="let item of allDishesList | filter: searchText">
       <mat-card-header>
         <div mat-card-avatar>
-          <img class="AvatarOfRestaurant" src="{{ getPhotoOfRestaurant(item.restaurantId) }}" alt="Photo of a burger" />
+          <img
+            routerLink="/restaurants/{{ item.restaurantId }}/dishes"
+            class="AvatarOfRestaurant"
+            src="{{ getPhotoOfRestaurant(item.restaurantId) }}"
+            alt="Photo of a restaurant"
+          />
         </div>
         <mat-card-title class="dish-card-name">{{ item.mainDishInfo.dishName }}</mat-card-title>
         <mat-card-subtitle>{{ item.dishType }}</mat-card-subtitle>
