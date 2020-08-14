@@ -46,3 +46,8 @@ export enum TypesOfRestaurants {
   ARMENIAN = 'ARMENIAN',
   COMMON = 'COMMON'
 }
+
+export interface RestaurantTypesModel {
+  restaurantType: string;
+  restaurantImage: string;
+}

@@ -7,7 +7,7 @@ import {
   DishIdDataModel,
   DishModel,
   DishModelForSend,
-  DishModelForUpdateSend,
+  DishModelForUpdateSend, DishTypesModel,
   UpdateDishCountInputModel
 } from '../models/dish.model';
 import { from, Observable } from 'rxjs';
@@ -113,5 +113,9 @@ export class DishesApiService {
       return 1;
     }
     return 0;
+  }
+
+  getAllDishesTypes(): Observable<DishTypesModel[]> {
+    return this.http.get<DishTypesModel[]>(`${environment.api}/dishes/types`);
   }
 }

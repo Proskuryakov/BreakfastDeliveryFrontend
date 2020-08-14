@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { RestaurantModel } from '../../../../features/restaurants/models/restaurant.model';
 import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
 
@@ -18,10 +18,16 @@ export class AllRestaurantsComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private router: Router,
-    private readonly restaurantsApiService: RestaurantsApiService
+    private readonly restaurantsApiService: RestaurantsApiService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      (queryParam: any) => {
+        this.searchText = queryParam['type'];
+      }
+    );
     this.restaurantsApiService.getAllRestaurants().subscribe((result) => {
       this.allRestaurantList = result;
     });

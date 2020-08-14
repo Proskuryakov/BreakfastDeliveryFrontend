@@ -1,15 +1,32 @@
-<p>
-  Hi, this is Breakfast Delivery!
-</p>
-<p>
-  Go to "Dishes" to add dish to your order.
-</p>
-<p>
-  Or go to "Restaurants" to add dish from one particular restaurant.
-</p>
-<p>
-  Go to "My order" to see your order.
-</p>
-<p>
-  Go to "Admin page" to see your all orders and edit status.
-</p>
+<div class = "main-image">
+  <h1 style="color: #fffff7">
+    <p style="margin-left:200px">Hi, this is Breakfast Delivery! </p>
+    <p style="margin-left:200px">Go to "Dishes" to add dish to your order.</p>
+    <p style="margin-left:200px">Or go to "Restaurants" to add dish from one particular restaurant.</p>
+  </h1>
+</div>
+<mat-list>
+  <h1>Dishes</h1>
+  <div class="main-cards-list">
+    <mat-card class="main-card block_1" *ngFor="let item of dishesList">
+      <a [routerLink]="['/dishes']" [queryParams]="{type: item.dishType}">
+      <img mat-card-image src="{{item.dishImage}}" alt="dish"/>
+        <div class="block_2">
+          <p>{{item.dishType}}</p>
+        </div>
+      </a>
+    </mat-card>
+  </div>
+
+  <h1>Restaurants</h1>
+  <div class="main-cards-list">
+    <mat-card class="main-card-restaurants block_1" *ngFor="let item of restaurantsList">
+      <a [routerLink]="['/restaurants']" [queryParams]="{type: item.restaurantType}">
+      <img mat-card-image src="{{item.restaurantImage}}" alt="restaurant"/>
+      <div class="block_22">
+        <p>{{item.restaurantType}}</p>
+      </div>
+      </a>
+    </mat-card>
+  </div>
+</mat-list>

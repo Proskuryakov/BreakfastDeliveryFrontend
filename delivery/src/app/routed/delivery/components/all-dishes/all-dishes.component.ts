@@ -9,6 +9,7 @@ import { DishesApiService } from '../../../../features/dishes/services/dishes-ap
 import { OrdersApiService } from '../../../../features/orders/services/orders-api.service';
 import { RestaurantsApiService } from '../../../../features/restaurants/services/restaurants-api.service';
 import { RestaurantModel } from '../../../../features/restaurants/models/restaurant.model';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-all-dishes',
@@ -33,12 +34,18 @@ export class AllDishesComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly dishesApiService: DishesApiService,
     private readonly ordersApiService: OrdersApiService,
-    private readonly restaurantsApiService: RestaurantsApiService
+    private readonly restaurantsApiService: RestaurantsApiService,
+    private route: ActivatedRoute
   ) {}
 
   redacphoto(): void {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      (queryParam: any) => {
+        this.searchText = queryParam['type'];
+      }
+    );
     this.getRestaurant();
     this.dishesApiService.getAllDishes().subscribe((result) => {
       this.allDishesList = result.sort(this.dishesApiService.sortDishesByDishName);

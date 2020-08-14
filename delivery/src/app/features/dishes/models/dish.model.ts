@@ -73,3 +73,8 @@ export interface UpdateDishCountInputModel {
   userId: string | null;
   count: number;
 }
+
+export interface DishTypesModel {
+  dishType: string;
+  dishImage: string;
+}

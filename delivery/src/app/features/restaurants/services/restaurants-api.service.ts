@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-import { RestaurantModel, RestaurantModelForSend } from '../models/restaurant.model';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../../../environments/environment';
+import {RestaurantModel, RestaurantModelForSend, RestaurantTypesModel} from '../models/restaurant.model';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,9 @@ export class RestaurantsApiService {
 
   updateRestaurant(restaurantId: number, restaurantModel: RestaurantModelForSend): Observable<RestaurantModel> {
     return this.http.put<RestaurantModel>(`${environment.api}/restaurants/${restaurantId}`, restaurantModel);
+  }
+
+  getAllRestaurantsTypes(): Observable<RestaurantTypesModel[]> {
+    return this.http.get<RestaurantTypesModel[]>(`${environment.api}/restaurants/types`);
   }
 }
