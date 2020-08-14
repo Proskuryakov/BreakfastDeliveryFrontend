@@ -14,13 +14,14 @@ export class UserMenuComponent implements OnInit {
   constructor(private readonly currentUserService: CurrentUserService, private readonly router: Router) {}
 
   ngOnInit(): void {
-    console.log(localStorage);
+    if (localStorage.length === 0) {
+      this.router.navigate(['/auth/login']);
+    }
   }
 
   handleLogoutClick(): void {
     this.currentUserService.logout().subscribe(() => {});
     localStorage.clear();
-    this.router.navigate(['/dishes']);
     window.location.reload();
   }
 }

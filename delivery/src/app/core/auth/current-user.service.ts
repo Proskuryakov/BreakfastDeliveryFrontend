@@ -71,8 +71,8 @@ export class CurrentUserService {
     });
   }
 
-  logout(): Observable<void> {
-    return this.http.post<void>(`${environmentUsers.api}/logout`, undefined);
+  logout(): Observable<Response> {
+    return this.http.post<Response>(`${environmentUsers.api}/logout`, undefined);
   }
 
   refreshCurrentUser(): Observable<void> {
